@@ -1,0 +1,260 @@
+  
+  <header class="page-header relative"   >
+            <div class="container">
+                <div class="page-header-flex-wrap"><a
+                        style="background-color:aqua;opacity:0;-webkit-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                        href="#checkout" class="blog-category-label on-blog-page">{{detail.name}} Only {{detail.price}}$ Buy Now {{average_rating}} </a>
+                      <h1 class="page-header-title">  <img
+                        src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
+                        alt="" class="rating-icons" /> {{average_rating}}<h1> 
+                    <h1 style="opacity:0;-webkit-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                        class="page-header-title">{{ detail.summery|truncatewords:30 }} </h1>
+                    <div style="opacity:0;-webkit-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                        class="blog-date-and-author-block on-blog-page">
+                        <div class="blog-date-and-author-text mute">by</div><a href="/team/denise-chavez"
+                            class="blog-date-and-author-text on-blog-page">{{ detail.developer}}</a>
+                        <div class="blog-date-and-author-text mute">on</div>
+                        <div class="blog-date-and-author-text on-blog-page last">{{ detail.date}}</div>
+                    </div>
+                </div>
+                
+                <div style="-webkit-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
+                    class="page-header-img-container"><img
+                        style="-webkit-transform:translate3d(0, 0, 0) scale3d(1.1, 1.1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1.1, 1.1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1.1, 1.1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1.1, 1.1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
+                        alt="This is how you write the perfect elevator pitch for your startup"
+                        src="https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc7f78f3f6d0c9205eeac_tech-staff-at-table-working%20(1).jpg"
+                        sizes="(max-width: 479px) 90vw, (max-width: 767px) 94vw, (max-width: 991px) 79vw, (max-width: 1279px) 80vw, 1026.65625px"
+                        srcset="{{detail.image1.url}}"
+                        class="page-header-img" />
+                    <div class="page-header-img-overlay"></div>
+                </div>
+                
+        </div>
+            </div>
+             
+        </header>
+        <div class="btn-container center"><a href="/preview{{detail.id}}/"
+            class="filled-btn no-margin-top no-margin-right w-button">Live Preview </a></div>
+             
+            
+            
+            <br>
+        <div class="section no-padding-top">
+            <div class="container">
+                <div class="container-small not-relative">
+                    <div class="project-rich-text w-richtext">
+                        <p> {{detail.description1}}</p>
+                        <figure class="w-richtext-align-center w-richtext-figure-type-image">
+                            <div><img
+                                    src="{{detail.image2.url}}"
+                                    alt="" /></div>
+                            
+                        </figure>
+                        <p> 
+                            {{detail.description2}}
+                        </p>
+                         <blockquote> 
+                            {{detail.summery}}
+                        </blockquote>
+                         
+                          </div>
+                </div>
+                <div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0" id="checkout" >
+                    <div class="products w-full lg:w-3/4" style="display: none;">
+                        <h1 class="mb-5 text-3xl">Please Click The Confirm Purchase to Buy Your Site</h1>
+                
+                        <div class="w-full md:pr-6">
+                            <div class="mb-6 p-6 bg-gray-100 rounded-xl">
+                                
+                
+                                <div class="flex space-x-6">
+                                    <div class="w-1/2 mb-4">
+                                        
+                                        <input name="name" type="hidden" class="w-full p-5 rounded-xl" value="{{detail.name}}">
+                                    </div>
+                
+                                    <div class="w-1/2 mb-4">
+                                         
+                                        <input name="category" type="hidden" class="w-full p-5 rounded-xl" value="{{detail.category}}">
+                                    </div>
+                                </div>
+                
+                                
+                
+                                <div class="flex space-x-6">
+                                    <div class="w-1/2 mb-4">
+                                         
+                                        <input name="paid_amount" type="hidden" class="w-full p-5 rounded-xl" value="{{detail.price}}">
+                                    </div>
+                
+                                     
+                                </div>
+                            </div>
+                
+                             
+                            <div class="mb-6 p-6 bg-gray-100 rounded-xl" id="errors">
+                            </div>
+                        </div>
+                    </div>
+                    {% if has_purchased %}
+                    <div class="btn-container center"><a href="/delete_user_site/"
+                        class="filled-btn no-margin-top no-margin-right w-button">You Can't Purchase This Site Again and Again Please Delete The Site And Then Purchase </a></div> 
+                    
+                {% else %}
+                
+                <button
+                onclick="buy(event)"
+               class="filled-btn no-margin-top no-margin-right w-button"  
+            >
+                Purchase Now 
+            </button>
+                </div>
+                {% endif %}
+        </div>
+            </div>
+        </div>
+        <section class="section with-header grey-bg">
+            <div class="container">
+                <h2 class="section-title center">You might like these</h2>
+                <div class="blog-listing-grid">
+                    <div data-w-id="bac33496-f982-270a-3c39-3b0152dc9f0f" class="w-dyn-list">
+                        <div role="list" class="blog-post-recommended-grid w-dyn-items">
+                            {% for related_site in related_site  %}
+                            <div id="w-node-bac33496-f982-270a-3c39-3b0152dc9f11-52dc9f0a" role="listitem"
+                                class="blog-post-wrapper w-dyn-item"><a
+                                    href="/post/3-tech-companies-that-are-about-to-change-the-world"
+                                    class="blog-post-listing-content-v2 w-inline-block">
+                                    <div class="featured-label">
+                                        <div>{{ detail.category}}</div>
+                                    </div>
+                                    <div class="blog-info-wrap">
+                                        <div class="blog-info-block">
+                                            <div style="background-color:#2cb66c" class="blog-category-label">{{related_site.name}}
+                                            </div>
+                                            <div class="blog-date-and-author-block">
+                                                <div class="blog-date-and-author-text">{{detail.date}}</div>
+                                                <div class="blog-date-and-author-text mute">by</div>
+                                                <div class="blog-date-and-author-text">{{ detail.developer}}</div>
+                                            </div>
+                                        </div>
+                                        <h4 class="blog-listing-title v2"> {{detail.summery|slice:'70'}}...</h4>
+                                    </div>
+                                    <div class="blog-post-listing-img-wrapper flex-center">
+                                        <div class="page-header-img-overlay"></div><img alt=""
+                                            src="https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc96febc6c85be0dc7b27_bob-cut-mag-0T0_8jG21ss-unsplash(1).jpg"
+                                            sizes="(max-width: 479px) 90vw, (max-width: 767px) 94vw, (max-width: 1279px) 47vw, 606px"
+                                            srcset="https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc96febc6c85be0dc7b27_bob-cut-mag-0T0_8jG21ss-unsplash(1)-p-500.jpeg 500w, https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc96febc6c85be0dc7b27_bob-cut-mag-0T0_8jG21ss-unsplash(1)-p-800.jpeg 800w, https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc96febc6c85be0dc7b27_bob-cut-mag-0T0_8jG21ss-unsplash(1)-p-1080.jpeg 1080w, https://assets.website-files.com/5f0763bf575ff7f28b96ccb8/5f0cc96febc6c85be0dc7b27_bob-cut-mag-0T0_8jG21ss-unsplash(1).jpg 1515w"
+                                            class="blog-post-img v2" />
+                                    </div>
+                                </a></div>{% endfor%}
+                              </div>
+                    </div>
+                </div>
+                <div class="btn-container center"><a href="/oursite/"
+                        class="filled-btn no-margin-top no-margin-right w-button">View All Sites</a></div>
+            </div>
+        </section>
+      {% if rated %}
+      {% else %}
+
+        <div class="contact-form w-form">
+       <h1 class="utility-card-title">Please Give Rating Of {{detail.name}}</h1>
+ 
+            <form  
+                  method="post"  action="{% url 'sitedetail' detail.id %}" >
+                {% csrf_token %}
+                <div style="color:black; "
+                 {{form}}
+                 <input
+                    type="submit"   class="filled-btn  w-button"
+                    value="Submit" />
+            </form>
+             
+        </div>
+        {% endif %}
+            
+
+ 
+      
+         
+        <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+        <script>
+            let el = document.querySelector('#errors')
+        
+            function validateForm(data) {
+                let errors = []
+        
+                if (data.first_name === '') {
+                    errors.push(' Name is empty')
+                }
+        
+                if (data.last_name === '') {
+                    errors.push('Category is empty')
+                }
+        
+                if (data.email === '') {
+                    errors.push('Amount is empty')
+                }
+        
+                 
+        
+                if (errors.length > 0) {
+                    let html = '<ul>';
+                    
+                    errors.forEach((error) => {
+                        html += '<li>' + error + '</li>';
+                    })
+        
+                    el.innerHTML = html + '</ul>';
+                } else {
+                    el.innerHTML = '';
+                }
+        
+                return errors
+            }
+        
+            function buy(event) {
+                event.preventDefault()
+        
+                let data = {
+                    'name': document.querySelector('input[name=name]').value,
+                    'category': document.querySelector('input[name=category]').value,
+                    'paid_amount': document.querySelector('input[name=paid_amount]').value,
+                     
+                }
+        
+                let errors = validateForm(data)
+        
+                if (errors.length) {
+                    console.log('Errors', errors)
+                } else {
+                    var stripe = Stripe('{{ pub_key }}')
+        
+                    fetch('/start_order/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        credentials: 'same-origin',
+                        body: JSON.stringify(data)
+                    })
+                    .then(function(response) {
+                        return response.json()
+                    })
+                    .then(function(session) {
+                        return stripe.redirectToCheckout({ sessionId: session.session.id })
+                    })
+                    .then(function(result) {
+                        if (result.error) {
+                            alert(result.error.message)
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('Errors', error)
+                    })
+                }
+        
+                return false
+            }
+        </script>

@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load django_bootstrap5 %}   
+<div class="contact-form w-form" id="checkout" style="margin-top: 70px;" >
+  <div class="products w-full lg:w-3/4" >
+      
+     
+      <h1 class="utility-card-title">Please Upload Your Website File That You Dowanloaded </h1>
+      <h1 class="mb-5 text-3xl">Upload File Here</h1>
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+<style>
+    /* Custom CSS to change body color to black */
+    body {
+        background-color: #0d0f19;
+        color: white; /* Change text color to white for better contrast */
+    }
+    form{
+        color: white;
+    }
+</style>
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Display a form #}
+<form action="/Deployesite/" method="post" class="form" enctype="multipart/form-data" >
+  {% csrf_token %}
+
+   
+  {% bootstrap_form form        %}
+
+  <button
+  
+  class="filled-btn full-width w-button" 
+  >
+  Uplod Site{% for rates in rates %}{{rates.rate}}
+  {% endfor %}
+  </button>
+    
+ 
+ 
+
+</form>
+                          <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                          </div>
+                          <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   
+                
+                  
+                </div>
+              </div>
+               
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+  </div>
+            
+ {% endblock %}

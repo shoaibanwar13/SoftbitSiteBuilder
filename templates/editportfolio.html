@@ -1,0 +1,80 @@
+{% extends 'base.html'%}
+{% block content %}
+    
+           
+<div class="sections-wrapper" style="margin-top: 100px; ">
+    <div class="settings-singel-wrapper">
+      <div class="container">
+        <div class="settings-box">
+          <div class="settings-top-content">
+            <div class="settings-content" style="height: 50%;">
+              <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100" class="settings-tabs-wrapper w-tabs">
+                <div class="settings-tab-menu w-tab-menu">
+                  <a data-w-tab="Tab 1" class="settings-tab-link w-inline-block w-tab-link w--current" style=" background-color: #0d0f19;"><div style=" color:white;" >Please Provide Your Complete Detail Below </div></a>
+                </div>
+                <div class="settings-tabs-content w-tab-content">
+                  <div data-w-tab="Tab 1" class="settings-tab-pane w-tab-pane w--tab-active">
+                    <div class="settings-content-wrapper">
+                      <div class="settings-form-wrapper">
+                        <div class="settings-form-block w-form">
+                           
+                            
+                            
+                            {# Display a form #}
+                            {% load django_bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+<style>
+    /* Custom CSS to change body color to black */
+    body {
+        background-color: #0d0f19;
+        color: white; /* Change text color to white for better contrast */
+    }
+    form{
+        color: white;
+    }
+</style>
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Display a form #}
+<form action="/edit_Portfolio/" method="post" class="form" enctype="multipart/form-data" >
+  {% csrf_token %}
+
+   
+  {% bootstrap_form form        %}
+
+  <input type="submit" value="Update Site" class="settings-button w-button">
+    
+ 
+ 
+
+</form>
+                          <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                          </div>
+                          <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   
+                
+                  
+                </div>
+              </div>
+               
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+  </div>
+            
+ {% endblock %}

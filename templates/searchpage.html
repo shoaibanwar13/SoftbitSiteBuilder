@@ -1,0 +1,28 @@
+ {% extends 'base.html' %}
+ {% block content %}
+  <body class="coming-soon-bg">
+    <div class="utility-page-wrapper">
+      <div class="utility-page-wrapper-content with-card">
+        <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f078598f0a4fd865d7c9833_SoftBit%20-%20Light%20v2.svg" alt="" class="utility-logo" /><div class="coming-soon-page-content">
+          <h1 class="coming-soon-title">Hold tight, we are launching soon</h1><p class="form-helper-text">Subscribe to our newsletter to get notified about the latest news. We will send an email as soon as our site goes live.</p>
+          <div class="hero-email-form w-form">
+            <form  action="/search/"   method="post" class="inline-form flex-vertical-mobile">
+                {% csrf_token %}
+                <input type="text" class="text-field big w-input" maxlength="256"   data-name="Demo Sign Up Email" placeholder="Search...." id="Demo-Sign-Up-Email" required=""\
+              hx-post="{% url 'search' %}" 
+    hx-target='#results2'
+    hx-trigger="keyup changed delay:500ms"
+    name="search"
+              />
+              <input type="hidden" value="Subscribe" data-wait="Please wait..." class="submit-btn no-margin-top full-width-mobile w-button" />
+             
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    <div href="#" class="nav-link-wrap dropdown"><div id="results2"></div></div>
+    
+     </body>
+{% endblock %}
+ 

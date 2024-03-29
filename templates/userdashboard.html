@@ -1,0 +1,381 @@
+{% extends 'dashboard.html'%}
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Withdraw',  {{totalwithdraw}}],
+          ['Commession',  {{comtotal}}    ],
+          ['Purchase',  {{total_purchase_amount}}],
+          ['Balance', {{totalbalance}}],
+          ['Deployement Cost',   {{total_deploye}}]
+        ]);
+
+        var options = {
+          title: 'My Activities',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+    <div class="sections-wrapper">
+      <div class="container">
+        <div class="exchange-sngel-wrapper">
+            <div class="w-layout-grid exchange-card-grid">
+                <div id="w-node-fe23cacf-9998-c7ba-fea9-bcae08058672-fcbd0fcf"
+                    class="exchange-card-singel-wrapper">
+                    <div class="exchange-card-image-text-wrapper"> 
+                        <div class="exchange-card-text-wrapper">
+                            <h2 class="exchange-card-name"> Total Balance 
+                              
+                            </h2>
+                            <div class="exchange-card-info">${{totalbalance}}</div>
+                        </div>
+                    </div>
+                    <div class="exchange-card-boder"></div>
+                </div>
+                <div id="w-node-b02e7eee-e072-cd1d-ea60-d011ef317832-fcbd0fcf"
+                    class="exchange-card-singel-wrapper">
+                    <div class="exchange-card-text-wrapper">
+                        <h2 class="exchange-card-name">My Total Purchase </h2>
+                        <div class="exchange-card-info">${{total_purchase_amount}}</div>
+                    </div>
+                    <div class="exchange-card-boder"></div>
+                </div>
+                <div id="w-node-_0c5de506-5b8d-f5e2-22e6-6721e0c44cc2-fcbd0fcf"
+                    class="exchange-card-singel-wrapper">
+                    <div class="exchange-card-text-wrapper">
+                        <h2 class="exchange-card-name">Deployement Cost</h2>
+                        <div class="exchange-card-info">${{total_deploye}}</div>
+                    </div>
+                    <div class="exchange-card-boder"></div>
+                </div>
+                 
+                <div id="w-node-_86edd98d-317a-6529-1e1f-cf4df71ffd81-fcbd0fcf"
+                    class="exchange-card-singel-wrapper">
+                    <div class="card-height-wrapper">
+                        <div class="exchange-card-text-wrapper">
+                            <h2 class="exchange-card-name">Commession</h2>
+                            <div class="exchange-card-detais"><img
+                                    src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/63316ceb2484312d4ac775a9_Exchange%20Card%20Info%20Img2.png"
+                                    loading="lazy" alt="" class="exchange-card-info-img" />
+                                <div class="exchange-card-info low">{{comtotal}} </div>
+                            </div>
+                        </div>
+                        
+         
+    </div>
+    </div>
+    
+    </div>
+    </div>
+    <div class="wallets-wrapper">
+      <div class="container">
+        <div class="wallets-balance-chart-wrapper">
+          <div class="wallets-balance-wrapper">
+            <div class="wallets-balance-text-wrapper">
+                
+              <div class="wallets-balance-text-block">Total Balance</div><h2 class="wallets-balance-code">${{totalbalance}}</h2><div class="wallets-balance-price">{{totalbalance}} USD</div>
+            </div>
+            <div class="wallets-balance-details-wrapper">
+              <div class="wallets-balance-details-singel mr15">
+                <div class="wallets-balance-details-text-block">Total Commession</div>
+                <div class="wallets-balance-details-price">${{comtotal}}</div>
+                <div class="wallets-balance-details-small">{{comtotal}} USD</div>
+              </div>
+              
+              <div class="wallets-balance-details-singel">
+                <div class="wallets-balance-details-text-block">Withdrawal Balances</div>
+                <div class="wallets-balance-details-price">-${{totalwithdraw}}</div>
+                <div class="wallets-balance-details-small" style="color: red;">{{totalwithdraw}} USD</div>
+              </div>
+            </div>
+          </div>
+          <div class="wallets-chart-wrapper">
+            <div class="balance-categorys-top-content">
+              <div class="balance-categorys">
+                <div class="balance-category-singel">
+                  <div class="balance-categorys-dote"></div>
+                  <div class="balance-category-text">Withdraw Balance</div>
+                </div>
+                <div class="balance-category-singel ml20">
+                  <div class="balance-categorys-dote two"></div>
+                  <div class="balance-category-text"> Total Commession </div>
+                </div>
+              </div>
+              <div class="balance-categorys-button-wrapper">
+                {% if userbalace %} <a data-w-id="2ddbe32e-1013-eb28-109f-80fa3ce4a544" href="#" class="balance-categorys-button deposite w-button">  Affliate Link To Make Passive Income</a>
+            {% else %}
+                <a data-w-id="2b8c7772-1480-0876-d7ce-a0cd968eaf52" href="#" class="balance-categorys-button withdraw w-button">Withdraw</a>{% endif %}
+              
+            </div>
+            </div>
+            <div class="balance-crat-image-wrapper">
+              <div id="donutchart" style="width: 100%; height: 300px;"></div></div>
+          </div>
+        </div>
+        <div class="cryptocurrency-prices-table-wrapper">
+          <div class="cryptocurrency-prices-table-top-content">
+            <div class="dashboard-chart-title-wrap mb0">
+              <h2 class="dashboard-chart-title">My Withdrawal&#x27;s History</h2>
+            </div>
+          </div>
+          <div class="cryptocurrency-table-headings">
+            <div class="w-layout-grid cryptocurrency-table-grid two">
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7a-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Transaction ID</h3>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7d-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Amount</h3>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b80-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Status</h3>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b83-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Account/Address</h3>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b86-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Payment Method</h3>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b89-c121d338" class="cryptocurrency-table-heading-wrap">
+                <h3 class="cryptocurrency-table-heading">Time/Date</h3>
+              </div>
+            </div>
+          </div>
+          <div class="cryptocurrency-table">
+            {% for data in withdraw %}
+            <div class="w-layout-grid cryptocurrency-table-grid two">
+                
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b8e-c121d338" class="cryptocurrency-table-singel">
+                <div class="cryptocurrency-table-token">
+                    
+                  <div class="cryptocurrency-table-token-img-wrap">
+                      </div>
+                  <div class="cryptocurrency-table-token-text-block">#softbit1131{{data.id}}</div>
+                </div>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b94-c121d338" class="cryptocurrency-table-singel">
+                <div class="cryptocurrency-table-text-wrap">
+                  <div class="cryptocurrency-table-text-block">${{data.amount}}</div>
+                </div>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b9c-c121d338" class="cryptocurrency-table-singel">
+                <div class="exchange-card-detais">
+                  <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/63316cd5fc80c83a2721ed8a_Exchange%20Card%20Info%20Img.png" loading="lazy" alt="" class="exchange-card-info-img" /><div class="exchange-card-info high">{{data.status}}</div>
+                </div>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b98-c121d338" class="cryptocurrency-table-singel">
+                <div class="cryptocurrency-table-text-wrap">
+                  <div class="cryptocurrency-table-text-block">{{data.account_no}}</div>
+                </div>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2ba1-c121d338" class="cryptocurrency-table-singel">
+                <div class="cryptocurrency-table-text-wrap">
+                  <div class="cryptocurrency-table-text-block">{{data.pay_method}}</div>
+                </div>
+              </div>
+              <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2ba5-c121d338" class="cryptocurrency-table-singel">
+                <div class="cryptocurrency-table-text-wrap">
+                  <div class="cryptocurrency-table-text-block">{{data.created_at}}</div>
+                </div>
+              </div>
+              
+            </div>
+            {% endfor %}
+          </div>
+           
+           
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="footer-details-wrapper">
+          <div class="footer-text-block">
+            © Crypzai by <a href="http://www.flowzai.com/" target="_blank" class="footer-text-link">Flowzai</a>・<a href="/template-pages/license" class="footer-text-link">License</a>・Powered by <a href="http://webflow.com" target="_blank" class="footer-text-link">Webflow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:none" class="wallets-pop-up">
+    <div class="wallets-singel-wrapper">
+        <div style="-webkit-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+            class="wallets-balance-pop one">
+            <div class="wallets-balance-pop-top-content">
+                <div class="wallets-balance-pop-details"> 
+                    <div class="wallets-balance-pop-details-name-info">
+                        <h1 class="wallets-balance-pop-details-name">Withdrawl Money</h1>
+                         
+                    </div>
+                    <div data-w-id="3ea67f2b-e045-2095-5e91-8f613b65953b" class="clouse-button-wrapper"><img
+                            src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633842fa1badd9ed46cd1f10_Clouse%20Img.svg"
+                            loading="lazy" alt="" class="clouse-button-image" /></div>
+                </div>
+                <div class="wallets-balance-form-wrapper">
+                    <div class="wallets-balance-form-block w-form">
+                        <form id="email-form" name="email-form" data-name="Email Form" action="{% url 'withdraw' %}" method="post"
+                            class="wallets-balance-form">
+                            {% csrf_token %}
+                            <select name="pmethod" id="payment-method" style="background-color: rgb(36, 35, 53); color:white; width: 220px; height: 40px; border-radius: 7px;">
+                                <option value="">Please Select Payment Method</option>
+                                <option value="USDT (TRC20)">USDT (TRC20)</option>
+                                <option value="USDT (ECP20)">USDT (TRC20)</option>
+                                <option value="Binance ID">Binance ID</option>
+                                <option value="USD BANK Account">USD BANK Account</option>
+                            </select>
+                            <div class="wallets-balance-singel">
+                                <br>
+                                <label for="account-number" class="wallets-balance-form-field-label">Account Number</label>
+                                <input type="number" class="wallets-balance-form-input w-input" maxlength="256" name="account_no" data-name="Email" placeholder="Wallet Account Number" id="account-number" />
+                            </div>
+                            <div class="wallets-balance-singel" id="bank-name-container" style="display:none;">
+                                <label for="bank-name" class="wallets-balance-form-field-label">Bank Name</label>
+                                <input type="text" class="wallets-balance-form-input w-input" maxlength="256" name="bank" data-name="Bank Name" placeholder="Bank Name" id="bank-name" />
+                            </div>
+                            <div class="wallets-balance-singel" id="account-title-container" style="display:none;">
+                                <label for="account-title" class="wallets-balance-form-field-label">Routing Number</label>
+                                <input type="text" class="wallets-balance-form-input w-input" maxlength="256" name="route" data-name="Account Title" placeholder="Wallet Account Title" id="account-title" />
+                            </div>
+                            <div class="wallets-balance-singel">
+                                <label for="amount" class="wallets-balance-form-field-label">Amount to withdraw</label>
+                                <input type="number" class="wallets-balance-form-input w-input" maxlength="256" name="amount" data-name="Amount" placeholder="Enter Amount to withdraw" id="amount" value="{{total_payout}}" required="" />
+                            </div>
+                            <div class="wallets-balance-limit">Your Total Balance RS {{payout1}}.</div>
+                            <div class="wallets-balance-singel"><br><label for="email-3" class="wallets-balance-form-field-label">PKR 10000 daily withdrawal limit</label> </div>
+                            <input type="submit" value="Withdraw" data-wait="Please wait..." class="widthdraw-submit-button w-button" />
+                        </form>
+                    </div>
+                </div>
+                
+                <script>
+                    document.getElementById('payment-method').addEventListener('change', function() {
+                        var selectedOption = this.options[this.selectedIndex].value;
+                        var accountNumberContainer = document.getElementById('account-number-container');
+                        var bankNameContainer = document.getElementById('bank-name-container');
+                        var accountTitleContainer = document.getElementById('account-title-container');
+                        var accountNumberField = document.getElementById('account-number');
+                        var bankNameField = document.getElementById('bank-name');
+                        var accountTitleField = document.getElementById('account-title');
+                        
+                        // Hide all containers initially
+                        accountNumberContainer.style.display = 'none';
+                        bankNameContainer.style.display = 'none';
+                        accountTitleContainer.style.display = 'none';
+                
+                        // Remove required attribute from all fields initially
+                        accountNumberField.removeAttribute('required');
+                        bankNameField.removeAttribute('required');
+                        accountTitleField.removeAttribute('required');
+                
+                        if (selectedOption === 'USD BANK Account') {
+                            accountNumberContainer.style.display = 'block';
+                            bankNameContainer.style.display = 'block';
+                            accountTitleContainer.style.display = 'block';
+                            
+                            // Set required attribute for specific fields
+                            accountNumberField.setAttribute('required', 'required');
+                            bankNameField.setAttribute('required', 'required');
+                            accountTitleField.setAttribute('required', 'required');
+                        } else if (selectedOption !== '') {
+                            // For all options except 'USD BANK Account', you may choose to keep some fields required or not
+                            // For example, if you want 'Account Number' required for all other options, uncomment the line below
+                            // accountNumberField.setAttribute('required', 'required');
+                            
+                            // Here you can handle the required fields for other payment methods based on your requirements
+                        }
+                    });
+                </script>
+                
+                <script>
+                    document.getElementById('payment-method').addEventListener('change', function() {
+                        var selectedOption = this.options[this.selectedIndex].value;
+                        var bankNameContainer = document.getElementById('bank-name-container');
+                        var accountTitleContainer = document.getElementById('account-title-container');
+                        if (selectedOption === 'USD BANK Account') {
+                            bankNameContainer.style.display = 'block';
+                            accountTitleContainer.style.display = 'block';
+                        } else {
+                            bankNameContainer.style.display = 'none';
+                            accountTitleContainer.style.display = 'none';
+                        }
+                    });
+                </script>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+  <div style="display:none" class="deposite-pop-up">
+    <div class="wallets-singel-wrapper">
+      <div style="-webkit-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 30px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="wallets-balance-pop two">
+        <div class="wallets-balance-pop-top-content">
+          <div class="wallets-balance-pop-details">
+            <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/6338421bd610db4937437195_Wallets%20Balance%20Pop%20Details%20Image.png" loading="lazy" alt="" class="wallets-balance-pop-details-image" /><div class="wallets-balance-pop-details-name-info">
+              <h1 class="wallets-balance-pop-details-name">ETH Balance</h1><div class="wallets-balance-pop-details-info-text">Ethereum</div>
+            </div>
+            <div data-w-id="ea9fc99b-66cd-a4fe-64e3-a8bb87aa877c" class="clouse-button-wrapper two">
+              <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633842fa1badd9ed46cd1f10_Clouse%20Img.svg" loading="lazy" alt="" class="clouse-button-image" />
+            </div>
+          </div>
+          <div class="total-balance-wrapper">
+            <div class="total-balance-text-block-wrapper">
+              <div class="total-balance-text-block">Total balance</div>
+            </div>
+            <div class="total-balance-price-wrapper">
+              <div class="total-amout-text">24.1236</div>
+              <div class="total-amout-code">3,700.96 USD</div>
+            </div>
+          </div>
+          <div class="memo-box">
+            <div class="memo-title-wrapper">
+              <h1 class="memo-title">Memo</h1><p class="memo-paragraph-text">Failure to use the Memomay result in the loss of your deposit.</p>
+              <div class="memo-form-block w-form">
+                <form id="email-form-2" name="email-form-2"  Form 2" method="get" class="memo-form">
+                  <input type="email" class="memo-text-field w-input" maxlength="256" name="email-4"  4" placeholder="245936468555264" id="email-4" required="" /><a href="#" class="memo-cpy-field w-inline-block"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633a79902bb4de6293e481b3_Input%20Cpy.png" loading="lazy" alt="" class="memo-cpy-field-img" /></a>
+                </form>
+                <div class="w-form-done">
+                  <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                  <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+              </div>
+              <div class="memo-scan">
+                <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633a7a97c9cd1b369d97b23b_Memo%20Scan%20Image.png" loading="lazy" alt="" class="memo-scan-image" />
+              </div>
+            </div>
+          </div>
+          <div class="memo-box">
+            <div class="memo-title-wrapper">
+              <h1 class="memo-title">Address</h1><p class="memo-paragraph-text">Failure to use the Memomay result in the loss of your deposit.</p>
+              <div class="memo-form-block w-form">
+                <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get" class="memo-form">
+                  <input type="email" class="memo-text-field w-input" maxlength="256" name="email-4" data-name="Email 4" placeholder="Your Address" id="email-4" required="" /><a href="#" class="memo-cpy-field w-inline-block"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633a79902bb4de6293e481b3_Input%20Cpy.png" loading="lazy" alt="" class="memo-cpy-field-img" /></a>
+                </form>
+                <div class="w-form-done">
+                  <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                  <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+              </div>
+              <div class="memo-scan">
+                <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633a7a97c9cd1b369d97b23b_Memo%20Scan%20Image.png" loading="lazy" alt="" class="memo-scan-image" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+
+
+{% endblock %}

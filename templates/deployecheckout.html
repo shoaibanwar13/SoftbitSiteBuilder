@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %} Deploye website Checkout {% endblock title %}
+{% block content %}
+<div class="contact-form w-form" id="checkout" style="margin-top: 70px;" >
+    <div class="products w-full lg:w-3/4" >
+        
+       
+        <h1 class="utility-card-title">Please Fill The Correct Information Of Your Site</h1>
+        <h1 class="mb-5 text-3xl">Please Provide Only Domain Name only (We offer wwwy.ourdomainname.onrender.com For 1 Year)</h1>
+        <div class="w-full md:pr-6">
+            <div class="mb-6 p-6 bg-gray-100 rounded-xl" style="background-color:#0d0f19;">
+                
+
+                <div class="flex space-x-6">
+                    <div class="w-1/2 mb-4">
+                        
+                        <input name="name" type="text" class="text-field select w-select" placeholder="Please Enter Your Site Name"  >
+                    </div>
+
+                    <div class="w-1/2 mb-4">
+                         
+                        <input name="domain" type="text" class="text-field select w-select" placeholder="Your Doamin Name(asper.onrender.com)" class="text-field select w-select" >
+                    </div>
+                </div>
+
+                
+
+                <div class="flex space-x-6">
+                    <div class="w-1/2 mb-4">
+                         
+                        <input name="paid_amount" type="hidden" class="text-field select w-select" placeholder="Enter your email" value=" {% for rates in rates %}{{rates.rate}}
+                        {% endfor %}">
+                    </div>
+
+                     
+                </div>
+                <button
+                onclick="buy(event)"
+                class="filled-btn full-width w-button" 
+                >
+                Purchase Domain And Hosting Now  ${% for rates in rates %}{{rates.rate}}
+                {% endfor %}
+                </button>
+            </div>
+
+           
+            <div class="mb-6 p-6 bg-gray-100 rounded-xl" id="errors" style="background-color:#0d0f19; display: none;">
+
+            </div>
+        </div>
+    </div>
+    
+
+
+</div>
+
+</div>
+</div>
+</div>
+ 
+ 
+ 
+
+
+
+
+
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+<script>
+let el = document.querySelector('#errors')
+
+function validateForm(data) {
+let errors = []
+
+if (data.first_name === '') {
+    errors.push(' Name is empty')
+}
+
+if (data.last_name === '') {
+    errors.push('Category is empty')
+}
+
+if (data.email === '') {
+    errors.push('Amount is empty')
+}
+
+ 
+
+if (errors.length > 0) {
+    let html = '<ul>';
+    
+    errors.forEach((error) => {
+        html += '<li>' + error + '</li>';
+    })
+
+    el.innerHTML = html + '</ul>';
+} else {
+    el.innerHTML = '';
+}
+
+return errors
+}
+
+function buy(event) {
+event.preventDefault()
+
+let data = {
+    'name': document.querySelector('input[name=name]').value,
+    'domain': document.querySelector('input[name=domain]').value,
+    'paid_amount': document.querySelector('input[name=paid_amount]').value,
+     
+}
+
+let errors = validateForm(data)
+
+if (errors.length) {
+    console.log('Errors', errors)
+} else {
+    var stripe = Stripe('{{ pub_key }}')
+
+    fetch('/deploye_order/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(data)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(session) {
+        return stripe.redirectToCheckout({ sessionId: session.session.id })
+    })
+    .then(function(result) {
+        if (result.error) {
+            alert(result.error.message)
+        }
+    })
+    .catch(function(error) {
+        console.log('Errors', error)
+    })
+}
+
+return false
+}
+</script>
+{% endblock %}

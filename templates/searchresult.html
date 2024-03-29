@@ -1,0 +1,39 @@
+
+{% if results2 %}
+    {% csrf_token %}
+  {% for data in results2%}
+  <a href="{% url 'sitedetail' data.id %}" class="notification-singel-dropdown w-inline-block">
+    <div class="hero-images">
+      <img src="{{data.image1.url}}" loading="lazy" alt="" class="hero-image" />
+    </div>
+    <div class="notification-hero-text">
+      <div class="hero-info-wrapper">
+        <div class="notification-hero-name">{{data.name}}</div>
+      </div>
+      <div class="notification-hero-name-text-block">{{data.description|slice:":40"}}</div>
+    </div>
+  </a>
+
+{% endfor %}
+{% elif results %}
+{% csrf_token %}
+{% for data in results %}
+   
+<a href="{% url 'sitedetail' data.id %}" class="notification-singel-dropdown w-inline-block">
+    <div class="hero-images">
+      <img src="{{data.image1.url}}" loading="lazy" alt="" class="hero-image" />
+    </div>
+    <div class="notification-hero-text">
+      <div class="hero-info-wrapper">
+        <div class="notification-hero-name">{{data.name}}</div>
+        <div class="notification-hero-name">{{data.price}}$</div>
+      </div>
+      <div class="notification-hero-name-text-block">{{data.description1|slice:":40"}}</div>
+    </div>
+  </a>
+
+{% endfor %}
+{% else %}
+
+    <p style="color: red;"><b>No search results</b></p>
+{% endif %}

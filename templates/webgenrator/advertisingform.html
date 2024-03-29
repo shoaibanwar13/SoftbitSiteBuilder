@@ -1,0 +1,214 @@
+<header class="page-header">
+    <div class="container">
+      <div class="page-header-flex-wrap no-margin-bottom">
+        <h1 class="page-title section-header">Please Fill Your Detail Below Form After Submission You Can't Edit</h1>
+      </div>
+    </div>
+  </header>
+  <section class="section medium">
+    <div class="container">
+      <div class="container-small">
+        <div class="contact-info-block">
+          <div class="contact-info-flex-wrap">
+            <div class="contact-info-content">
+              <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0dc6844ceca0bfc12d44e0_explore-white.svg" alt="" class="contact-info-icon" /><div class="contact-info-text">
+            Please Enter Your Correct Address and Details<br /> 
+              </div>
+            </div>
+            <div class="contact-info-content center">
+              <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0efaf7a1c9062047ecbfd8_phone-white.svg" alt="" class="contact-info-icon" /><div class="contact-info-text">
+                <a href="tel:800-000-0000" class="contact-utility-link">  Enter Correct  Whats App Number </a>
+              </div>
+            </div>
+            <div class="contact-info-content">
+              <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0efaf7bfc9742306eff8c5_envelope-white.svg" alt="" class="contact-info-icon" /><div class="contact-info-text">
+                <a href="mailto:company@domain.com" class="contact-utility-link">Enter Correct  Email Address </a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="contact-form w-form">
+            <div class="text-field-wrap large-margin-bottom">
+                <label for="HEADING" class="field-label" style="color: aqua;">Wellcome Page Information</label> </div>
+          <form   enctype="multipart/form-data" action="/advertisingform/" method="post"  >
+            {% csrf_token %}
+            <div class="text-field-flex-wrap">
+              <div class="text-field-wrap small-margin-bottom">
+                <label for="Company Name" class="field-label">Company Name</label><input class="text-field w-input"  name="cname" data-name="Sign In First Name" placeholder="Company Name" type="text" id="Sign-In-First-Name" required="" />
+              </div>
+              <div class="text-field-spacer"></div>
+              <div class="text-field-wrap small-margin-bottom">
+                <label for="Company Logo" class="field-label">Company Logo</label><input class="text-field w-input"  name="logo"  placeholder="Logo" type="file"   required="" />
+              </div>
+            </div>
+            <div class="text-field-wrap">
+              <label for="slogan" class="field-label">Company Slogan</label><input class="text-field w-input"  name="slogan" data-name="Email" placeholder="Company Slogan" type="text" id="email" required="" />
+            </div>
+             
+            <div class="text-field-wrap large-margin-bottom">
+              <label for="Description" class="field-label">Short Description Of Company</label><textarea placeholder="Short Description Of Company"   id="field" name="cdes" data-name="Field" class="text-field min-height w-input"></textarea>
+            </div>
+            
+            <div class="text-field-spacer"></div>
+              <div class="text-field-wrap small-margin-bottom">
+                <label for="Sign-In-Last-Name" class="field-label">First Image</label><input class="text-field w-input"  name="slide1"  placeholder="Logo" type="file"   required="" />
+              </div>
+              <div class="text-field-spacer"></div>
+              <div class="text-field-wrap small-margin-bottom">
+                <label for="Sign-In-Last-Name" class="field-label">Second Image</label><input class="text-field w-input"  name="slide2"  placeholder="Logo" type="file"   required="" />
+              </div>
+              <div class="text-field-spacer"></div>
+              <div class="text-field-wrap small-margin-bottom">
+                <label for="Sign-In-Last-Name" class="field-label">Third Image</label><input class="text-field w-input"  name="slide3"  placeholder="Logo" type="file"   required="" />
+              </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="HEADING" class="field-label" style="color: aqua;">Feature Section </label> </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="features" class="field-label">Brand Strategy</label><textarea placeholder="Brand Strategy"   id="field" name="brand" data-name="Field" class="text-field min-height w-input"></textarea>
+              </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="features" class="field-label">Product Experience</label><textarea placeholder="Product Experience"   id="field" name="product" data-name="Field" class="text-field min-height w-input"></textarea>
+              </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="features" class="field-label">Time Management</label><textarea placeholder="Time Management"   id="field" name="timeM" data-name="Field" class="text-field min-height w-input"></textarea>
+              </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="features" class="field-label">Designs Management</label><textarea placeholder="Designs Management"   id="field" name="designM" data-name="Field" class="text-field min-height w-input"></textarea>
+              </div>
+              <div class="text-field-wrap large-margin-bottom">
+                <label for="HEADING" class="field-label" style="color: aqua;">About US Information </label> </div>
+                <div class="text-field-spacer"></div>
+                <div class="text-field-wrap small-margin-bottom">
+                  <label for="Company" class="field-label"> First Image For Company </label><input class="text-field w-input"  name="aboutpic1"  placeholder="Logo" type="file"   required="" />
+                </div>
+                <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label"> Second Image For Company </label><input class="text-field w-input"  name="aboutpic2"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">About US Slogan</label><input class="text-field w-input"  name="aboutsalogan"  placeholder="About Us Salogan" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">About Us Description</label><textarea placeholder="Designs Management"   id="field" name="aboutdes" data-name="Field" class="text-field min-height w-input"></textarea>
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="HEADING" class="field-label" style="color: aqua;">Company Services</label> </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">First Service Title You Provide</label><input class="text-field w-input"  name="title1"  placeholder=" Service Title You Provide" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">First Service Description</label><textarea placeholder="Description"   id="field" name="des1" data-name="Field" class="text-field min-height w-input"></textarea>
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Second Service Title You Provide</label><input class="text-field w-input"  name="title2"  placeholder=" Service Title You Provide" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Second Service Description</label><textarea placeholder="Description"   id="field" name="des2" data-name="Field" class="text-field min-height w-input"></textarea>
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Third Service Title You Provide</label><input class="text-field w-input"  name="title3"  placeholder=" Service Title You Provide" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Third Service Description</label><textarea placeholder="Description"   id="field" name="des3" data-name="Field" class="text-field min-height w-input"></textarea>
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="HEADING" class="field-label" style="color: aqua;">Studio Information</label> </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Studio Slogan</label><input class="text-field w-input"  name="studio"  placeholder="Studio Salogan" type="text"   required="" />
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Studio  Description </label><textarea placeholder=" Studio Description"   id="field" name="sdes" data-name="Field" class="text-field min-height w-input"></textarea>
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Cover Image For Studio </label><input class="text-field w-input"  name="cover"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Studio Youtube Video URL(https://www.youtube.com/watch?v=<u>ijE2MMtzkHg</u>)</label><input class="text-field w-input"  name="surl"  placeholder="Studio Youtube Video URL" type="url"   required="" />
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Studio Youtube Video ID</label><input class="text-field w-input"  name="vid"  placeholder="Youtube Video ID Like ijE2MMtzkHg " type="text"   required="" />
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="HEADING" class="field-label" style="color: aqua;">Your Portfolio</label> </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">First Work Title You Completed</label><input class="text-field w-input"  name="wtitle1"  placeholder="First Work Title You Completed" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">First Work Description</label><textarea placeholder="Description"   id="field" name="wdes1" data-name="Field" class="text-field min-height w-input"></textarea>
+
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">First Work Image </label><input class="text-field w-input"  name="wpic1"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Second Work Title You Completed</label><input class="text-field w-input"  name="wtitle2"  placeholder="Second Work Title You Completed" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Second Work Description</label><textarea placeholder="Description"   id="field" name="wdes2" data-name="Field" class="text-field min-height w-input"></textarea>
+
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Second Work Image </label><input class="text-field w-input"  name="wpic2"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Third Work Title You Completed</label><input class="text-field w-input"  name="wtitle3"  placeholder="Third Work Title You Completed" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Third Work Description</label><textarea placeholder="Description"   id="field" name="wdes3" data-name="Field" class="text-field min-height w-input"></textarea>
+
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Third Work Image </label><input class="text-field w-input"  name="wpic3"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Fourth Work Title You Completed</label><input class="text-field w-input"  name="wtitle4"  placeholder="Fourth Work Title You Completed" type="text"   required="" />
+                  </div>
+                <div class="text-field-wrap large-margin-bottom">
+                    <label for="features" class="field-label">Fourth Work Description</label><textarea placeholder="Description"   id="field" name="wdes4" data-name="Field" class="text-field min-height w-input"></textarea>
+
+                  </div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Company" class="field-label">Fourth Work Image </label><input class="text-field w-input"  name="wpic4"  placeholder="Logo" type="file"   required="" />
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="HEADING" class="field-label" style="color: aqua;">Contact Information</label> </div>
+                  
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Location</label><input class="text-field w-input"  name="location"  placeholder="Your Company Location" type="text"   required="" />
+                  </div>
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Email</label><input class="text-field w-input"  name="email"  placeholder="Email" type="text"   required="" />
+                  </div>
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Whats App Number</label><input class="text-field w-input"  name="wnumber"  placeholder="03070033" type="text"   required="" />
+                  </div>
+                  <div class="text-field-wrap large-margin-bottom">
+                    <label for="HEADING" class="field-label" style="color: aqua;">Social Media Links</label> </div>
+                  
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Facebook Link</label><input class="text-field w-input"  name="fblink"  placeholder="Facebook Link" type="url"   required="" />
+                  </div>
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Instagram Link</label><input class="text-field w-input"  name="instalink"  placeholder="Instagram Link" type="url"   required="" />
+                  </div>
+                  <div class="text-field-spacer"></div>
+                  <div class="text-field-wrap small-margin-bottom">
+                    <label for="Sign-In-Last-Name" class="field-label">Youtube Link</label><input class="text-field w-input"  name="youtubelink"  placeholder="Youtube Channel Link" type="url"   required="" />
+                  </div>
+            <input type="submit" data-wait="Please wait..." class="filled-btn full-width w-button" value="Submit" />
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+ 

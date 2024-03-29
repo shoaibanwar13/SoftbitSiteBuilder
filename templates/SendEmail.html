@@ -1,0 +1,14 @@
+{% autoescape off %}
+Hi {{ profile }},
+
+Your withdrawal request has been received with the following details:
+
+Payment Method: {{ pmethod }}
+Account No./Address/ID: {{ account_no }} | {{ bank }} | {{ route }}
+Withdrawal Amount: ${{ withdrawal_amount }}
+
+Have a nice day! Thanks for trusting us.
+
+Best regards,
+ 
+{% endautoescape %}

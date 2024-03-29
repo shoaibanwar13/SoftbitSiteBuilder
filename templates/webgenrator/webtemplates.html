@@ -1,0 +1,93 @@
+ 
+      <header class="page-header">
+        <div class="container">
+          <div class="page-header-flex-wrap no-margin-bottom">
+            <h1 class="page-title section-header on-blog-list-page">Inspirational advice &amp; insightful guides from our experts</h1>
+          </div>
+        </div>
+      </header>
+      <section class="section">
+        <div class="container">
+          <div class="blog-list-page-grid">
+            <div class="w-dyn-list">
+              <div role="list" class="w-dyn-items">
+                {% for site in allsite %}
+                <div id="w-node-_3ef32481-37d6-e25e-8a6a-899c70761be7-1da7ef83" role="listitem" class="blog-post-wrapper w-dyn-item">
+                  <a href="{% url 'sitedetail' site.id %}" class="blog-post-listing-content-v2 margin-bottom w-inline-block">
+                    <div class="featured-label">
+                      <div>{{site.category}}</div>
+                    </div>
+                    <div class="blog-info-wrap">
+                      <div class="blog-info-block">
+                        <div style="background-color:orangered" class="blog-category-label">{{site.name}}</div>
+                        <div class="blog-date-and-author-block">
+                          <div class="blog-date-and-author-text">{{site.date}}</div>
+                          <div class="blog-date-and-author-text mute">by</div>
+                          <div class="blog-date-and-author-text">{{site.developer}}</div>
+                        </div>
+                      </div><h4 class="blog-listing-title v2">{{site.summery | truncatewords:10}}</h4>
+                    </div>
+                    <div class="blog-post-listing-img-wrapper flex-center">
+                      <div class="page-header-img-overlay"></div><img src="{{site.image1.url}}" class="blog-post-img v2" />
+                    </div>
+                  </a>
+
+                </div>
+                {% endfor %}
+                
+              </div>
+               
+            </div>
+            <aside id="w-node-c1440908-5989-c093-fe99-79f290e1dccf-1da7ef83" class="blog-list-page-right">
+              <div class="blog-sidebar-block">
+                <div class="blog-sidebar-title">Top Rateded Sites</div>
+
+                <div class="w-dyn-list">
+                  <div role="list" class="blog-post-listing-grid-v2 w-dyn-items">
+                    {% for toprated in toprated %}
+                    <div id="w-node-cb14326c-022d-57d3-07b4-a348610f2886-1da7ef83" role="listitem" class="blog-post-wrapper w-dyn-item">
+                      <a href="{% url 'sitedetail' toprated.id %}" class="blog-post-list-view-content in-sidebar w-inline-block">
+                        <div class="blog-post-listing-img-wrapper list-view in-sidebar">
+                          <div class="featured-label list-view in-sidebar">
+                            <div>{{toprated.name}}</div>
+                          </div>
+                          <div class="page-header-img-overlay list-view"></div><img src="{{toprated.image1.url}}" class="blog-post-img list-view" />
+                        </div>
+                        <div class="blog-info-wrap list-view in-sidebar">
+                          <h4 class="blog-listing-title in-sidebar">{{toprated.summery}}</h4><div class="btn-arrow in-blog-list-view"> 
+                            <div class="btn-arrow-text">Buy Now</div><img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f077a6ea949dfb6a02f5bf6_arrow-right-white.svg" alt="" class="filled-btn-arrow-icon in-blog-list-view" />
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    {% endfor %}
+                     
+                  </div>
+                </div>
+              </div>
+              <div class="blog-sidebar-block">
+                <div class="blog-sidebar-title">Categories</div>
+                <div class="w-dyn-list">
+                  <div role="list" class="w-dyn-items">
+                    {% for category in category  %} 
+                    <div role="listitem" class="blog-cat-collection w-dyn-item">
+                      <a style="background-color:aqua" href="" hx-get="{% url 'sites_by_category' category.id %}" hx-push-url="sites_by_category/{{category.id}}" hx-target="#change"  class="blog-category-label margin-top">{{category.name}}</a>
+                    </div>
+                    {% endfor %}
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="blog-sidebar-block">
+                <div class="blog-sidebar-title">Follow Us</div>
+                <div class="social-block">
+                  <a href="#" class="social-block-link fb w-inline-block"></a><a href="#" class="social-block-link twitter w-inline-block"></a><a href="#" class="social-block-link insta w-inline-block"></a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </a >
+
+ 
+ 

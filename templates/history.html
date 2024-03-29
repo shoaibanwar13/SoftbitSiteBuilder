@@ -1,0 +1,199 @@
+{% extends 'dashboard.html'%}
+{% block content %} 
+<div class="sections-wrapper">
+    <div class="wallets-wrapper">
+        <div class="container">
+            <div class="exchange-sngel-wrapper">
+                <div class="w-layout-grid exchange-card-grid">
+                    <div id="w-node-fe23cacf-9998-c7ba-fea9-bcae08058672-fcbd0fcf"
+                        class="exchange-card-singel-wrapper">
+                        <div class="exchange-card-image-text-wrapper"> 
+                            <div class="exchange-card-text-wrapper">
+                                <h2 class="exchange-card-name">My Activities
+                                  
+                                </h2>
+                                <div class="exchange-card-info"> </div>
+                            </div>
+                        </div>
+                        <div class="exchange-card-boder"></div>
+                    </div>
+                    <div id="w-node-b02e7eee-e072-cd1d-ea60-d011ef317832-fcbd0fcf"
+                        class="exchange-card-singel-wrapper">
+                        <div class="exchange-card-text-wrapper">
+                            <h2 class="exchange-card-name">My Total Purchase </h2>
+                            <div class="exchange-card-info">${{total_purchase_amount}}</div>
+                        </div>
+                        <div class="exchange-card-boder"></div>
+                    </div>
+                    <div id="w-node-_0c5de506-5b8d-f5e2-22e6-6721e0c44cc2-fcbd0fcf"
+                        class="exchange-card-singel-wrapper">
+                        <div class="exchange-card-text-wrapper">
+                            <h2 class="exchange-card-name">Deployement Cost</h2>
+                            <div class="exchange-card-info">${{total_deploye}}</div>
+                        </div>
+                        <div class="exchange-card-boder"></div>
+                    </div>
+                     
+                    <div id="w-node-_86edd98d-317a-6529-1e1f-cf4df71ffd81-fcbd0fcf"
+                        class="exchange-card-singel-wrapper">
+                        <div class="card-height-wrapper">
+                            <div class="exchange-card-text-wrapper">
+                                <h2 class="exchange-card-name">{{request.user.last_login}}</h2>
+                                <div class="exchange-card-detais"><img
+                                        src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/63316ceb2484312d4ac775a9_Exchange%20Card%20Info%20Img2.png"
+                                        loading="lazy" alt="" class="exchange-card-info-img" />
+                                    <div class="exchange-card-info low">{{comtotal}} </div>
+                                </div>
+                            </div>
+                            
+             
+        </div>
+        </div>
+                </div>
+                <hr>
+        <div class="cryptocurrency-prices-table-wrapper">
+            <div class="cryptocurrency-prices-table-top-content">
+              <div class="dashboard-chart-title-wrap mb0">
+                <h2 class="dashboard-chart-title">My Deploye Site &#x27;s</h2>
+              </div>
+            </div>
+            <div class="cryptocurrency-table-headings">
+              <div class="w-layout-grid cryptocurrency-table-grid two">
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7a-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Transaction ID</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7d-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Amount</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b80-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Status</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b83-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Domain Name</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b86-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Website Name</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b89-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Time/Date</h3>
+                </div>
+              </div>
+            </div>
+            <div class="cryptocurrency-table">
+              {% for data in usersite %}
+              <div class="w-layout-grid cryptocurrency-table-grid two" style="margin-top: 10px;">
+                  
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b8e-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-token">
+                      
+                    <div class="cryptocurrency-table-token-img-wrap">
+                        </div>
+                    <div class="cryptocurrency-table-token-text-block">#softbit1131{{data.id}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b94-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">${{data.paid_amount}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b9c-c121d338" class="cryptocurrency-table-singel">
+                  <div class="exchange-card-detais">
+                     <div class="exchange-card-info high"><a href="https://wwww.{{data.domainname}}.onrender.com"    class="settings-button w-button"> {{data.status}}</a></div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b98-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">{{data.domainname}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2ba1-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">{{data.name}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2ba5-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">{{data.created_at}}</div>
+                  </div>
+                </div>
+                
+              </div>
+              {% endfor %}
+            </div>
+          <hr>
+        
+          
+          <div class="cryptocurrency-prices-table-wrapper">
+            <div class="cryptocurrency-prices-table-top-content">
+              <div class="dashboard-chart-title-wrap mb0">
+                <h2 class="dashboard-chart-title">My Purchase &#x27;s History</h2>
+              </div>
+            </div>
+            <div class="cryptocurrency-table-headings">
+              <div class="w-layout-grid cryptocurrency-table-grid two">
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7a-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Transaction ID</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b7d-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Site Name</h3>
+                </div>
+                 
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b83-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Category</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b86-c121d338" class="cryptocurrency-table-heading-wrap">
+                  <h3 class="cryptocurrency-table-heading">Price</h3>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b86-c121d338" class="cryptocurrency-table-heading-wrap">
+                    <h3 class="cryptocurrency-table-heading">Date/Time</h3>
+                  </div>
+                 
+              </div>
+            </div>
+            <div class="cryptocurrency-table">
+              {% for data in user_purchase %}
+              <div class="w-layout-grid cryptocurrency-table-grid two">
+                  
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b8e-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-token">
+                      
+                    <div class="cryptocurrency-table-token-img-wrap">
+                        </div>
+                    <div class="cryptocurrency-table-token-text-block">#softbit210{{data.id}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b94-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block"><a href="/{{data.name}}/"    class="settings-button w-button">{{data.name}}</a></div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b9c-c121d338" class="cryptocurrency-table-singel">
+                  <div class="exchange-card-detais">
+                     <div class="exchange-card-info high">{{data.category}}</div>
+                  </div>
+                </div>
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2b98-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">${{data.paid_amount}}</div>
+                  </div>
+                </div>
+                 
+                <div id="w-node-_6d10333f-639d-2dae-6921-2d2ef36b2ba5-c121d338" class="cryptocurrency-table-singel">
+                  <div class="cryptocurrency-table-text-wrap">
+                    <div class="cryptocurrency-table-text-block">{{data.created_at}}</div>
+                  </div>
+                </div>
+                
+              </div>
+              {% endfor %}
+            </div>
+           
+           
+        </div>
+      </div>
+    </div>
+     
+ 
+     
+
+  {% endblock %}

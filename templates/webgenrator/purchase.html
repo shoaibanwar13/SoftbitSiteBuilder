@@ -1,0 +1,40 @@
+ 
+  <div class="component-section">
+    <div class="container">
+      <div class="components-header">
+        <div class="section-subtitle">Hi! {{request.user.username}} Your Purchase Site</div>
+      </div>
+    </div>
+    <section class="section with-header">
+      <div class="container">
+        <h2 class="section-title center">Latest site you already purchase</h2><div class="blog-listing-grid">
+          <div data-w-id="7916cedb-0bed-ea3a-a274-5d7e19beabde" class="w-dyn-list">
+            <div role="list" class="blog-post-listing-grid w-dyn-items">
+             
+              {% for  mysite in website_links %}
+             
+              <div id="w-node-_7916cedb-0bed-ea3a-a274-5d7e19beabe0-19beabd9" role="listitem" class="blog-post-wrapper w-dyn-item">
+                <a href="/{{mysite.link}}/"  class="blog-post-listing-content w-inline-block">
+                  <div class="featured-label w-condition-invisible">
+                    
+                  </div>
+                  <div class="blog-info-wrap">
+                    <div class="blog-info-block">
+                      <div style="background-color:#f1a12a;" class="blog-category-label">{{ mysite.name}} </div>
+                      <div class="blog-date-and-author-block">
+                        <div class="blog-date-and-author-text">{{ mysite.price}}</div>
+                        <div class="blog-date-and-author-text">$</div>
+                      </div>
+                    </div><h4 class="blog-listing-title">{{ mysite.name}} This Is Your Site Please Click On It To Generate Your Website   </h4>
+                  </div>
+                  
+                </a>
+              </div>
+              {% endfor %}
+              
+
+           
+            </div>
+          </div>
+        </div>
+        

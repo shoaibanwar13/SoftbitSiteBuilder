@@ -1,0 +1,143 @@
+{% extends 'dashboard.html'%}
+{% block content %}
+        <div class="side-navbar-wrapper">
+          
+            
+        </div>
+       
+        <div class="sections-wrapper">
+            <div class="dashboard-wrapper">
+                <div class="container">
+                    <div class="card-wrapper">
+                        <div class="w-layout-grid card-grid">
+                            <div id="w-node-c7fe566a-07e2-3947-4056-6b157d451928-da8a1626" class="card-singel-wrapper" style="width: 400px;">
+                                <div class="card-image-wrapper _1" ><img
+                                        src="https://cdn1.iconfinder.com/data/icons/admin-panel-white-with-multicolor-circle-backgroun/2048/Referrals-1024.png"
+                                        loading="lazy" alt="" class="card-image" /></div>
+                                <div class="card-details">
+                                    <div class="card-info-wrapper">
+                                        <div class="card-info-text-block"> Referral</div><img
+                                            src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632f01d56a78d70e28afd645_Card%20Info%20Arrow1.png"
+                                            loading="lazy" alt="" class="card-info-image" />
+                                    </div>
+                                    <div class="card-price">
+
+                                        <button id="copyButton" class="balance-categorys-button deposite w-button" onclick="copyToClipboard()"> http://127.0.0.1:8000/{{refer_code}}</button>
+                                        <input type="text" id="textToCopy" value=" http://127.0.0.1:8000/{{refer_code}}" style="position: absolute; left: -9999px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="w-node-c7fe566a-07e2-3947-4056-6b157d451932-da8a1626" class="card-singel-wrapper">
+                                <div class="card-image-wrapper _2"><img
+                                        src="https://th.bing.com/th/id/OIP.QwQ3DxYUBTWf6FjS9QhMAgHaHa?rs=1&pid=ImgDetMain"
+                                        loading="lazy" alt="" class="card-image" /></div>
+                                <div class="card-details">
+                                    <div class="card-info-wrapper">
+                                        <div class="card-info-text-block">Earning</div><img
+                                            src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632f01d50ee1f17231ad2b68_Card%20Info%20Arrow2.png"
+                                            loading="lazy" alt="" class="card-info-image" />
+                                    </div>
+                                    <div class="card-price"> PKR {{my_earning}}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="dashboard-chart-wrapper">
+                        <div class="dashboard-chart-left-content">
+                             
+                            <div class="order-book-chrat-wrapper">
+                                <div class="order-book-wrapper">
+                                    <div class="order-book-title-wrap">
+                                        <div class="dashboard-chart-title-wrap">
+                                            <h2 class="dashboard-chart-title">My Team </h2>
+                                        </div>
+                                    </div>
+                                    <div class="order-book-header">
+                                        <div class="w-layout-grid order-book-header-grid">
+                                            <div id="w-node-_5d8023f0-856d-2e77-6dee-7dd73dbf4477-fcbd0fcf"
+                                                class="order-book-header-title-wrapper">
+                                                <div class="order-book-header-title">Name</div>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="order-book-content">
+                                        <div class="order-book-singel-wrapper"> 
+                                            {% if my_recs %}
+                                           
+                                           
+                                            <div class="order-book-grid-wrapper">
+                                                {% for my in my_recs %}
+                                                <div class="w-layout-grid order-book-grid">
+                                                    <div id="w-node-_2654d38a-ff28-852c-0b02-6cb8b4b4dc3e-fcbd0fcf"
+                                                        class="order-book-singel">
+                                                        <div class="order-book-text-block"> {{my.user}}</div> {% endfor %}   {% else %}  <td>You Don't Have Any Recommendation</td> 
+                                                        {% endif %}
+                                                    </div>
+                                                    <div id="w-node-_56a6f069-2a68-72f9-a46c-805b425d62f0-fcbd0fcf"
+                                                        class="order-book-singel">
+                                                        <div class="order-book-text-block"> </div>
+                                                    </div>
+                                                    
+                                                    <div id="w-node-acd172a6-932a-a8f6-a3c4-fceb9304a8b2-fcbd0fcf"
+                                                        class="order-book-singel">
+                                                        <div class="order-book-text-block"> </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <hr>
+                                                
+                                                
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                                 
+                            </div>
+                        </div>
+                        <div class="dashboard-chart-right-content">
+                             
+                            <div class="total-balance">
+                                <div class="total-balance-singel-wrapper">
+                                    <div class="balance-category-wrapper"><img
+                                            src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633149838aedab02faaa21d3_Blaance%20Bg.png"
+                                            loading="lazy" alt="" class="balance-category-image" />
+                                        <div class="balance-category-text-block">10%</div>
+                                    </div>
+                                    <div class="balance-text-wrapper">
+                                        <div class="total-balance-title">Total Earning: </div>
+                                        <h2 class="total-balance-code"> {{my_earning}}</h2>
+                                        <div class="total-balance-price"> PKR</div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+         
+    </div>
+ 
+
+    <script>
+        function copyToClipboard() {
+            // Select the text input field
+            var textToCopy = document.getElementById("textToCopy");
+        
+            // Select the text inside the input field
+            textToCopy.select();
+            textToCopy.setSelectionRange(0, 99999); // For mobile devices
+        
+            // Execute the copy command
+            document.execCommand("copy");
+        
+            // Optionally, you can give feedback to the user
+            alert("Text copied to clipboard: " + textToCopy.value);
+        }
+        </script>
+        
+ {% endblock %}
