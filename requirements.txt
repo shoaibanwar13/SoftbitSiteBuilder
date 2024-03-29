@@ -151,5 +151,5 @@ xhtml2pdf==0.2.11
 
 psycopg==3.1.12
 psycopg2==2.9.9
-python-social-auth[django]==4.0.0
+python-social-auth==4.0.0
 
