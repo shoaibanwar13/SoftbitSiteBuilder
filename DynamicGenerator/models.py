@@ -9,7 +9,7 @@ class Profile(models.Model):
     recommended_by=models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="ref_by")
     profession=models.CharField(max_length=200,null=True)
     bio=models.TextField(null=True)
-    profilepic=models.ImageField(upload_to='profilepic/', null=True,default='profilepic/name-of-image.jpg')
+    profilepic=models.ImageField(upload_to='profilepic/', null=True,default='profilepic/118075335_744109276133549_1110864460278063364_n_c253ba2d-0077-40bc-82e3-372b_oJqMKqo.webp   ')
     created=models.DateTimeField(auto_now=True)
     balance=models.IntegerField(default=0)
     withdrawl_amount=models.IntegerField(default=0)
