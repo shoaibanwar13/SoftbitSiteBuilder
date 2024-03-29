@@ -1,3 +1,5 @@
+django-ipware==6.0.3
+ 
 python-ipware==2.0.1
 django-htmx==1.5.0
 django-bootstrap5==23.4
