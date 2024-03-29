@@ -22,7 +22,7 @@ import requests
 @login_required
 def profile(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -39,7 +39,7 @@ def profile(request):
 @login_required
 def edit_profile(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -74,7 +74,7 @@ def edit_profile(request):
 
 def oursites(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -98,7 +98,7 @@ def oursites(request):
 @login_required
 def userdashboard(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -129,7 +129,7 @@ def userdashboard(request):
     return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye})
 def sites_by_category(request, category):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -150,7 +150,7 @@ def sites_by_category(request, category):
 
 def ourteam(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -169,7 +169,7 @@ def ourteam(request):
 
 def contact(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -197,7 +197,7 @@ def contact(request):
 
 def about(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -215,7 +215,7 @@ def about(request):
 @login_required
 def preview1(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -230,7 +230,7 @@ def preview1(request):
 @login_required
 def preview3(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -245,7 +245,7 @@ def preview3(request):
 @login_required
 def userpurchase(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -272,7 +272,7 @@ def userpurchase(request):
 @login_required
 def Advertising_web(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -294,7 +294,7 @@ def Advertising_web(request):
 @login_required
 def sitedetail(request, id):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -341,7 +341,7 @@ def sitedetail(request, id):
 @login_required
 def rating(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -376,7 +376,7 @@ def rating(request):
 @login_required
 def start_order(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -492,7 +492,7 @@ def payment_cancel(request):
 def Asper(request):
     
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -521,7 +521,7 @@ def Asper(request):
 @login_required
 def yourportfolio(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -540,7 +540,7 @@ def yourportfolio(request):
 @login_required
 def portfolio(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -568,7 +568,7 @@ def portfolio(request):
 @login_required
 def edit_Portfolio(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -599,7 +599,7 @@ def edit_Portfolio(request):
 @login_required
 def edit_Advertising(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -630,7 +630,7 @@ def edit_Advertising(request):
 @login_required
 def search(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -680,7 +680,7 @@ def check_password(request):
 @login_required
 def withdraw(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -746,7 +746,7 @@ def withdraw(request):
 @login_required
 def referal(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -773,7 +773,7 @@ def referal(request):
     return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning})
 def delete_user_site(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -795,7 +795,7 @@ def proxy_warning_view(request):
 @login_required
 def deployecheckout(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -817,7 +817,7 @@ def deployecheckout(request):
 @login_required
 def deploye_order(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -909,7 +909,7 @@ def payment_success2(request):
 @login_required 
 def Deployesite(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -986,7 +986,7 @@ def payment_success2(request):
 @login_required
 def history(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -1008,7 +1008,7 @@ def history(request):
 @login_required
 def mysites(request):
     client_ip, _ = get_client_ip(request)
-    client_ip= '182.185.210.20'
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
