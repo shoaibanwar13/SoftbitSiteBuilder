@@ -25,7 +25,7 @@
         </script>
         <style>
             .hero-image {
-                background-image: linear-gradient(to right, var(--black) 20%, var(--transparent) 60%), url("{% for data in data  %} {{data.Profile_Image.url}} {% endfor %}");
+                background-image: linear-gradient(to right, var(--black) 20%, var(--transparent) 60%), url("{% for data in data  %} {{data.Profile_Image.url}} {% endfor %}"),url("https://softbit-website-builder.onrender.com/{% for data in data  %} {{data.Profile_Image.url}} {% endfor %}");
                 max-height: 480px;
                 max-width: 480px;
                 min-height: 480px;
