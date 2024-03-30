@@ -16,7 +16,7 @@
         <meta content="summary_large_image" name="twitter:card" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
-        <link href="https://assets-global.website-files.com/657acd3ac7be3a539ce3543a/css/portolio-template.webflow.54a12ef98.css" rel="stylesheet" type="text/css" />
+        <link href="https://softbit-website-builder.onrender.com{% static '/css/portfolio.css' %}" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com" rel="preconnect" />
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -25,7 +25,7 @@
         </script>
         <style>
             .hero-image {
-                background-image: linear-gradient(to right, var(--black) 20%, var(--transparent) 60%), url("{% for data in data  %} {{data.Profile_Image.url}} {% endfor %}"),url("https://softbit-website-builder.onrender.com/{% for data in data  %} {{data.Profile_Image.url}} {% endfor %}");
+                background-image: linear-gradient(to right, var(--black) 20%, var(--transparent) 60%),url("https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Profile_Image.url}}{% endfor %}");
                 max-height: 480px;
                 max-width: 480px;
                 min-height: 480px;
@@ -47,8 +47,8 @@
                 (n.className += t + "js"), ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch");
             })(window, document);
         </script>
-        <link href="{% for data in data  %}{{data.Logo.url}} {% endfor %}" rel="shortcut icon" type="image/x-icon" />
-        <link href="{% for data in data  %}{{data.Logo.url}} {% endfor %}" rel="apple-touch-icon" />
+        <link href="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" rel="shortcut icon" type="image/x-icon" />
+        <link href="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" rel="apple-touch-icon" />
          
     </head>
     <body>
@@ -56,13 +56,13 @@
             <div class="preloader-top"></div>
             <div class="preloader-bottom"></div>
             <div class="preloader-logo">
-                 <div class="preloader-image-wrapper"><img src="{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" alt="Logo" class="preloader-image" /></div>
+                 <div class="preloader-image-wrapper"><img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" alt="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" class="preloader-image" /></div>
             </div>
         </div>
         <div data-animation="default" class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" data-w-id="9b24f31a-aadc-0c5b-d5cf-68f3cdfe32cf" role="banner" data-duration="400" data-doc-height="1">
             <div class="container padding-10 overflow w-container">
                 <a href="#hero" aria-current="page" class="logo-link-wrapper w-nav-brand w--current">
-                    <img src="{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" width="Auto" height="Auto" alt="Logo" class="logo" />
+                    <img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" width="Auto" height="Auto" alt="Logo" class="logo" />
                 </a>
                 <nav role="navigation" class="nav-menu w-nav-menu">
                     <div class="nav-link-wrapper"><a href="#hero" aria-current="page" class="nav-link w-nav-link w--current">Home</a><a href="#hero" aria-current="page" class="nav-link move-down hide-on-tab w-nav-link w--current">Home</a></div>
@@ -121,13 +121,13 @@
             <div class="w-layout-blockcontainer container w-container">
                 <div class="image-wrapper">
                     <img
-                        src= " {% for data in data  %} {{data.Cover_Image.url}}{% endfor %} "
+                        src= "https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Cover_Image.url}}{% endfor %} "
                         loading="eager"
                         alt=""
                         height=""
                         sizes="(max-width: 767px) 100vw, (max-width: 991px) 768px, (max-width: 1440px) 100vw, 1440px"
-                        srcset="
-                        {% for data in data  %} {{data.Cover_Image.url}}{% endfor %}
+                        srcset="https://softbit-website-builder.onrender.com
+                        {% for data in data  %}{{data.Cover_Image.url}}{% endfor %}
                                "
                         class="image-parallax"
                     />
@@ -250,7 +250,7 @@
                             <div data-w-id="8486bab2-eabc-568a-86b2-f25598349850" class="project-image-wrapper">
                                 <img
                                     class="project-image fade-out"
-                                    src="{% for data in data  %} {{data.First_Project_Image.url}}{% endfor %}"
+                                    src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.First_Project_Image.url}}{% endfor %}"
                                     width="720"
                                     height="480"
                                     alt=""
@@ -262,8 +262,8 @@
                                     "
                                     sizes="(max-width: 479px) 100vw, 720px"
                                     loading="eager"
-                                    srcset="
-                                    {% for data in data  %} {{data.First_Project_Image.url}}{% endfor %} "
+                                    srcset="https://softbit-website-builder.onrender.com
+                                    {% for data in data  %}{{data.First_Project_Image.url}}{% endfor %} "
                                 />
                                 <a style="display: none; opacity: 0;" href="{% for data in data  %} {{data.First_Project_Url}}{% endfor %}"  target="_blank" class="project-icon-wrapper w-inline-block">
                                     <img
@@ -303,7 +303,7 @@
                             <div data-w-id="8486bab2-eabc-568a-86b2-f25598349850" class="project-image-wrapper">
                                 <img
                                     class="project-image fade-out"
-                                    src="{% for data in data  %} {{data.Second_Project_Image.url}}{% endfor %}"
+                                    src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Second_Project_Image.url}}{% endfor %}"
                                     width="720"
                                     height="480"
                                     alt=""
@@ -311,8 +311,8 @@
                                           "
                                     sizes="(max-width: 479px) 100vw, 720px"
                                     loading="eager"
-                                    srcset="
-                                    {% for data in data  %} {{data.Second_Project_Image.url}}{% endfor %}
+                                    srcset="https://softbit-website-builder.onrender.com
+                                    {% for data in data  %}{{data.Second_Project_Image.url}}{% endfor %}
                                                "
                                 />
                                 <a style="display: none; opacity: 0;" href="{% for data in data  %} {{data.Second_Project_Url}}{% endfor %}" class="project-icon-wrapper w-inline-block">
@@ -353,7 +353,7 @@
                             <div data-w-id="8486bab2-eabc-568a-86b2-f25598349850" class="project-image-wrapper">
                                 <img
                                     class="project-image fade-out"
-                                    src="{% for data in data  %} {{data.Third_Project_Image.url}}{% endfor %}"
+                                    src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Third_Project_Image.url}}{% endfor %}"
                                     width="720"
                                     height="480"
                                     alt=""
@@ -366,7 +366,8 @@
                                     sizes="(max-width: 479px) 100vw, 720px"
                                     loading="eager"
                                     srcset="
-                                    {% for data in data  %} {{data.Third_Project_Image.url}}{% endfor %}  "
+                                    https://softbit-website-builder.onrender.com
+                                    {% for data in data  %}{{data.Third_Project_Image.url}}{% endfor %}  "
                                 />
                                 <a style="display: none; opacity: 0;" href="{% for data in data  %} {{data.Third_Project_Url}}{% endfor %}" target="_blank" class="project-icon-wrapper w-inline-block">
                                     <img
@@ -465,7 +466,7 @@
                                     {% for data in data  %} {{data.First_Client_Quote}}{% endfor %}
                                 </h4>
                                 <div class="space-32px"></div>
-                                <img src="{% for data in data  %} {{data.First_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
+                                <img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.First_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
                                 <div class="space-16px"></div>
                                 <h5>{% for data in data  %} {{data.First_Client_Name}}{% endfor %}</h5>
                                 <div class="space-16px"></div>
@@ -481,7 +482,7 @@
                                     {% for data in data  %} {{data.Second_Client_Quote}}{% endfor %}
                                 </h4>
                                 <div class="space-32px"></div>
-                                <img src="{% for data in data  %} {{data.Second_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
+                                <img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Second_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
                                 <div class="space-16px"></div>
                                 <h5>{% for data in data  %} {{data.Second_Client_Name}}{% endfor %}</h5>
                                 <div class="space-16px"></div>
@@ -497,7 +498,7 @@
                                     {% for data in data  %} {{data.First_Client_Quote}}{% endfor %}
                                 </h4>
                                 <div class="space-32px"></div>
-                                <img src="{% for data in data  %} {{data.First_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
+                                <img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.First_Clent_Image.url}}{% endfor %}"  style="border-radius: 360px;" />
                                 <div class="space-16px"></div>
                                 <h5>{% for data in data  %} {{data.First_Client_Name}}{% endfor %}</h5>
                                 <div class="space-16px"></div>
@@ -532,28 +533,31 @@
                         </a>
                     </div>
                     <img
-                        src="{% for data in data  %} {{data.First_Project_Image.url}}{% endfor %}"
+                        src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.First_Project_Image.url}}{% endfor %}"
                         loading="eager"
                         sizes="(max-width: 767px) 100vw, (max-width: 991px) 315.2806396484375px, 32vw"
                         srcset="
+                        https://softbit-website-builder.onrender.com
                         {% for data in data  %} {{data.First_Project_Image.url}}{% endfor %} "
                         alt="pad"
                         class="cta-image-bottom"
                     />
                     <img
-                        src="{% for data in data  %} {{data.First_Project_Image.url}}{% endfor %}"
+                        src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.First_Project_Image.url}}{% endfor %}"
                         loading="eager"
                         sizes="(max-width: 767px) 100vw, (max-width: 991px) 315.2806396484375px, 32vw"
                         srcset="
-                        {% for data in data  %} {{data.First_Project_Image.url}}{% endfor %}  "
+                        https://softbit-website-builder.onrender.com
+                        {% for data in data  %}{{data.First_Project_Image.url}}{% endfor %}  "
                         alt="papers on desk"
                         class="cta-image-right"
                     />
                     <img
-                        src="{% for data in data  %} {{data.Second_Project_Image.url}}{% endfor %}"  loading="eager"
+                        src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Second_Project_Image.url}}{% endfor %}"  loading="eager"
                         sizes="(max-width: 767px) 100vw, (max-width: 991px) 42vw, 33vw"
                         srcset="
-                        {% for data in data  %} {{data.Third_Project_Image.url}}{% endfor %}  "
+                        https://softbit-website-builder.onrender.com
+                        {% for data in data  %}{{data.Third_Project_Image.url}}{% endfor %}  "
                         alt="white cup"
                         class="cta-image-top"
                     />
@@ -565,7 +569,7 @@
                 <div class="space-32px"></div>
                 <div class="footer-footer-top">
                     <a href="#hero" aria-current="page" class="logo-link-wrapper w-nav-brand w--current">
-                        <img src="{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" width="Auto" height="Auto" alt="Logo" class="logo" />
+                        <img src="https://softbit-website-builder.onrender.com{% for data in data  %}{{data.Logo.url}} {% endfor %}" loading="eager" width="Auto" height="Auto" alt="Logo" class="logo" />
                     </a>
                     <div class="footer-wrapper">
                         <h5>Main</h5>
@@ -677,7 +681,7 @@
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"
         ></script>
-        <script src="{% static '/js/portfolio.js' %}" type="text/javascript"></script>
+        <script src="https://softbit-website-builder.onrender.com{% static '/js/portfolio.js' %}" type="text/javascript"></script>
         
    
    

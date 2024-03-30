@@ -16,7 +16,7 @@ import requests
     
 def index(request,*args,**kwargs):
     client_ip, _ = get_client_ip(request)
-   
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -38,7 +38,7 @@ def index(request,*args,**kwargs):
     return render(request,'index.html',{'data':data})
 def signup(request):
     client_ip, _ = get_client_ip(request)
-    
+     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
@@ -65,7 +65,7 @@ def signup(request):
                 register_profile.save()
             
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
             return redirect('/')
             

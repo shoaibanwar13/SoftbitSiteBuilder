@@ -105,6 +105,7 @@ def userdashboard(request):
     # Make a request to IPinfo API
     response = requests.get(api_url)
     data = response.json()
+    
     print(data)
     # Check if the IP is associated with a VPN or proxy
     if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
@@ -278,18 +279,21 @@ def Advertising_web(request):
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
     # Make a request to IPinfo API
     response = requests.get(api_url)
-    data = response.json()
-    print(data)
+    data1 = response.json()
+    print(data1)
     # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
+    if  data1['security']['vpn']or data1['security']['proxy'] or data1['security']['tor'] or data1['security']['relay']==True:
         return redirect('proxy_warning_view')
     try:
-        Adver = Advertising.objects.get(user=request.user)
+        SitePurchase.objects.filter(user=request.user)
+        
     except  Advertising.DoesNotExist:
         return redirect('/')
+    data=Advertising.objects.filter(user=request.user)
+    
         
      
-    return render(request, 'advertising/advertising.html', {'data': Adver})
+    return render(request, 'advertising/advertising.html', {'data': data})
  
 @login_required
 def sitedetail(request, id):
@@ -503,7 +507,7 @@ def Asper(request):
     # Check if the IP is associated with a VPN or proxy
     if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
         return redirect('proxy_warning_view')
-    siteisexist= Advertising.objects.filter(user=request.user,  Companyname='Asper').exists()
+    siteisexist= Advertising.objects.filter(user=request.user).exists()
     if siteisexist:
         # Redirect the user to an informational page
         return redirect('Advertising_web')
@@ -521,7 +525,6 @@ def Asper(request):
 @login_required
 def yourportfolio(request):
     client_ip, _ = get_client_ip(request)
-     
     print(client_ip)
      # Replace YOUR_TOKEN with your actual IPinfo API token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
