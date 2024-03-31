@@ -26,7 +26,18 @@ def index(request,*args,**kwargs):
     print(request.session.get_expiry_age())
     return render(request,'index.html')
 def signup(request):
-   
+    client_ip, _ = get_client_ip(request)
+     
+    print(client_ip)
+     # Replace YOUR_TOKEN with your actual IPinfo API token
+    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
+    # Make a request to IPinfo API
+    response = requests.get(api_url)
+    data = response.json()
+    print(data)
+    # Check if the IP is associated with a VPN or proxy
+    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
+        return redirect('proxy_warning_view')
 
     profile_id=request.session.get('ref_profile')
     print('id', profile_id)
