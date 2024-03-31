@@ -21,35 +21,18 @@ from ipware import get_client_ip
 import requests
 @login_required
 def profile(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
-
+    data=Profile.objects.get(user=request.user)
+    usercommession=data.commession==0
+    
+    totalbalance=data.balance
     currentuser=Profile.objects.filter(user=request.user)
-    return render(request,'profile.html',{'currentuser':currentuser})
+    return render(request,'profile.html',{'currentuser':currentuser,'usercommession':usercommession,'totalbalance':totalbalance})
 @login_required
 def edit_profile(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+    data=Profile.objects.get(user=request.user)
+    totalbalance=data.balance
+    usercommession=data.commession==0
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -58,7 +41,7 @@ def edit_profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            return redirect('/')
+            return redirect('profile')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -66,25 +49,16 @@ def edit_profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'usercommession':usercommession,
+        'totalbalance':totalbalance
     }
 
-    return render(request, 'editprofile.html', context)
+    return render(request, 'editprofile.html', context,)
 
 
 def oursites(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     allsite=Oursites.objects.all()
     category=Category.objects.all()
     toprated = Oursites.objects.all()[:2]
@@ -97,23 +71,12 @@ def oursites(request):
  
 @login_required
 def userdashboard(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     data=Profile.objects.get(user=request.user)
     comtotal=data.commession
     totalbalance=data.balance
     userbalace=data.balance==0
+    usercommession=data.commession==0
     totalwithdraw=data.withdrawl_amount
     user_withdrawal_requests = Withdrawl_Request.objects.filter(user=request.user)
     withdrawal_dates = list(user_withdrawal_requests.values_list('created_at', flat=True))
@@ -127,20 +90,9 @@ def userdashboard(request):
    
     withdraw=Withdrawl_Request.objects.filter(user=request.user)
     Approved=Withdrawl_Request.objects.filter(user=request.user,status='Approved') 
-    return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye})
+    return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
 def sites_by_category(request, category):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     sites = Oursites.objects.filter(category=category)
     if request.htmx:
         return render(request, 'webgenrator/categorypage.html',{'sites': sites})
@@ -150,18 +102,7 @@ def sites_by_category(request, category):
  
 
 def ourteam(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     if request.htmx:
         return render(request, "webgenrator/teampage.html" )
     else:
@@ -169,18 +110,7 @@ def ourteam(request):
    
 
 def contact(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")
@@ -197,70 +127,23 @@ def contact(request):
         return render(request, 'contact.html')
 
 def about(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     if request.htmx:
         return render(request, "webgenrator/aboutpage.html")
     else:
         return render(request, 'searchpage.html')
 @login_required
 def preview1(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     return render(request, 'AdvertisementPreview1.html')
 @login_required
 def preview3(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     return render(request, 'portfoliopreview.html')
 @login_required
 def userpurchase(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+    
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True)
-
-
-  
     website_links = []
 
     for purchase in user_purchases:
@@ -272,23 +155,15 @@ def userpurchase(request):
        return render(request, 'userpurchasesite.html',{'website_links':website_links})
 @login_required
 def Advertising_web(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data1 = response.json()
-    print(data1)
+    
     # Check if the IP is associated with a VPN or proxy
-    if  data1['security']['vpn']or data1['security']['proxy'] or data1['security']['tor'] or data1['security']['relay']==True:
-        return redirect('proxy_warning_view')
+     
     try:
         SitePurchase.objects.filter(user=request.user)
         
     except  Advertising.DoesNotExist:
         return redirect('/')
+    
     data=Advertising.objects.filter(user=request.user)
     
         
@@ -297,18 +172,7 @@ def Advertising_web(request):
  
 @login_required
 def sitedetail(request, id):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     site_detail = get_object_or_404(Oursites, id=id)
     product = Oursites.objects.get(pk=id)
     ratings = Rating.objects.filter(product=id)
@@ -344,18 +208,7 @@ def sitedetail(request, id):
         return render(request, 'webdetail.html', {'detail': site_detail, 'related_site': related_site ,'pub_key':pub_key,'has_purchased':has_purchased,'form':form,'rated':rated,'average_rating':average_rating})
 @login_required
 def rating(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     if request.method == 'POST':
         rating_value = request.POST.get('rating')
         rating_int=int(rating_value)
@@ -379,18 +232,7 @@ def rating(request):
 
 @login_required
 def start_order(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     data = json.loads(request.body)
     print(data)
     name = data.get('name', '')
@@ -494,19 +336,6 @@ def payment_cancel(request):
     return render(request,'fail.html')
 @login_required
 def Asper(request):
-    
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     siteisexist= Advertising.objects.filter(user=request.user).exists()
     if siteisexist:
         # Redirect the user to an informational page
@@ -516,48 +345,30 @@ def Asper(request):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            # Redirect or do something else on successful form submission
+            return redirect('Advertising_web')
     else:
         form =  Advertisingtem()
      
          
     return render(request, 'Advertisingform.html',{'form':form})
 @login_required
-def yourportfolio(request):
-    client_ip, _ = get_client_ip(request)
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+def portfolio(request):
+    
     try:
         data = Portfolio.objects.filter(user=request.user)
     except  Portfolio.DoesNotExist:
         return redirect('/')
     return render(request, 'portfolio.html',{'data':data})
 @login_required
-def portfolio(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+def yourportfolio(request):
+    
     try:
-      data = Portfolio.objects.filter(user=request.user)
+        Portfolio.objects.filter(user=request.user)
     except  Portfolio.DoesNotExist:
         return redirect('/')
+    ifuserdataexist=Portfolio.objects.filter(user=request.user).exists()
+    if ifuserdataexist:
+        return redirect('portfolio')
     if request.method == 'POST':
         form = Portfoliotemplate( request.POST, request.FILES)
         if form.is_valid():
@@ -570,18 +381,7 @@ def portfolio(request):
     return render(request, 'portfoliotemform.html',{'form':form})
 @login_required
 def edit_Portfolio(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     try:
         portfolio = Portfolio.objects.get(user=request.user)
     except Portfolio.DoesNotExist:
@@ -601,18 +401,7 @@ def edit_Portfolio(request):
     return render(request, 'editportfolio.html',{'form':form})
 @login_required
 def edit_Advertising(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     try:
         Adver = Advertising.objects.get(user=request.user)
     except  Advertising.DoesNotExist:
@@ -632,18 +421,7 @@ def edit_Advertising(request):
     return render(request, 'editadvertising.html',{'form':form})
 @login_required
 def search(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     search_text = request.POST.get('search')
     results2 = Category.objects.filter(name__icontains=search_text)
     results = Oursites.objects.filter(name__icontains=search_text)
@@ -682,18 +460,7 @@ def check_password(request):
 
 @login_required
 def withdraw(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     pro=Profile.objects.get(user=request.user)
     payout=int(pro.balance)
     print(payout)
@@ -748,19 +515,10 @@ def withdraw(request):
 
 @login_required
 def referal(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
-  
+    data=Profile.objects.get(user=request.user)
+     
+    usercommession=data.commession==0
         # Get the user's profile
     profile = get_object_or_404(Profile, user=request.user)
 
@@ -773,20 +531,9 @@ def referal(request):
         # Get commission/earning
     my_earning = profile.commession
 
-    return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning})
+    return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning,'usercommession':usercommession})
 def delete_user_site(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     # Delete site purchases of the user
     SitePurchase.objects.filter(user=request.user).delete()
     Rating.objects.filter(user=request.user).delete()
@@ -797,18 +544,7 @@ def proxy_warning_view(request):
     return render(request, 'ipblock.html')
 @login_required
 def deployecheckout(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     try:
         SitePurchase.objects.filter(user=request.user)
     except   SitePurchase.DoesNotExist:
@@ -819,18 +555,7 @@ def deployecheckout(request):
     return render(request,'deployecheckout.html',{'pub_key':pub_key,'rates':rates})
 @login_required
 def deploye_order(request):
-    client_ip, _ = get_client_ip(request)
      
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
     data = json.loads(request.body)
     print(data)
     name = data.get('name', '')
@@ -911,18 +636,7 @@ def payment_success2(request):
      
 @login_required 
 def Deployesite(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+    
     try:
         siteuser = Deploye.objects.get(user=request.user)
     except  Deploye.DoesNotExist:
@@ -933,7 +647,7 @@ def Deployesite(request):
                                    instance=siteuser)
         if  form.is_valid():
             form.save()
-            return redirect('/userpurchase/')
+            return redirect('mysites')
 
     else:
         form =DeployesiteForm(instance=siteuser)
@@ -988,18 +702,8 @@ def payment_success2(request):
         return HttpResponse(status=400)
 @login_required
 def history(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+    data=Profile.objects.get(user=request.user)
+    usercommession=data.commession==0
     usersite=Deploye.objects.filter(user=request.user)
     user_withdrawal_requests = Withdrawl_Request.objects.filter(user=request.user)
     user_purchase=SitePurchase.objects.filter(user=request.user)
@@ -1007,20 +711,10 @@ def history(request):
     total_purchase_amount = sum(plan.paid_amount for plan in purchase_plans)
     deploye_plan=Deploye.objects.filter(user=request.user)
     total_deploye = sum(plan.paid_amount for plan in deploye_plan)
-    return render(request,'history.html',{'user_withdrawal_requests':user_withdrawal_requests,'user_purchase':user_purchase,'usersite':usersite,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye})
+    return render(request,'history.html',{'user_withdrawal_requests':user_withdrawal_requests,'user_purchase':user_purchase,'usersite':usersite,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
 @login_required
 def mysites(request):
-    client_ip, _ = get_client_ip(request)
-     
-    print(client_ip)
-     # Replace YOUR_TOKEN with your actual IPinfo API token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to IPinfo API
-    response = requests.get(api_url)
-    data = response.json()
-    print(data)
-    # Check if the IP is associated with a VPN or proxy
-    if  data['security']['vpn']or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']==True:
-        return redirect('proxy_warning_view')
+    data=Profile.objects.get(user=request.user)
+    usercommession=data.commession==0
     usersite=Deploye.objects.filter(user=request.user)
-    return render(request,'sitestatus.html',{'usersite':usersite})
+    return render(request,'sitestatus.html',{'usersite':usersite,'usercommession':usercommession})

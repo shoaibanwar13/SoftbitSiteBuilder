@@ -21,9 +21,13 @@
                   <div class="settings-profile-name-info">
                     <h2 class="settings-profile-name">{{request.user.username}}</h2><div class="settings-profile-info">{{user.profile.profession}}</div>
                   </div>
+                  
+                  {% if userbalace %}
+                   
                   <div class="settings-profile-buttons-wrapper">
                     <a href="#" class="upload-new-button w-button"> Balance ${{user.profile.balance}}</a><a href="#" class="delete-avatar-button w-button"> Withdrawls ${{user.profile.withdrawl_amount}}</a>
                   </div>
+                  {% endif %}
                   <p class="settings-paragraph-text">{{user.profile.bio}}</p>
                   <div class="settings-socal-icons-wrapper">
                     <a href="{{user.profile.facebook}}" target="_blank" class="settings-socal-icon-link-block w-inline-block"><div></div></a><a href="{{user.profile.skpye}}" target="_blank" class="settings-socal-icon-link-block w-inline-block"><div></div></a><a href="{{user.profile.twitter}}" target="_blank" class="settings-socal-icon-link-block w-inline-block"><div></div></a><a href="{{user.profile.linkedin}}" target="_blank" class="settings-socal-icon-link-block mr0 w-inline-block"><div></div></a>
@@ -71,7 +75,7 @@
   {% bootstrap_form u_form      %}
   {% bootstrap_form p_form        %}
 
-  <input type="submit" value="Update Profile" class="settings-button w-button">
+  <input type="submit" value="Update Profile"  class="filled-btn full-width w-button">
     
  
  

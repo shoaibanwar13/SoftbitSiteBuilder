@@ -19,7 +19,7 @@ urlpatterns = [
     path('oursites/', oursites, name='oursites'),
     path('Deployesite/', Deployesite, name='Deployesite'),
     path('deployecheckout/', deployecheckout, name='deployecheckout'),
-    path('delete_user_site/', delete_user_site, name='delete_user_site'),
+    path('delete_user_site /', delete_user_site, name='delete_user_site'),
     path('userdashboard/', userdashboard, name='userdashboard'),
     path('deploye_order/', deploye_order, name='deploye_order'),
      

@@ -38,27 +38,33 @@
               <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633a89d9689e3861f4b3c74b_Clouse.svg" loading="lazy" alt="" class="clouse" />
             </div>
           </div>
+          {% if usercommession %} {% else %}
           <div class="sidebar-menu-wrapper">
             <a href="/userdashboard/" class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
               <div class="sidebar-menu-text-block">Dashboard</div>
+              {% endif %}
             </a><a href="/referal/" class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
+             
               <div class="sidebar-menu-text-block">My Referral</div>
             </a><a href="/userpurchase/" class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
+             
               <div class="sidebar-menu-text-block">My Purchase</div>
+              {% if usercommession %} {% else %}
             </a><a href="/userdashboard/" aria-current="page" class="sidebar-menu-link-block w-inline-block w--current">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
               <div class="sidebar-menu-text-block">Withdrawl</div>
+              {% endif %}
             </a><a href="/mysites/" class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
@@ -166,6 +172,15 @@
       {% endfor %}>
  
      {% block content %}{% endblock  %}
+     <div class="footer">
+      <div class="container">
+        <div class="footer-details-wrapper">
+          <div class="footer-text-block">
+            @ SoftBit Website Builder<a href="#" target="_blank" class="footer-text-link">.SSL Team  </a>・<a href="#" class="footer-text-link">License</a>・Powered by <a href="#" target="_blank" class="footer-text-link">JSA Technique and Technology </a>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
     <div data-w-id="ad850566-76af-f3eb-5277-07c1948f8ecc" class="preloader">
       <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f078598f0a4fd865d7c9833_SoftBit%20-%20Light%20v2.svg" loading="lazy" data-w-id="ad850566-76af-f3eb-5277-07c1948f8ecd" alt="" class="preloader-image"  style="width: 100px;"/>

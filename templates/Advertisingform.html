@@ -41,28 +41,19 @@
 {% bootstrap_messages %}
 
 {# Display a form #}
-<form class="form" enctype="multipart/form-data" hx-get="{% url 'edit_Advertising' %}" hx-indicator="#indicator" >
+<form action="/Asper/" method="post" class="form" enctype="multipart/form-data" >
   {% csrf_token %}
 
    
   {% bootstrap_form form        %}
 
-   <input type="submit" value="Create Site" class="text-field select w-select" style="background-color: black;">
+  <input type="submit" value="Create Site"  class="filled-btn full-width w-button">
     
+ 
  
 
 </form>
-<img id="indicator" class="htmx-indicator" src="https://codemyui.com/wp-content/uploads/2017/09/rotate-pulsating-loading-animation.gif" >
-                          <div class="w-form-done">
-                            <div>Thank you! Your submission has been received!</div>
-                          </div>
-                          <div class="w-form-fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                          
                    
                 
                   
