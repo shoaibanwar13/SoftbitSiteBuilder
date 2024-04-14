@@ -519,10 +519,7 @@ def Medipark(request):
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
     if user_purchases==False:
         return redirect('/')
-    try:
-        Hospital.objects.get(user=request.user)
-    except  Hospital.DoesNotExist:
-        return redirect('/')
+    
     data=Hospital.objects.filter(user=request.user).exists()
     if data==True:
         return redirect('MediparkPreview')
