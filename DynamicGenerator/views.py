@@ -350,7 +350,7 @@ def delete_Advertising_site(request,id):
     Advertising.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
 @login_required
-def preview3(request):
+def preview2(request):
     return render(request, 'portfoliopreview.html')
 @login_required
 def portfolio(request):
@@ -479,7 +479,7 @@ def edit_Portfolio(request):
 def delete_Portfolio_site(request,id):
     Portfolio.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
-def preview4(request):
+def preview3(request):
     return render(request,'mediparkpreview.html')
 @login_required
 def MediparkPreview(request):
