@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +24,7 @@ SECRET_KEY = 'django-insecure-4ko^6x&x(!-vzs^ehj$iduld85pucz@iycalk5k*ykqn^_$n%c
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#softbit-website-builder.onrender.com
 
 ALLOWED_HOSTS = ['softbit-website-builder.onrender.com']
 
@@ -53,13 +54,13 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Softbit.com",
+    "site_title": "Softbit Web. Builder",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Softbit Freelancer",
+    "site_header": "Softbit Web. Builder",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Softbit Freelancer",
+    "site_brand": "Softbit W.B",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     
@@ -134,6 +135,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES['default']=dj_database_url.parse("postgres://softbit_website_builder_user:3VDjfTDbBIRugdeFbuS8tfrqOPKZOBsV@dpg-coe3j3gl6cac73btd8q0-a.oregon-postgres.render.com/softbit_website_builder")
 
 
 # Password validation

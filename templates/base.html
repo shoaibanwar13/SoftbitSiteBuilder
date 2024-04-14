@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{% block title %} Home| J.AI Frelancer {% endblock title %}</title>
+    <title>{% block title %} Softbit | {% endblock title %}</title>
     <meta
         content="Future but just as terrestrial explorers have always led the way for settlers, this will also happen extraterrestrially. but not quite touching; however, when listening to the tape, many people do not hear the &#x27;a. if we survive, our time will be famous for two reasons that."
         name="description" />
@@ -52,9 +52,10 @@
         <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
         <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet">
         <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="51c44e31-1158-445d-9ebf-93878a3b3f3d";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+        
 </head>
 
-<body  >
+<body  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'  >
     <div   class="page-wrapper">
         <div class="page-height-indicator"></div>
         <div id="To-Top" class="to-top-container" style="left: 5%;"><a style="text-decoration: none; color: white;"  href="#To-Top" class="outlined-btn to-top-btn w-inline-block"><img
@@ -65,37 +66,47 @@
             <div class="container nav-flex" >
                 <div class="brand-wrapper"><a style="text-decoration: none; color: white;"  href="/" class="brand w-nav-brand"><img
                       src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f078598f0a4fd865d7c9833_SoftBit%20-%20Light%20v2.svg"
-                      alt="" class="logo" /></a><a style="text-decoration: none; color: white;"  style="text-decoration: none; color: white;" href="#"     class="hiring-label">Websi&#x27;te Builder!</a></div>
+                      alt="" class="logo" /></a><a style="text-decoration: none; color: white;"  style="text-decoration: none; color: white;" href="#"     class="hiring-label">Website&#x27;s Builder!</a></div>
                 <nav role="navigation" class="nav-menu w-nav-menu">
                   <div class="nav-menu-content">
                     <div class="nav-links-wrapper">
-                      <div class="nav-links-wrapper"><a style="text-decoration: none; color: white;"  href="oursites"  hx-target="#change" class="nav-link-wrap w-inline-block">
-                        <div>Build Yor Site</div>
-                        <a style="text-decoration: none; color: white;"  href=""  hx-get="{% url 'about' %}" hx-push-url="about" hx-target="#change"  class="nav-link-wrap w-inline-block">
-                          <div>About Us</div>
+                      <div class="nav-links-wrapper">
+                        <a style="text-decoration: none; color: white;"  href="#"     class="nav-link-wrap w-inline-block">
+                          <div> <button id="searchIcon" class=" top-4   flex items-center justify-center w-12 h-12 text-white bg-blue-600 rounded-full shadow-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                          </button></div>
+                        
+                        <a style="text-decoration: none; color: white;"  href="" hx-get="{% url 'oursites'   %}" hx-push="{% url 'oursites'   %}" hx-target="#change"   class="nav-link-wrap w-inline-block">
+                          <div>Build Yor Site</div>
+                        <a style="text-decoration: none; color: white;"  href=""  hx-get="{% url 'sites_by_category' 1  %}" hx-push="{% url 'sites_by_category' 1  %}" hx-target="#change"  class="nav-link-wrap w-inline-block">
+                          <div>Advertising</div>
                     </a>
-                    <a style="text-decoration: none; color: white;"  href=""  hx-get="{% url 'contact' %}" hx-push-url="contact" hx-target="#change"  class="nav-link-wrap w-inline-block">
-                      <div>Contact Us</div>
+                    <a style="text-decoration: none; color: white;"  href=""  hx-get="{% url 'sites_by_category' 2  %}" hx-push="{% url 'sites_by_category' 3  %}" hx-target="#change"  class="nav-link-wrap w-inline-block">
+                      <div>Portfolios</div>
                 </a>
+                <a style="text-decoration: none; color: white;"  href="" id="search-icon"  class="nav-link-wrap w-inline-block">
+                  
+            </a> 
+                <a style="text-decoration: none; color: white;"  href=""  hx-get="{% url 'sites_by_category' 3 %}" hx-push="{% url 'sites_by_category' 1  %}" hx-target="#change"  class="nav-link-wrap w-inline-block">
+                  <div>Medical</div>
+            </a>
                       <div href="#" class="nav-link-wrap dropdown">
                         <div class="dropdown-flex">
                           <div>Quick Link</div><img
                             src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0ea8fc9508d381ec41a2e0_chevron-down-white.svg"
                             alt="" class="dropdown-icon" />
                         </div>
-                        <div class="custom-dropdown-list"><a style="text-decoration: none; color: white;"  href=""  href="#"  hx-get="{% url 'contact' %}" hx-push-url="contact" hx-target="#change"  aria-current="page"
+                        <div class="custom-dropdown-list"><a style="text-decoration: none; color: white;"  href=""  href="#"  hx-get="{% url 'contact' %}" hx-push="contact" hx-target="#change"  aria-current="page"
                             class="dropdown-link w-inline-block w--current">
                             <div>Contact Us </div>
-                          </a><a style="text-decoration: none; color: white;"   href="#"  hx-get="{% url 'about' %}" hx-push-url="about" hx-target="#change"  class="dropdown-link w-inline-block">
+                          </a><a style="text-decoration: none; color: white;"   href="#"  hx-get="{% url 'about' %}" hx-push="about" hx-target="#change"  class="dropdown-link w-inline-block">
                             <div>About Us</div>
-                          </a> <a style="text-decoration: none; color: white;"  href="" href="" hx-get="{% url 'ourteam' %}" hx-push-url="ourteam" hx-target="#change" class="dropdown-link w-inline-block">
+                          </a> <a style="text-decoration: none; color: white;"  href="" href="" hx-get="{% url 'ourteam' %}" hx-push="ourteam" hx-target="#change" class="dropdown-link w-inline-block">
                             <div>Ourteam</div>  
                           </a>  </div>
                       </div>
-                       
-                      
-                      </div>
-                    </div> 
                       {% if request.user.is_authenticated %}
                       <div href="#" class="nav-link-wrap dropdown">
                         <div class="dropdown-flex">
@@ -103,7 +114,7 @@
                             src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0ea8fc9508d381ec41a2e0_chevron-down-white.svg"
                             alt="" class="dropdown-icon" />
                         </div>
-                        <div class="custom-dropdown-list"><a style="text-decoration: none; color: white;"  href="/userpurchase/" class="dropdown-link w-inline-block">
+                        <div class="custom-dropdown-list"><a style="text-decoration: none; color: white;"  href="" hx-get="userpurchase" hx-push="userpurchase"  hx-target="#change"  class="dropdown-link w-inline-block">
                             <div>My sites</div>
                           </a><a style="text-decoration: none; color: white;"  href="/history/"
                             class="dropdown-link w-inline-block">
@@ -116,6 +127,12 @@
                             class="dropdown-link w-inline-block">
                             <div>My Refferal</div>
                           </a></div>
+                          
+                      
+                      </div>
+                    </div> 
+                    
+                      
                     <div class="nav-btn-wrapper"><a style="text-decoration: none; color: white;"  href="#" class="close-overlay-button w-inline-block"><img
                       src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f077a6ea949dfb6a02f5bf6_arrow-right-white.svg"
                       alt="" class="close-menu-icon" /></a><a style="text-decoration: none; color: white;"  href=""
@@ -148,10 +165,37 @@
                         alt="" class="burger-icon" /></div>
                         
             </div>
+ 
+
+            <div id="searchPopup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 hidden">
+              <div class="bg-black rounded-lg shadow-lg p-8 text-white relative" style="width: 650px;">
+                <h1>Search Here What You Want</h1>
+                <button id="closeButton" class="absolute top-2 right-2 text-white hover:text-gray-300 focus:outline-none">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+                <form class="header-search w-form">
+                  {% csrf_token %}
+                <input type="text" id="searchInput" placeholder="Search..." class="w-full px-4 py-2 bg-white bg-opacity-25 border border-blue-300 rounded-md focus:outline-none focus:border-blue-500 mb-4"
+                hx-post="{% url 'mainpagesearch' %}" 
+                hx-target='#searchResults'
+                hx-trigger="keyup changed delay:500ms"
+                name="search"
+                >
             
+                <!-- Result Template -->
+                <div id="searchResults" class="text-white">
+                  
+                </div>
+              </div>
+            </div>
+
+
         </div>
-        
-  </form>
+    
+
+
         <main>
          
           <div id="change">
@@ -169,50 +213,70 @@
                                     src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f078598f0a4fd865d7c9833_SoftBit%20-%20Light%20v2.svg"
                                     alt="" class="logo in-footer" /></a>
                             <p class="footer-text">We are a SaaS startup that&#x27;s focused on simplifying user
-                                analytics.</p>
+                                Business.</p>
                         </div>
                         <div class="footer-grid-block">
-                            <div class="footer-title">Navigation</div><a style="text-decoration: none; color: white;"  href="/" class="footer-link">Intro</a><a style="text-decoration: none; color: white;" 
-                                href="/about" class="footer-link">About</a><a style="text-decoration: none; color: white;"  href="/blog-list"
-                                class="footer-link">Blog</a><a style="text-decoration: none; color: white;"  href="/contact" class="footer-link">Contact</a>
+                            <div class="footer-title">Navigation</div><a style="text-decoration: none; color: white;"  href="/oursites/" class="footer-link">Build Your Site</a><a style="text-decoration: none; color: white;" 
+                                href="/about/" class="footer-link">About</a><a style="text-decoration: none; color: white;"  href="/Oursites/"
+                                class="footer-link">Our Sites</a><a style="text-decoration: none; color: white;"  href="/contact/" class="footer-link">Contact</a>
                         </div>
                         <div class="footer-grid-block">
-                            <div class="footer-title">Template</div><a style="text-decoration: none; color: white;"  href="/template-files/getting-started"
-                                class="footer-link">Getting Started</a><a style="text-decoration: none; color: white;"  href="/template-files/style-guide"
-                                class="footer-link">Style Guide</a><a style="text-decoration: none; color: white;"  href="/template-files/licensing"
-                                class="footer-link">Licensing</a><a style="text-decoration: none; color: white;"  href="/template-files/changelog"
-                                class="footer-link">Changelog</a>
+                            <div class="footer-title">Important Links</div><a style="text-decoration: none; color: white;"  href="/Termsandpolicies/"
+                                class="footer-link">Terms and Policy</a><a style="text-decoration: none; color: white;"  href="/PrivacyandPolicy/"
+                                class="footer-link">Privcy</a><a style="text-decoration: none; color: white;"  href="/Userguide/"
+                                class="footer-link">User Guide</a><a style="text-decoration: none; color: white;"  href="/Affliatemarketing/"
+                                class="footer-link">Affiliate Program</a>
                         </div>
                         <div class="footer-grid-block">
                             <div class="footer-address-block aling-top"><img
                                     src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0dc6844ceca0bfc12d44e0_explore-white.svg"
                                     alt="" class="footer-address-icon" />
-                                <div class="footer-address-text">3880 Braxton Street<br />Chicago, il 60606<br />United
-                                    States</div>
+                                <div class="footer-address-text">PGEHS<br />PHASE II, Plot 102<br />Lahore,Punjab 
+                                    Pakistan</div>
                             </div>
                             <div class="footer-address-block"><img
                                     src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0efaf7bfc9742306eff8c5_envelope-white.svg"
                                     alt="" class="footer-address-icon" /><a style="text-decoration: none; color: white;"  href="mailto:company@domian.com"
-                                    class="footer-address-text">info@softbit.com</a></div>
+                                    class="footer-address-text">Infosoftbitsitebuilder@gmail.com</a></div>
                             <div class="footer-address-block"><img
                                     src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0efaf7a1c9062047ecbfd8_phone-white.svg"
                                     alt="" class="footer-address-icon" /><a style="text-decoration: none; color: white;"  href="#"
-                                    class="footer-address-text">800-000-0000</a></div>
+                                    class="footer-address-text">03070033237</a></div>
                         </div>
                     </div>
                 </div>
                 <div class="footer-bottom-block">
                     <div class="copyright-block">
-                        <div class="copyright-text white">© SoftBit</div>
-                        <div class="copyright-text">Template made by <a style="text-decoration: none; color: white;"  href="https://lightninglab.design"
-                                target="_blank" class="copyright-link">Lightning Lab</a> and proudly powered by <a style="text-decoration: none; color: white;" 
-                                href="https://webflow.com" target="_blank" class="copyright-link">Webflow.</a> |
-                            Template Version: <a style="text-decoration: none; color: white;"  href="/template-files/changelog" class="copyright-link">1.4</a></div>
+                        <div class="copyright-text white">© SoftBit Site Builder</div>
+                        <div class="copyright-text">Design &  made by <a style="text-decoration: none; color: white;"  href="https://lightninglab.design"
+                                target="_blank" class="copyright-link">UE SSL Technology</a> and proudly powered by <a style="text-decoration: none; color: white;" 
+                                href="#" target="_blank" class="copyright-link">UE SSL Team  .</a> |
+                            Web App  Version: <a style="text-decoration: none; color: white;"  href="/template-files/changelog" class="copyright-link">1.0</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchIcon = document.getElementById("searchIcon");
+        const searchPopup = document.getElementById("searchPopup");
+        const searchInput = document.getElementById("searchInput");
+        const closeButton = document.getElementById("closeButton");
+      
+        searchIcon.addEventListener("click", function () {
+          searchPopup.classList.toggle("hidden");
+          searchInput.focus();
+        });
+      
+        closeButton.addEventListener("click", function () {
+          searchPopup.classList.add("hidden");
+        });
+      });
+      
+      
+      
+    </script>
     <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=5f0763bf575ff70f2f96ccaa"
         type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>

@@ -82,9 +82,76 @@ class  UpdateAdvertisingtem(forms.ModelForm):
                   'description_4', 'location', 'email', 'whatsapp_number', 'facebook_link', 'youtube_link',
                   'instagram_link']
         
+from django import forms
+from .models import Hospital
 
+class HospitalForm(forms.ModelForm):
+    class Meta:
+        model = Hospital
+        fields = [
+            'name',
+            'Logo',
+            'Slogan',
+            'Short_Intro',
+            'Doctors',
+            'Patient_Beds',
+            'Health_Programs',
+            'Whats_App_Number',
+            'Video',
+            'Service_Slogan',
+            'Detail_About_Service',
+            'General_Care_Image',
+            'General_Care_Info',
+            'Pediatric_Care_Image',
+            'Pediatric_Care_Info',
+            'Neurology_Image',
+            'Neurology_Info',
+            'Womens_Health_Image',
+            'Womens_Health_Service_Info',
+            'Emergency_Care_Image',
+            'Emergency_Care_Info',
+            'Laboratory_Image',
+            'Laboratory_Info',
+            'About_Treatments',
+            'First_Pediatrics_Doctor_Image',
+            'First_Pediatrics_Doctor_Name',
+            'First_Pediatrics_Doctor_Expertise',
+            'Second_Pediatrics_Doctor_Image',
+            'Second_Pediatrics_Doctor_Name',
+            'Second_Pediatrics_Doctor_Expertise',
+            'Neurology_Doctor_Image',
+            'Neurology_Doctor_Name',
+            'Neurology_Doctor_Expertise',
+            'Advanced_Diagnostic_Doctor_Image',
+            'Advanced_Diagnostic_Doctor_Name',
+            'Advanced_Diagnostic_Doctor_Expertise',
+            'Rapid_Response_Experts_Doctor_Image',
+            'Rapid_Response_Experts_Doctor_Name',
+            'Rapid_Response_Experts_Doctor_Expertise',
+            'Hospital_Image',
+            'Hospital_Address',
+            'Laboratory_Name',
+            'Monday_to_Friday',
+            'Saturday_Timing',
+            'Sunday_Timing',
+            'Laboratory_Address',
+            'Laboratory_Video',
+            'Patient_Image',
+            'Doctor_Image',
+            'Question1_Accept_Insurance_Policy',
+            'Question2_Is_Emergency_Unit_Available',
+            'Question3_Provide_Telehealth_Health',
+            'Email',
+            'Youtube',
+            'Facebook',
+            'LinkedIn',
+        ]
 
-         
+class HospitalEditForm(forms.ModelForm):
+    class Meta:
+        model = Hospital
+        fields = HospitalForm.Meta.fields  # Use the same fields as the creation form
+
 
 
 class SitePurchaseForm(forms.ModelForm):

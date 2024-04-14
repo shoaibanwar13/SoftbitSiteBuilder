@@ -10,13 +10,13 @@
                 {% csrf_token %}
                 <input type="text" class="text-field big w-input" maxlength="256"   data-name="Demo Sign Up Email" placeholder="Search...." id="Demo-Sign-Up-Email" required=""\
               hx-post="{% url 'search' %}" 
-    hx-target='#results2'
+    hx-target='#results'
     hx-trigger="keyup changed delay:500ms"
     name="search"
               />
               <input type="hidden" value="Subscribe" data-wait="Please wait..." class="submit-btn no-margin-top full-width-mobile w-button" />
              
-        
+        <div id="#results"></div>
           </div>
         </div>
       </div>

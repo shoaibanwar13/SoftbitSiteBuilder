@@ -8,8 +8,8 @@ import re
 from django.conf import settings
 import json
 from django.shortcuts import render,redirect
-from  .forms import ProfileUpdateForm,UserUpdateForm,Portfoliotemplate,UpdatePortfoliotemplate,Advertisingtem,UpdateAdvertisingtem,RatingForm,DeployesiteForm
-from  .models import Profile,Withdrawl_Request,Deploye,Contact
+from  .forms import ProfileUpdateForm,UserUpdateForm,Portfoliotemplate,UpdatePortfoliotemplate,Advertisingtem,UpdateAdvertisingtem,RatingForm,DeployesiteForm,HospitalForm,HospitalEditForm
+from  .models import Profile,Withdrawl_Request,Deploye,Contact,Hospital,team,Offers,Co_Founder
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -19,9 +19,39 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from ipware import get_client_ip
 import requests
+def proxy_warning_view(request):
+    return render(request, 'ipblock.html')
+def check_username(request):
+    username=request.POST.get('username')
+    if get_user_model().objects.filter(username=username).exists():
+       return  HttpResponse("<div style='color:red;'>Username Already Exist </div>")
+    else:
+        return HttpResponse("<div style='color:green;'>Username is Available </div>")
+def check_email(request):
+    email=request.POST.get('email')
+    if get_user_model().objects.filter(email=email).exists():
+       return  HttpResponse("<div style='color:red;'>Email Already Used</div>")
+    else:
+        return HttpResponse("<div style='color:green;'>Available </div>")
+from django.http import JsonResponse
+
+def check_password(request):
+    password = request.POST.get('password1')
+    confirm_password = request.POST.get('password2')
+    if (
+            len(password) < 8 or  # Check if password is at least 8 characters long
+            not re.search(r'[a-z]', password) or  # Check if password contains at least one lowercase letter
+            not re.search(r'[0-9]', password) or  # Check if password contains at least one digit
+            not re.search(r'[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]', password)  # Check if password contains at least one symbol
+        ):
+        return  HttpResponse("<div style='color:white;'>Password must contain at least   one lowercase letter,  one number, and be at least 8 characters long.(For Security Please Add at least one Symbol)</div>")
+    elif password != confirm_password:
+        return  HttpResponse("<div style='color:red;'>Password Not Matche</div>")
+    else:
+        return  HttpResponse("<div style='color:white;' >Password Matche</div>")
+
 @login_required
 def profile(request):
-     
     data=Profile.objects.get(user=request.user)
     usercommession=data.commession==0
     
@@ -33,9 +63,9 @@ def edit_profile(request):
     data=Profile.objects.get(user=request.user)
     totalbalance=data.balance
     usercommession=data.commession==0
-    if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
+    if request.method == 'GET':
+        u_form = UserUpdateForm(request.GET, instance=request.user)
+        p_form = ProfileUpdateForm(request.GET,
                                    request.FILES,
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
@@ -61,115 +91,19 @@ def oursites(request):
      
     allsite=Oursites.objects.all()
     category=Category.objects.all()
-    toprated = Oursites.objects.all()[:2]
+    toprated = Oursites.objects.all()[:3]
+    offer=Offers.objects.all()
     if request.htmx:
-        return render(request, 'webgenrator/webtemplate.html',{'allsite':allsite,'category':category,'toprated':toprated})
+        return render(request, 'webgenrator/webtemplates.html',{'allsite':allsite,'category':category,'toprated':toprated,'offer':offer})
     else:
           return render(request, 'webtemplates.html',{'allsite':allsite,'category':category,'toprated':toprated})
-    
-  
- 
-@login_required
-def userdashboard(request):
-     
-    data=Profile.objects.get(user=request.user)
-    comtotal=data.commession
-    totalbalance=data.balance
-    userbalace=data.balance==0
-    usercommession=data.commession==0
-    totalwithdraw=data.withdrawl_amount
-    user_withdrawal_requests = Withdrawl_Request.objects.filter(user=request.user)
-    withdrawal_dates = list(user_withdrawal_requests.values_list('created_at', flat=True))
-    withdrawal_dates_json = json.dumps([[date.year, date.month - 1, date.day] for date in withdrawal_dates])
-
-    print(withdrawal_dates_json)
-    purchase_plans = SitePurchase.objects.filter(user=request.user)
-    total_purchase_amount = sum(plan.paid_amount for plan in purchase_plans)
-    deploye_plan=Deploye.objects.filter(user=request.user)
-    total_deploye = sum(plan.paid_amount for plan in deploye_plan)
-   
-    withdraw=Withdrawl_Request.objects.filter(user=request.user)
-    Approved=Withdrawl_Request.objects.filter(user=request.user,status='Approved') 
-    return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
 def sites_by_category(request, category):
      
     sites = Oursites.objects.filter(category=category)
     if request.htmx:
         return render(request, 'webgenrator/categorypage.html',{'sites': sites})
     else:
-         return render(request, 'category.html', {'sites': sites})
-    
- 
-
-def ourteam(request):
-     
-    if request.htmx:
-        return render(request, "webgenrator/teampage.html" )
-    else:
-         return render(request, 'ourteam.html')
-   
-
-def contact(request):
-     
-    if request.method=="POST":
-        name=request.POST.get("name")
-        email=request.POST.get("email")
-        message=request.POST.get("message")
-        phone=request.POST.get("phone")
-        myquery=Contact(name=name,email=email,message=message,phone=phone)
-        myquery.save()
-        messages.success(request, 'Thank You For Contacting With Us! We will Back Soon!!! ')
-        redirect('contact.html')
-      
-    if request.htmx:
-        return render(request, "webgenrator/contactpage.html")
-    else:
-        return render(request, 'contact.html')
-
-def about(request):
-     
-    if request.htmx:
-        return render(request, "webgenrator/aboutpage.html")
-    else:
-        return render(request, 'searchpage.html')
-@login_required
-def preview1(request):
-     
-    return render(request, 'AdvertisementPreview1.html')
-@login_required
-def preview3(request):
-     
-    return render(request, 'portfoliopreview.html')
-@login_required
-def userpurchase(request):
-    
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True)
-    website_links = []
-
-    for purchase in user_purchases:
-         
-        website_links.append({'name': purchase.name, 'link': purchase.name ,'price':purchase.paid_amount})
-    if request.htmx:
-        return render(request, "webgenrator/purchase.html",{'website_links':website_links})
-    else:
-       return render(request, 'userpurchasesite.html',{'website_links':website_links})
-@login_required
-def Advertising_web(request):
-    
-    # Check if the IP is associated with a VPN or proxy
-     
-    try:
-        SitePurchase.objects.filter(user=request.user)
-        
-    except  Advertising.DoesNotExist:
-        return redirect('/')
-    
-    data=Advertising.objects.filter(user=request.user)
-    
-        
-     
-    return render(request, 'advertising/advertising.html', {'data': data})
- 
+         return render(request, 'category.html', {'sites': sites}) 
 @login_required
 def sitedetail(request, id):
      
@@ -206,6 +140,25 @@ def sitedetail(request, id):
         return render(request, "webgenrator/sitedetailpage.html",{'detail': site_detail, 'related_site': related_site,'pub_key':pub_key,'has_purchased':has_purchased,'form':form,'rated':rated,'average_rating':average_rating} )
     else:
         return render(request, 'webdetail.html', {'detail': site_detail, 'related_site': related_site ,'pub_key':pub_key,'has_purchased':has_purchased,'form':form,'rated':rated,'average_rating':average_rating})
+def search(request):
+    search_text = request.POST.get('search')
+    results2 = Category.objects.filter(name__icontains=search_text)
+    results = Oursites.objects.filter(name__icontains=search_text)
+    print(results)
+    context = {"results": results,
+                'results2':results2}
+
+    return render(request, 'searchresult.html', context)
+def mainpagesearch(request):
+    search_text = request.POST.get('search')
+    results2 = Category.objects.filter(name__icontains=search_text)
+    results = Oursites.objects.filter(name__icontains=search_text)
+    print(results)
+    context = {"results": results,
+                'results2':results2}
+
+    return render(request, 'searchresults.html', context)
+
 @login_required
 def rating(request):
      
@@ -222,14 +175,435 @@ def rating(request):
         )
         rating.save()
         return redirect('oursite')
-         
+   
+def ourteam(request):
+    data=team.objects.all()
+    data2=Co_Founder.objects.all()
+     
+    if request.htmx:
+        return render(request, "webgenrator/teampage.html",{'data':data,'data2':data2})
+    else:
+         return render(request, 'ourteam.html',{'data':data,'data2':data2})
+def contact(request):
+     
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        message=request.POST.get("message")
+        phone=request.POST.get("phone")
+        myquery=Contact(name=name,email=email,message=message,phone=phone)
+        myquery.save()
+        email_subject2 = "Plan Expire Date Is Approaching "
+        message = render_to_string('SendEmail7.html', {
+                'user':request.user,
+                'name':name,
+                'phone':phone,
+                'email':email,
+                'message':message
 
+
+              
+        })
+        email_message = EmailMessage(email_subject2, message, settings.EMAIL_HOST_USER, ['shoaib4311859@gmail.com'])
+        email_message.send()
+
+        messages.success(request, 'Thank You For Contacting With Us! We will Back Soon!!! ')
+        redirect('contact.html')
+      
+    if request.htmx:
+        return render(request, "webgenrator/contactpage.html")
+    else:
+        return render(request, 'contact.html')
+
+
+
+def about(request):
+    data=team.objects.all()
+    data2=Co_Founder.objects.all()
+    if request.htmx:
+        return render(request, "webgenrator/aboutpage.html",{'data':data,'data2':data2})
+    else:
+        return render(request, 'about.html',{'data':data,'data2':data2})
+
+@login_required
+def preview1(request):
+    return render(request, 'AdvertisementPreview1.html')
+def AspersitePreview(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
+    if user_purchases==False:
+        return redirect('/')
+    data=Advertising.objects.filter(user=request.user).exists()
+    if data==False:
+        return redirect('/')
+    print(user_purchases)
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Asper'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
  
     
-
+    data=Advertising.objects.filter(user=request.user)
+     
     
-# views.py
+    return render(request,'advertising/advertising.html',{'data':data})
+@login_required
+def Asper(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
+    if user_purchases==False:
+        return redirect('/')
+    data=Advertising.objects.filter(user=request.user).exists()
+    if data==True:
+        return redirect('AspersitePreview')
+    print(user_purchases)
+      # Adjust the filter criteria as needed
+    
+    # Iterate through each user purchase
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Asper'
 
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+    if request.method == 'POST':
+        form = Advertisingtem(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('Advertising_web')
+    else:
+        form =  Advertisingtem()
+     
+         
+    return render(request, 'Advertisingform.html',{'form':form})
+@login_required
+def edit_Asper(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
+    if user_purchases==False:
+        return redirect('/')
+    try:
+        Adver = Advertising.objects.get(user=request.user)
+    except  Advertising.DoesNotExist:
+        return redirect('/')
+    print(user_purchases)
+      # Adjust the filter criteria as needed
+    
+    # Iterate through each user purchase
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Asper'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+ 
+    
+   
+    if request.method == 'POST':
+        form = UpdateAdvertisingtem(request.POST,
+                                   
+                                   request.FILES,
+                                   instance=Adver)
+        if  form.is_valid():
+            form.save()
+            return redirect('AspersitePreview')
+
+    else:
+        form =UpdateAdvertisingtem(instance=Adver)
+
+    return render(request, 'editadvertising.html',{'form':form})
+@login_required
+def delete_Advertising_site(request,id):
+    Advertising.objects.filter(user=request.user,id=id).delete()
+    return redirect('oursites')
+@login_required
+def preview3(request):
+    return render(request, 'portfoliopreview.html')
+@login_required
+def portfolio(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
+    if user_purchases==False:
+        return redirect('/')
+    try:
+        data = Portfolio.objects.filter(user=request.user)
+    except  Portfolio.DoesNotExist:
+        return redirect('/')
+    print(user_purchases)
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'yourportfolio'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+ 
+    
+    
+    return render(request, 'portfolio.html',{'data':data})
+@login_required
+def yourportfolio(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
+    if user_purchases==False:
+        return redirect('/')
+    try:
+        Portfolio.objects.filter(user=request.user)
+    except  Portfolio.DoesNotExist:
+        return redirect('/')
+    ifuserdataexist=Portfolio.objects.filter(user=request.user).exists()
+    if ifuserdataexist:
+        return redirect('portfolio')
+    print(user_purchases)
+      # Adjust the filter criteria as needed
+    
+    # Iterate through each user purchase
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'yourportfolio'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+ 
+    
+    
+    
+    if request.method == 'POST':
+        form = Portfoliotemplate( request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('/yourportfolio/')
+    else:
+        form =  Portfoliotemplate()
+     
+    return render(request, 'portfoliotemform.html',{'form':form})
+@login_required
+def edit_Portfolio(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
+    if user_purchases==False:
+        return redirect('/')
+    print(user_purchases)
+    try:
+        portfolio = Portfolio.objects.get(user=request.user)
+    except Portfolio.DoesNotExist:
+        return redirect('/')
+    
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'yourportfolio'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+ 
+    
+   
+    if request.method == 'POST':
+        form = UpdatePortfoliotemplate(request.POST,
+                                   
+                                   request.FILES,
+                                   instance=portfolio)
+        if  form.is_valid():
+            form.save()
+            return redirect('/yourportfolio/')
+
+    else:
+        form =UpdatePortfoliotemplate(instance=portfolio)
+
+    return render(request, 'editportfolio.html',{'form':form})
+
+@login_required
+def delete_Portfolio_site(request,id):
+    Portfolio.objects.filter(user=request.user,id=id).delete()
+    return redirect('oursites')
+def preview4(request):
+    return render(request,'mediparkpreview.html')
+@login_required
+def MediparkPreview(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
+    if user_purchases==False:
+        return redirect('/')
+     
+    try:
+        Hospital.objects.get(user=request.user)
+    except  Hospital.DoesNotExist:
+        return redirect('/')
+    data=Hospital.objects.filter(user=request.user)
+     
+    print(user_purchases)
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Medipark'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+ 
+
+    return render(request,'medipark.html',{'data':data})
+@login_required
+def Medipark(request):
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
+    if user_purchases==False:
+        return redirect('/')
+    try:
+        Hospital.objects.get(user=request.user)
+    except  Hospital.DoesNotExist:
+        return redirect('/')
+    data=Hospital.objects.filter(user=request.user).exists()
+    if data==True:
+        return redirect('MediparkPreview')
+    print(user_purchases)
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Medipark'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+    if request.method == 'POST':
+        form = HospitalForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('MediparkPreview')
+    else:
+        form =  HospitalForm()
+
+    return render(request,'mediparkform.html')
+@login_required
+def edit_Medipark(request):
+    
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
+    if user_purchases==False:
+        return redirect('/')
+    try:
+        hospital = Hospital.objects.get(user=request.user)
+    except  Hospital.DoesNotExist:
+        return redirect('/')
+    data=Hospital.objects.filter(user=request.user).exists()
+    if data==True:
+        return redirect('MediparkPreview')
+    print(user_purchases)
+    for purchase in user_purchases:
+        # Check if the expiration date is approaching (e.g., within 7 days)
+        expiration_date = purchase.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+            return redirect('Planexpiredalert')
+        if 0 < days_until_expiration <= 7:
+            email_subject2 = "Plan Expire Date Is Approaching "
+            message2 = render_to_string('SendEmail6.html', {
+                'user':request.user,
+                'site_name':'Medipark'
+
+              
+        })
+            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+            email_message2.send()
+    
+    if request.method == 'POST':
+        form = HospitalEditForm(request.POST,
+                                   
+                                   request.FILES,
+                                   instance=hospital)
+        if  form.is_valid():
+            form.save()
+            return redirect('/MediparkPreview/')
+
+    else:
+        form =HospitalEditForm(instance=hospital)
+
+    return render(request, 'editmedipark.html',{'form':form})
+
+@login_required
+def delete_Medical_site(request,id):
+    Hospital.objects.filter(user=request.user,id=id).delete()
+    return redirect('oursites')
 @login_required
 def start_order(request):
      
@@ -268,9 +642,7 @@ def start_order(request):
         success_url=request.build_absolute_uri('/payment_success/'),
         cancel_url=request.build_absolute_uri('/payment_cancel/'),
     )
-    stripe_session_id = session.id
-    # Construct the success_url with the session_id parameter
-    success_url = request.build_absolute_uri(f'/payment-success/?session_id={stripe_session_id}')
+    
     payment_intent = session.payment_intent
     
 
@@ -284,10 +656,9 @@ def start_order(request):
     order.save
     
     return JsonResponse({'session': session, 'order': payment_intent})
-
-from django.shortcuts import render, get_object_or_404
  
-
+ 
+@login_required
 def payment_success(request):
     
     try:
@@ -331,217 +702,9 @@ def payment_success(request):
     except Exception as e:
         print(f"Error: {str(e)}")
         return HttpResponse(status=400)
-    
+@login_required    
 def payment_cancel(request):
     return render(request,'fail.html')
-@login_required
-def Asper(request):
-    siteisexist= Advertising.objects.filter(user=request.user).exists()
-    if siteisexist:
-        # Redirect the user to an informational page
-        return redirect('Advertising_web')
-    if request.method == 'POST':
-        form = Advertisingtem(request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            return redirect('Advertising_web')
-    else:
-        form =  Advertisingtem()
-     
-         
-    return render(request, 'Advertisingform.html',{'form':form})
-@login_required
-def portfolio(request):
-    
-    try:
-        data = Portfolio.objects.filter(user=request.user)
-    except  Portfolio.DoesNotExist:
-        return redirect('/')
-    return render(request, 'portfolio.html',{'data':data})
-@login_required
-def yourportfolio(request):
-    
-    try:
-        Portfolio.objects.filter(user=request.user)
-    except  Portfolio.DoesNotExist:
-        return redirect('/')
-    ifuserdataexist=Portfolio.objects.filter(user=request.user).exists()
-    if ifuserdataexist:
-        return redirect('portfolio')
-    if request.method == 'POST':
-        form = Portfoliotemplate( request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            return redirect('/yourportfolio/')
-    else:
-        form =  Portfoliotemplate()
-     
-    return render(request, 'portfoliotemform.html',{'form':form})
-@login_required
-def edit_Portfolio(request):
-     
-    try:
-        portfolio = Portfolio.objects.get(user=request.user)
-    except Portfolio.DoesNotExist:
-        return redirect('/')
-    if request.method == 'POST':
-        form = UpdatePortfoliotemplate(request.POST,
-                                   
-                                   request.FILES,
-                                   instance=portfolio)
-        if  form.is_valid():
-            form.save()
-            return redirect('/yourportfolio/')
-
-    else:
-        form =UpdatePortfoliotemplate(instance=portfolio)
-
-    return render(request, 'editportfolio.html',{'form':form})
-@login_required
-def edit_Advertising(request):
-     
-    try:
-        Adver = Advertising.objects.get(user=request.user)
-    except  Advertising.DoesNotExist:
-        return redirect('/')
-    if request.method == 'POST':
-        form = UpdateAdvertisingtem(request.POST,
-                                   
-                                   request.FILES,
-                                   instance=Adver)
-        if  form.is_valid():
-            form.save()
-            return redirect('/Advertising_web/')
-
-    else:
-        form =UpdateAdvertisingtem(instance=Adver)
-
-    return render(request, 'editadvertising.html',{'form':form})
-@login_required
-def search(request):
-     
-    search_text = request.POST.get('search')
-    results2 = Category.objects.filter(name__icontains=search_text)
-    results = Oursites.objects.filter(name__icontains=search_text)
-    print(results)
-    context = {"results": results,
-                'results2':results2}
-    return render(request, 'searchresult.html', context)
-def check_username(request):
-    username=request.POST.get('username')
-    if get_user_model().objects.filter(username=username).exists():
-       return  HttpResponse("<div style='color:red;'>Username Already Exist </div>")
-    else:
-        return HttpResponse("<div style='color:green;'>Username is Available </div>")
-def check_email(request):
-    email=request.POST.get('email')
-    if get_user_model().objects.filter(email=email).exists():
-       return  HttpResponse("<div style='color:red;'>Email Already Used</div>")
-    else:
-        return HttpResponse("<div style='color:green;'>Available </div>")
-from django.http import JsonResponse
-
-def check_password(request):
-    password = request.POST.get('password1')
-    confirm_password = request.POST.get('password2')
-    if (
-            len(password) < 8 or  # Check if password is at least 8 characters long
-            not re.search(r'[a-z]', password) or  # Check if password contains at least one lowercase letter
-            not re.search(r'[0-9]', password) or  # Check if password contains at least one digit
-            not re.search(r'[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]', password)  # Check if password contains at least one symbol
-        ):
-        return  HttpResponse("<div style='color:white;'>Password must contain at least   one lowercase letter,  one number, and be at least 8 characters long.(For Security Please Add at least one Symbol)</div>")
-    elif password != confirm_password:
-        return  HttpResponse("<div style='color:red;'>Password Not Matche</div>")
-    else:
-        return  HttpResponse("<div style='color:white;' >Password Matche</div>")
-
-@login_required
-def withdraw(request):
-     
-    pro=Profile.objects.get(user=request.user)
-    payout=int(pro.balance)
-    print(payout)
-    if request.method=="POST":
-            pmethod=request.POST.get("pmethod")
-             
-            account_no=request.POST.get("account_no")
-            withrwal_amount=int(request.POST.get("amount"))
-            bank=request.POST.get("bank")
-            route=request.POST.get("route")
-            profile=Profile.objects.get(user=request.user)
-            query=Withdrawl_Request(user=request.user, profile=profile,account_no=account_no,amount=withrwal_amount,pay_method=pmethod, created_at=timezone.now(),bank=bank,routing_no=route)
-            query.save()
-            if withrwal_amount <= int(profile.balance):
-                if withrwal_amount >=15:
-                    profile.balance -=withrwal_amount
-                    profile.withdrawl_amount +=withrwal_amount
-                    profile.save()
-                    email_subject2 = "New Withdrawal Request Received"
-                    message2 = render_to_string('SendEmail2.html', {
-                    'profile':profile,
-                    'pmethod':  pmethod,
-                    'bank':bank,
-                    'route':route,
-                    'account_no':account_no,
-                    'withrwal_amount': withrwal_amount,
-              
-        })
-                    email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, ['shoaib4311859@gmail.com'])
-                    email_message2.send()
-                    email_subject2 = "Withdrawl Request Recived"
-                    message2 = render_to_string('SendEmail2.html', {
-                    'profile':profile,
-                    'pmethod':  pmethod,
-                     
-                    'account_no':account_no,
-                    'withrwal_amount': withrwal_amount,
-              
-        })
-                    email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-                    email_message2.send()
-                    messages.success(request, 'Withdrawl Success!! It take 10 to 30 mintue to Arrived in your Account ')
-                    return redirect('userdashboard')
-                else:
-                     messages.success(request, 'Minimum Withdrawl is  $10 ')
-                     return redirect('userdashboard')
-                
-            if withrwal_amount>profile.balance:
-              messages.warning(request, 'Your Withdrwal Request Is Greater Than Available Balance.')
-              redirect('userdashboard')
-    return  render(request,'userdashboard.html')
-
-@login_required
-def referal(request):
-     
-    data=Profile.objects.get(user=request.user)
-     
-    usercommession=data.commession==0
-        # Get the user's profile
-    profile = get_object_or_404(Profile, user=request.user)
-
-        # Extract referral code
-    refer_code = profile.code
-
-        # Get recommended profiles
-    my_recs = profile.get_recommended_profile()
-        
-        # Get commission/earning
-    my_earning = profile.commession
-
-    return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning,'usercommession':usercommession})
-def delete_user_site(request):
-     
-    # Delete site purchases of the user
-    SitePurchase.objects.filter(user=request.user).delete()
-    Rating.objects.filter(user=request.user).delete()
-    # Delete advertising model data of the user
-
-    return redirect('oursites')
-def proxy_warning_view(request):
-    return render(request, 'ipblock.html')
 @login_required
 def deployecheckout(request):
      
@@ -555,7 +718,6 @@ def deployecheckout(request):
     return render(request,'deployecheckout.html',{'pub_key':pub_key,'rates':rates})
 @login_required
 def deploye_order(request):
-     
     data = json.loads(request.body)
     print(data)
     name = data.get('name', '')
@@ -596,7 +758,6 @@ def deploye_order(request):
     # Construct the success_url with the session_id parameter
     success_url = request.build_absolute_uri(f'/payment_success2/?session_id={stripe_session_id}')
     payment_intent = session.payment_intent
-    
 
     order=Deploye.objects.create(
         user=request.user, 
@@ -652,54 +813,99 @@ def Deployesite(request):
     else:
         form =DeployesiteForm(instance=siteuser)
 
-    return render(request, 'deploye.html',{'form':form})
-@login_required
-def payment_success2(request):
-    
-    try:
-       
-        order = get_object_or_404(Deploye, user=request.user, paid=False)
-        order.paid = True
-        order.save()
-        sitename=order.name
-        price=order.paid_amount
-        purchaseid= order.id
-        domain=order.domainname
-        email_subject2 = " Thank You for Your Purchase Domain+Hosting on Softbit Website Builder"
-        message2 = render_to_string('SendEmail4.html', {
-                    'profile':profile,
-                    'sitename':sitename,
-                    'paid':price ,
-                    'purchaseid':purchaseid,
-                    'domain':domain
-                     
-              
-        })
-        email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-        email_message2.send()
-        email_subject2 = "Domain+Hosting Rquest Arrived"
-        message2 = render_to_string('SendEmail5.html', {
-                    'profile':profile,
-                    'sitename':sitename,
-                    'paid':price ,
-                    'purchaseid':purchaseid,
-                    'domain':domain
-                     
-              
-        })
-        email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, ['shoaib4311859@gmail.com'])
-        email_message2.send()
- 
-        messages.success(request, 'Now is your site please enjoye your journery with us')
-    
-         
-        
-        
+    return render(request, 'deploye.html',{'form':form})  
 
-        return render(request, 'deployesuccess.html')
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return HttpResponse(status=400)
+
+@login_required
+def userpurchase(request):
+    
+    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True)
+    website_links = []
+
+    for purchase in user_purchases:
+         
+        website_links.append({'name': purchase.name, 'link': purchase.name ,'price':purchase.paid_amount})
+    if request.htmx:
+        return render(request, "webgenrator/purchase.html",{'website_links':website_links})
+    else:
+       return render(request, 'userpurchasesite.html',{'website_links':website_links})
+
+@login_required
+def userdashboard(request):
+     
+    data=Profile.objects.get(user=request.user)
+    comtotal=data.commession
+    totalbalance=data.balance
+    userbalace=data.balance==0
+    usercommession=data.commession==0
+    totalwithdraw=data.withdrawl_amount
+    user_withdrawal_requests = Withdrawl_Request.objects.filter(user=request.user)
+    withdrawal_dates = list(user_withdrawal_requests.values_list('created_at', flat=True))
+    withdrawal_dates_json = json.dumps([[date.year, date.month - 1, date.day] for date in withdrawal_dates])
+
+    print(withdrawal_dates_json)
+    purchase_plans = SitePurchase.objects.filter(user=request.user)
+    total_purchase_amount = sum(plan.paid_amount for plan in purchase_plans)
+    deploye_plan=Deploye.objects.filter(user=request.user)
+    total_deploye = sum(plan.paid_amount for plan in deploye_plan)
+   
+    withdraw=Withdrawl_Request.objects.filter(user=request.user)
+    Approved=Withdrawl_Request.objects.filter(user=request.user,status='Approved') 
+    return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
+@login_required
+def withdraw(request):
+     
+    pro=Profile.objects.get(user=request.user)
+    payout=int(pro.balance)
+    print(payout)
+    if request.method=="POST":
+            pmethod=request.POST.get("pmethod")
+             
+            account_no=request.POST.get("account_no")
+            withrwal_amount=int(request.POST.get("amount"))
+            bank=request.POST.get("bank")
+            route=request.POST.get("route")
+            profile=Profile.objects.get(user=request.user)
+            if withrwal_amount <= int(profile.balance):
+                if withrwal_amount >=10:
+                    query=Withdrawl_Request(user=request.user, profile=profile,account_no=account_no,amount=withrwal_amount,pay_method=pmethod, created_at=timezone.now(),bank=bank,routing_no=route)
+                    query.save() 
+                    profile.balance -=withrwal_amount
+                    profile.withdrawl_amount +=withrwal_amount
+                    profile.save()
+                    email_subject2 = "New Withdrawal Request Received"
+                    message2 = render_to_string('SendEmail2.html', {
+                    'profile':profile,
+                    'pmethod':  pmethod,
+                    'bank':bank,
+                    'route':route,
+                    'account_no':account_no,
+                    'withrwal_amount': withrwal_amount,
+              
+        })
+                    email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, ['shoaib4311859@gmail.com'])
+                    email_message2.send()
+                    email_subject2 = "Withdrawl Request Recived"
+                    message2 = render_to_string('SendEmail2.html', {
+                    'profile':profile,
+                    'pmethod':  pmethod,
+                     
+                    'account_no':account_no,
+                    'withrwal_amount': withrwal_amount,
+              
+        })
+                    email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
+                    email_message2.send()
+                    messages.success(request, 'Withdrawl Success!! It take 10 to 30 mintue to Arrived in your Account ')
+                    return redirect('userdashboard')
+                else:
+                     messages.success(request, 'Minimum Withdrawl is  $10 ')
+                     return redirect('userdashboard')
+                
+            if withrwal_amount>profile.balance:
+              messages.warning(request, 'Your Withdrwal Request Is Greater Than Available Balance.')
+              redirect('userdashboard')
+    return  render(request,'userdashboard.html')
 @login_required
 def history(request):
     data=Profile.objects.get(user=request.user)
@@ -718,3 +924,34 @@ def mysites(request):
     usercommession=data.commession==0
     usersite=Deploye.objects.filter(user=request.user)
     return render(request,'sitestatus.html',{'usersite':usersite,'usercommession':usercommession})
+
+@login_required
+def referal(request):
+     
+    data=Profile.objects.get(user=request.user)
+     
+    usercommession=data.commession==0
+        # Get the user's profile
+    profile = get_object_or_404(Profile, user=request.user)
+
+        # Extract referral code
+    refer_code = profile.code
+
+        # Get recommended profiles
+    my_recs = profile.get_recommended_profile()
+        
+        # Get commission/earning
+    my_earning = profile.commession
+
+    return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning,'usercommession':usercommession})
+ 
+def Planexpiredalert(request):
+    return render(request,'planexperimeaage.html')
+def  Termsandpolicies(request):
+    return render(request,'terms.html') 
+def PrivacyandPolicy(request):
+    return render(request,'privacy.html')
+def Affliatemarketing(request):
+    return render(request,'affliate.html')
+def Userguide(request):
+    return render(request,'userguide.html') 

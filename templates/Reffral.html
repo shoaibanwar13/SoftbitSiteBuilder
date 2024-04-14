@@ -1,4 +1,5 @@
 {% extends 'dashboard.html'%}
+{% block title %} Refferal {% endblock title %}
 {% block content %}
          
        
@@ -16,7 +17,7 @@
                                         loading="lazy" alt="" class="card-image" /></div>
                                 <div class="card-details">
                                     <div class="card-info-wrapper">
-                                        <div class="card-info-text-block"> Referral</div><img
+                                        <div class="card-info-text-block"> Refferal</div><img
                                             src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632f01d56a78d70e28afd645_Card%20Info%20Arrow1.png"
                                             loading="lazy" alt="" class="card-info-image" />
                                     </div>
@@ -37,7 +38,7 @@
                                             src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632f01d50ee1f17231ad2b68_Card%20Info%20Arrow2.png"
                                             loading="lazy" alt="" class="card-info-image" />
                                     </div>
-                                    <div class="card-price"> PKR {{my_earning}}</div>
+                                    <div class="card-price"> ${{my_earning}}</div>
                                 </div>
                             </div>
                             
@@ -58,7 +59,7 @@
                                     <div class="balance-text-wrapper">
                                         <div class="total-balance-title">Total Earning: </div>
                                         <h2 class="total-balance-code"> {{my_earning}}</h2>
-                                        <div class="total-balance-price"> PKR</div> 
+                                        <div class="total-balance-price">$</div> 
                                     </div>
                                 </div>
                             </div>

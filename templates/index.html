@@ -1,15 +1,72 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock title %}
 {% block content %}
-
+<style>
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    text-align: center;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .popup-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+    display: block;
+  }
+  
+  .popup-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .popup-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .popup-countdown {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+</style>
  <section class="hero-section wf-section">
-  <div class="container hero-flex-horizontal">
+  <div class="container hero-flex-horizontal" >
     <div data-w-id="8fb64ba4-c08a-677c-909c-b5495cf350dc" class="hero-left">
       <h1 class="hero-title">No Code Only Your Data</h1>
-      <p>Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
-        non ante sed, ultricies fringilla massa. Ut congue, elit non tempus elementum, sem risus tincidunt diam, vitae
-        sodales diam ipsum vitae purus.</p>
-      <div class="hero-btn-container"><a href="#Features" class="filled-btn no-margin-top w-inline-block">
+      <p>"No Code, Only Your Data: Empowering You to Build Beautiful Websites Hassle-Free"
+
+         SoftBit Site Builder by highlighting the fact that users don't need to write any code; they can simply leverage their own data to create stunning websites effortlessly.
+        
+        
+        
+        
+        
+        </p>
+      <div class="hero-btn-container"><a href="/oursites/" class="filled-btn no-margin-top w-inline-block">
           <div>Explore Features</div>
         </a><a href="#" class="text-btn no-margin-top w-inline-block w-lightbox"><img
             src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0878c5cdda7be0958d764c_Video%20Icon.svg"
@@ -32,8 +89,8 @@
         </a></div>
     </div>
     <div data-w-id="8fb64ba4-c08a-677c-909c-b5495cf350e9" class="hero-right"><img
-        src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1).png"
-        srcset="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-500.png 500w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-800.png 800w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-1080.png 1080w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1).png 2880w"
+        src="https://th.bing.com/th/id/OIP.VXCaiej9bJtLCd9r3-bvTwHaE7?w=259&h=180&c=7&r=0&o=5&pid=1.7"
+        srcset="https://cdn.pixabay.com/photo/2024/04/05/05/17/technology-8676553_1280.jpg"
         sizes="(max-width: 479px) 90vw, (max-width: 767px) 94vw, (max-width: 991px) 95vw, (max-width: 1279px) 48vw, 616px"
         alt="" class="hero-img" /></div>
   </div>
@@ -98,93 +155,7 @@
     </div>
   </div>
 </section>
-<section data-w-id="db63639c-ea91-e563-fe81-cd0037787c6c" class="section testimonial-bg wf-section">
-  <div class="container">
-    <div data-delay="4000" data-animation="slide" class="testimonial-slider w-slider" data-autoplay="false"
-      data-easing="ease-in-out-quad" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0"
-      data-nav-spacing="4" data-duration="800" data-infinite="true">
-      <div class="w-slider-mask">
-        <div class="testimonial-card w-slide">
-          <div class="testimonial-avatar-block">
-            <div class="testimonial-avatar avatar-1"></div>
-            <div>
-              <div class="testimonial-name">Sarah Lin</div>
-              <div class="testimonial-name-subline">Developer at FinApp</div>
-            </div>
-          </div>
-          <div class="testimonial-stars"><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125de4cdd11be2a6b0a_Star%20Half.svg"
-              alt="" class="rating-icons" /></div>
-          <p class="testimonial-paragraph">I love SoftBit! The integration process was super simple. We use it every
-            single day to keep track of all our daily downloads.</p>
-        </div>
-        <div class="testimonial-card w-slide">
-          <div class="testimonial-avatar-block">
-            <div class="testimonial-avatar avatar-2"></div>
-            <div>
-              <div class="testimonial-name">Josh Stevens</div>
-              <div class="testimonial-name-subline">Founder of CourseApp</div>
-            </div>
-          </div>
-          <div class="testimonial-stars"><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125de4cdd11be2a6b0a_Star%20Half.svg"
-              alt="" class="rating-icons" /></div>
-          <p class="testimonial-paragraph">Softbit is the ultimate analytics tool for every company that&#x27;s
-            serious about maximizing their website&#x27;s traffic and click-through-rate.</p>
-        </div>
-        <div class="testimonial-card w-slide">
-          <div class="testimonial-avatar-block">
-            <div class="testimonial-avatar avatar-3"></div>
-            <div>
-              <div class="testimonial-name">Andrew Young</div>
-              <div class="testimonial-name-subline">Developer</div>
-            </div>
-          </div>
-          <div class="testimonial-stars"><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a112563d9d82c049e5ade_Star%20Empty.svg"
-              alt="" class="rating-icons" /><img
-              src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a112563d9d82c049e5ade_Star%20Empty.svg"
-              alt="" class="rating-icons" /></div>
-          <p class="testimonial-paragraph">You can tell that SoftBit is the best analytics tool after using it for a
-            few minutes. I absolutely love the intuitive and clean dashboard. </p>
-        </div>
-      </div>
-      <div class="testimonial-slider-arrow-left w-slider-arrow-left"><img
-          src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f08d4db8980840650a95039_arrow-left-white.svg"
-          alt="" /></div>
-      <div class="testimonial-slider-arrow-right w-slider-arrow-right"><img
-          src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f077a6ea949dfb6a02f5bf6_arrow-right-white.svg"
-          alt="" /></div>
-      <div class="testimonial-slide-nav w-slider-nav w-round"></div>
-    </div>
-  </div>
-  <div class="testimonial-bg-img-block"><img
-      src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1).jpg"
-      srcset="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-500.jpeg 500w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-800.jpeg 800w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-1600.jpeg 1600w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1).jpg 1920w"
-      sizes="100vw" alt="" class="testimonial-bg-img" /></div>
-</section>
+ 
 <section class="section medium wf-section">
   <div class="container">
     <div class="half-section-flex center-horizontal flex-vertical-on-mobile">
@@ -204,8 +175,8 @@
             <div class="feature-block no-bg no-padding"><img
                 src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0884c92f28246aa09a1eeb_bolt.svg"
                 alt="" class="feature-icon" />
-              <div class="feature-title">Seamless website integration</div>
-              <p>Integrating SoftBit into your favorite apps is a breeze, thanks to our api</p>
+              <div class="feature-title">Codeless</div>
+              <p> With 'Codeless,' you can build and customize your website or application without ever having to write a single line of code.Provide You Businees Data Only</p>
             </div>
           </div>
         </div>
@@ -275,7 +246,7 @@
 </section>
 <div class="container">
   <div class="components-header">
-    <div class="section-subtitle">Pricing Table</div>
+    <div class="section-subtitle">Our Pricing</div>
   </div>
 </div>
 <section class="section with-header wf-section">
@@ -286,146 +257,99 @@
         <div class="toggle-wrapper table">
           <div data-w-id="69eb9a28-8f66-1d04-3554-19df36e955c8" class="toggle-bg table">
             <div class="toggle-btn table"></div>
-            <div class="toggle-text annually">Annually</div>
-            <div class="toggle-text monthly">Monthly</div>
+            
+            <div class="toggle-text annually" >Monthly</div>
+            <div class="toggle-text monthly">Annually</div>
           </div>
         </div>
         <div class="pricing-table-header-cols w-row">
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
             <div class="pricing-card-header table">
-              <div class="pricing-title table">Starter</div>
+              <div class="pricing-title table">Advertising</div>
               <div class="pricing-table-price-block">
                 <div class="pricing-card-price-block table">
                   <div class="pricing-currency v2">$</div>
-                  <div class="pricing-price v2">0</div>
+                  <div class="pricing-price v2">72</div>
                 </div>
-                <div class="pricing-small-text v2 annually">Per month<br />Billed annually</div>
+                <div class="pricing-small-text v2 annually">Per month<br />Billed Monthly</div>
                 <div class="pricing-small-text v2 monthly">Per month<br />Billed Monthly</div>
               </div>
-              <p class="pricing-table-text">Perfect for freelancers who are just starting out</p>
+              <p class="pricing-table-text">Perfect for Adverising and Grahpic Designer who are just starting out</p>
             </div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
             <div class="pricing-card-header table middle">
-              <div class="pricing-title table">Team</div>
+              <div class="pricing-title table">Portfolios</div>
               <div class="pricing-table-price-block">
                 <div class="pricing-card-price-block table">
                   <div class="pricing-currency v2">$</div>
-                  <div class="pricing-price v2 yearly-price">24</div>
-                  <div class="pricing-price v2 monthly-price">26</div>
+                  <div class="pricing-price v2 yearly-price">79</div>
+                  <div class="pricing-price v2 monthly-price">Comming Soon</div>
                 </div>
-                <div class="pricing-small-text v2 annually">Per month<br />Billed annually</div>
+                <div class="pricing-small-text v2 annually">Per month<br />Billed Monthly</div>
                 <div class="pricing-small-text v2 monthly">Per month<br />Billed Monthly</div>
               </div>
-              <p class="pricing-table-text">For creative teams that need that little extra more</p>
+              <p class="pricing-table-text">Special Design For Developer,Researcher and Teachers etc </p>
               <div class="pricing-label table">Popular</div>
             </div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
             <div class="pricing-card-header table">
-              <div class="pricing-title table">Enterprise</div>
+              <div class="pricing-title table">Medical</div>
               <div class="pricing-table-price-block custom-pricing">
-                <div class="pricing-small-text v2 custom-pricing">Custom Pricing</div>
+                <div class="pricing-small-text v2 custom-pricing">
+                  
+                  <div class="pricing-table-price-block">
+                    <div class="pricing-card-price-block table">
+                      <div class="pricing-currency v2">$</div>
+                      <div class="pricing-price v2">72</div>
+                    </div>
+                    <div class="pricing-small-text v2 annually">Per month<br />Billed Monthly</div>
+                    <div class="pricing-small-text v2 monthly">Per month<br />Billed Monthly</div>
+                  </div>
+                 
+                </div>
               </div>
-              <p class="pricing-table-text">A custom-made plan, tailored to your business’ needs</p>
+              <p class="pricing-table-text">A custom-made plan, tailored to your Medical Industery,And Specially Design For Big Hospital,Clinic and Dentist </p>
             </div>
           </div>
         </div>
       </div>
       <div class="pricing-table-category">
         <div class="pricing-table-category-title">
-          <div class="pricing-table-section-title">Cloud Storage</div>
+          <div class="pricing-table-section-title">Services</div>
         </div>
         <div class="pricing-table-row">
           <div class="pricing-table-row-title">
             <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Upload size</div>
+              <div class="pricing-row-text title">Service Portion</div>
             </div>
           </div>
           <div class="pricing-table-row-cols w-row">
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">10 MB</div>
+                  <div class="pricing-row-text">4</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">48 MB</div>
+                  <div class="pricing-row-text">4</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Unlimited</div>
+                  <div class="pricing-row-text">6</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Upload Volume</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">2 Files</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">20 Files</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Unlimited</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center last">
-              <div class="pricing-row-text title">Storage Capacity</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-row-text">5 GB</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-row-text">2 TB</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-row-text">Unlimited</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         
       </div>
       <div class="pricing-table-category">
         <div class="pricing-table-category-title">
@@ -434,243 +358,63 @@
         <div class="pricing-table-row">
           <div class="pricing-table-row-title">
             <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Team Members</div>
+              <div class="pricing-row-text title">Feature Metrix</div>
             </div>
           </div>
           <div class="pricing-table-row-cols w-row">
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">1 Member</div>
+                  <div class="pricing-row-text">3</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">8 Members</div>
+                  <div class="pricing-row-text">4</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Unlimited Member</div>
+                  <div class="pricing-row-text">3</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Dashboard Features</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Limited</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Unlimited</div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-row-text">Unlimited</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Custom analytics filters</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">API and webhook access</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">User Heatmaps</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center last">
-              <div class="pricing-row-text title">A/B Testing</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table not-included"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        
       <div class="pricing-table-category">
         <div class="pricing-table-category-title">
-          <div class="pricing-table-section-title">Protection</div>
+          <div class="pricing-table-section-title">Projects</div>
         </div>
         <div class="pricing-table-row">
           <div class="pricing-table-row-title">
             <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Military grade server protection</div>
+              <div class="pricing-row-text title">Projects Card</div>
             </div>
           </div>
           <div class="pricing-table-row-cols w-row">
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
+                  <div  >4</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
+                  <div  >3</div>
                 </div>
               </div>
             </div>
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Built In VPN</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row center">
-                  <div class="pricing-icon table"></div>
+                  <div  >12</div>
                 </div>
               </div>
             </div>
@@ -679,7 +423,7 @@
         <div class="pricing-table-row">
           <div class="pricing-table-row-title">
             <div class="pricing-card-row mobile-center">
-              <div class="pricing-row-text title">Data Encryption</div>
+              <div class="pricing-row-text title">User-Friendly</div>
             </div>
           </div>
           <div class="pricing-table-row-cols w-row">
@@ -706,36 +450,7 @@
             </div>
           </div>
         </div>
-        <div class="pricing-table-row">
-          <div class="pricing-table-row-title">
-            <div class="pricing-card-row mobile-center last">
-              <div class="pricing-row-text title">Two-Factor Authentication</div>
-            </div>
-          </div>
-          <div class="pricing-table-row-cols w-row">
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
-              <div class="pricing-table-content">
-                <div class="pricing-card-row last center">
-                  <div class="pricing-icon table"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         
       </div>
       <div class="pricing-table-category">
         <div class="pricing-table-category-title">
@@ -751,7 +466,7 @@
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row center">
-                  <div class="pricing-icon table not-included"></div>
+                  <div class="pricing-icon table"></div>
                 </div>
               </div>
             </div>
@@ -774,14 +489,14 @@
         <div class="pricing-table-row">
           <div class="pricing-table-row-title">
             <div class="pricing-card-row mobile-center last">
-              <div class="pricing-row-text title">Personal Analytics Expert</div>
+              <div class="pricing-row-text title">Developer Support</div>
             </div>
           </div>
           <div class="pricing-table-row-cols w-row">
             <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4">
               <div class="pricing-table-content">
                 <div class="pricing-card-row last center">
-                  <div class="pricing-icon table not-included"></div>
+                  <div class="pricing-icon table"></div>
                 </div>
               </div>
             </div>
@@ -806,16 +521,16 @@
         <div class="footer-empty-cell"></div>
         <div class="pricing-table-header-cols w-row">
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table"><a href="#"
-                class="outlined-btn pricing-table w-button">start for free</a></div>
+            <div class="pricing-card-btn-container table" style="margin-left:  60px;"><a href="#" hx-get="{% url 'sites_by_category' 1 %}" hx-push="{% url 'sites_by_category' 1  %}" hx-target="#change"
+                class="outlined-btn pricing-table w-button">View All</a></div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table"><a href="#"
-                class="filled-btn pricing-table w-button">start for free</a></div>
+            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 2 %}" hx-push="{% url 'sites_by_category' 2  %}" hx-target="#change"
+                class="filled-btn pricing-table w-button" style="margin-left:  60px;">View All</a></div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table"><a href="#"
-                class="outlined-btn pricing-table w-button">start for free</a></div>
+            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 3 %}" hx-push="{% url 'sites_by_category' 3 %}" hx-target="#change"
+                class="outlined-btn pricing-table w-button" style="margin-left:  60px;">View All</a></div>
           </div>
         </div>
       </div>
@@ -839,10 +554,7 @@
             <div class="faq-title">Can I get a free demo for one of the premium plans?</div>
           </div>
           <nav class="faq-dropdown-list w-dropdown-list">
-            <p class="faq-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-              in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
-              diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
-              vitae risus tristique posuere.</p>
+            <p class="faq-paragraph">We do not offer free demos for our premium plans because our platform already provides extensive information, including feature Coding and many Expensive Templates.</p>
           </nav>
         </div>
         <div data-hover="false" data-delay="300" class="faq-dropdown w-dropdown">
@@ -854,10 +566,7 @@
             <div class="faq-title">Is it possible to cancel my subscription?</div>
           </div>
           <nav class="faq-dropdown-list w-dropdown-list">
-            <p class="faq-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-              in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
-              diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
-              vitae risus tristique posuere.</p>
+            <p class="faq-paragraph">Yes, it is possible to cancel your subscription. If you violate our terms and policies or wish to cancel your subscription before its expiration date, you can request cancellation by contacting our support team. Additionally, subscriptions are automatically canceled upon reaching their expiration date.</p>
           </nav>
         </div>
         <div data-hover="false" data-delay="300" class="faq-dropdown w-dropdown">
@@ -869,10 +578,7 @@
             <div class="faq-title">Can I recover my pricing plan after cancelling it?</div>
           </div>
           <nav class="faq-dropdown-list w-dropdown-list">
-            <p class="faq-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-              in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
-              diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
-              vitae risus tristique posuere.</p>
+            <p class="faq-paragraph">No, it is not possible to recover your pricing plan after cancelling it. This is because it does not align with our business logic and operational processes. Once a subscription is canceled, it cannot be reinstated, and users would need to sign up for a new plan if they wish to continue using our services.</p>
           </nav>
         </div>
         <div data-hover="false" data-delay="300" class="faq-dropdown w-dropdown">
@@ -884,10 +590,7 @@
             <div class="faq-title">How can SoftBit help my business?</div>
           </div>
           <nav class="faq-dropdown-list w-dropdown-list">
-            <p class="faq-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-              in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
-              diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
-              vitae risus tristique posuere.</p>
+            <p class="faq-paragraph">SoftBit can significantly benefit your business by providing a comprehensive platform for creating professional websites, driving traffic, and enhancing online presence. With our intuitive tools and templates, you can easily design a website that effectively showcases your products, services, and brand identity. By optimizing your site for search engines and integrating with social media platforms, SoftBit helps increase visibility and attract more visitors. Our features for lead generation,  and customer engagement enable you to convert visitors into customers and build lasting relationships. Additionally, our analytics tools provide valuable insights into website performance, allowing you to make informed decisions to grow your business. Overall, SoftBit empowers businesses of all sizes to establish a strong online presence, attract more customers, and achieve their online goals.</p>
           </nav>
         </div>
         <div data-hover="false" data-delay="300" class="faq-dropdown w-dropdown">
@@ -899,10 +602,7 @@
             <div class="faq-title">Which pricing plans do you offer and what&#x27;s included?</div>
           </div>
           <nav class="faq-dropdown-list w-dropdown-list">
-            <p class="faq-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-              in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
-              diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
-              vitae risus tristique posuere.</p>
+            <p class="faq-paragraph">We offer a range of pricing plans tailored to meet the diverse needs of businesses. Our affordable plans come with a variety of features to help you create stunning websites that are responsive, user-friendly, and tailored to your specific requirements. With our services projects included, you can easily showcase your offerings and attract potential clients. Our plans also include features such as customizable templates and improve your website's performance. Whether you're a small startup or a large enterprise, we have a pricing plan that fits your budget and business goals.</p>
           </nav>
         </div>
       </div>
@@ -925,12 +625,15 @@
             alt="" class="filled-btn-arrow-icon" />
         </a></div><img
         src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1).png"
-        srcset="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-500.png 500w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-800.png 800w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1)-p-1080.png 1080w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1).png 2880w"
+        srcset="https://cdn.pixabay.com/photo/2023/05/21/07/49/blockchain-8008051_1280.jpg"
         sizes="(max-width: 479px) 77vw, (max-width: 767px) 81vw, (max-width: 991px) 63vw, (max-width: 1279px) 48vw, 616px"
         alt="" class="cta-img" />
     </div>
   </div>
 </section>
+
+
+
 {% endblock %}
 
  

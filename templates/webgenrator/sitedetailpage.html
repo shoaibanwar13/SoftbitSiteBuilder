@@ -1,5 +1,35 @@
   
-  <header class="page-header relative"   >
+  <style>
+    #spinnerOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+  </style>
+
+  <header class="page-header relative">
+
+    
             <div class="container">
                 <div class="page-header-flex-wrap"><a
                         style="background-color:aqua;opacity:0;-webkit-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
@@ -103,13 +133,16 @@
                 {% else %}
                 
                 <button
-                onclick="buy(event)"
+                onclick="buy(event)"  id="showSpinnerButton"
                class="filled-btn no-margin-top no-margin-right w-button"  
             >
                 Purchase Now 
             </button>
                 </div>
                 {% endif %}
+                <div id="spinnerOverlay">
+                    <div class="spinner"></div>
+                </div>
         </div>
             </div>
         </div>
@@ -258,3 +291,41 @@
                 return false
             }
         </script>
+        <style>
+            #spinnerOverlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+              }
+              
+              .spinner {
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top: 4px solid #fff;
+                width: 50px;
+                height: 50px;
+                animation: spin 1s linear infinite;
+              }
+              
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+          </style>
+        
+          <div id="spinnerOverlay">
+                            <div class="spinner"></div>
+                        </div>
+          <script>
+            document.getElementById('showSpinnerButton').addEventListener('click', function() {
+                document.getElementById('spinnerOverlay').style.display = 'flex';
+              });
+              
+        </script>
+       

@@ -1,4 +1,5 @@
 {% extends 'dashboard.html'%}
+{% block title %} Affliate Dashboard {% endblock title %}
 {% block content %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -6,7 +7,7 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
+          ['Task', 'Daily'],
           ['Withdraw',  {{totalwithdraw}}],
           ['Commession',  {{comtotal}}    ],
           ['Purchase',  {{total_purchase_amount}}],
@@ -64,7 +65,7 @@
                             <div class="exchange-card-detais"><img
                                     src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/63316ceb2484312d4ac775a9_Exchange%20Card%20Info%20Img2.png"
                                     loading="lazy" alt="" class="exchange-card-info-img" />
-                                <div class="exchange-card-info low">{{comtotal}} </div>
+                                <div class="exchange-card-info low">${{comtotal}} </div>
                             </div>
                         </div>
                         
@@ -105,7 +106,7 @@
                 </div>
                 <div class="balance-category-singel ml20">
                   <div class="balance-categorys-dote two"></div>
-                  <div class="balance-category-text"> Total Commession </div>
+                  <div class="balance-category-text">Balance </div>
                 </div>
               </div>
               <div class="balance-categorys-button-wrapper">
@@ -215,16 +216,16 @@
                             class="wallets-balance-form">
                             {% csrf_token %}
                             <select name="pmethod" id="payment-method" style="background-color: rgb(36, 35, 53); color:white; width: 220px; height: 40px; border-radius: 7px;">
-                                <option value="">Please Select Payment Method</option>
+                                <option value="" disabled selected='true'>Please Select Payment Method</option>
                                 <option value="USDT (TRC20)">USDT (TRC20)</option>
-                                <option value="USDT (ECP20)">USDT (TRC20)</option>
+                                <option value="USDT (ECP20)">USDT (ERP20)</option>
                                 <option value="Binance ID">Binance ID</option>
                                 <option value="USD BANK Account">USD BANK Account</option>
                             </select>
                             <div class="wallets-balance-singel">
                                 <br>
                                 <label for="account-number" class="wallets-balance-form-field-label">Account Number</label>
-                                <input type="number" class="wallets-balance-form-input w-input" maxlength="256" name="account_no" data-name="Email" placeholder="Wallet Account Number" id="account-number" />
+                                <input type="text" class="wallets-balance-form-input w-input" maxlength="256" name="account_no" data-name="Email" placeholder="Wallet Account Number" id="account-number" />
                             </div>
                             <div class="wallets-balance-singel" id="bank-name-container" style="display:none;">
                                 <label for="bank-name" class="wallets-balance-form-field-label">Bank Name</label>
@@ -238,9 +239,9 @@
                                 <label for="amount" class="wallets-balance-form-field-label">Amount to withdraw</label>
                                 <input type="number" class="wallets-balance-form-input w-input" maxlength="256" name="amount" data-name="Amount" placeholder="Enter Amount to withdraw" id="amount" value="{{total_payout}}" required="" />
                             </div>
-                            <div class="wallets-balance-limit">Your Total Balance RS {{payout1}}.</div>
-                            <div class="wallets-balance-singel"><br><label for="email-3" class="wallets-balance-form-field-label">PKR 10000 daily withdrawal limit</label> </div>
-                            <input type="submit" value="Withdraw" data-wait="Please wait..." class="widthdraw-submit-button w-button" />
+                            <div class="wallets-balance-limit">Your Total Balance ${{totalbalance}}.</div>
+                            <div class="wallets-balance-singel"><br><label for="email-3" class="wallets-balance-form-field-label">No Daily Withdrawal Limit</label> </div>
+                            <input type="submit" value="Withdraw" data-wait="Please wait..." class="widthdraw-submit-button w-button"  id='showSpinnerButton' />
                         </form>
                     </div>
                 </div>
@@ -299,11 +300,48 @@
                     });
                 </script>
                 
-                
+              
             </div>
         </div>
     </div>
 </div>
+<style>
+  #spinnerOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #fff;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+</style>
+
+<div id="spinnerOverlay">
+                  <div class="spinner"></div>
+              </div>
+<script>
+  document.getElementById('showSpinnerButton').addEventListener('click', function() {
+      document.getElementById('spinnerOverlay').style.display = 'flex';
+    });
+    
+</script> 
    
  
 

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from .utlis import generate_ref_code
 from django.utils import timezone
+from datetime import timedelta
 class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     code=models.CharField(max_length=5,blank=True)
@@ -45,13 +46,109 @@ class Profile(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
+    class Meta:
+        verbose_name_plural='Category'
     def __str__(self):
         return self.name
 
+
+class Oursites(models.Model):
+    category=models.ForeignKey(Category,related_name='Oursite',blank=True, null=True, on_delete=models.CASCADE)
+    name= models.CharField(max_length=255,null=True,)
+    developer=models.CharField(max_length=255,null=True,)
+    date= models.DateField()
+    image1 = models.ImageField(upload_to='Oursite/')
+    image2 = models.ImageField(upload_to='Oursite/')
+    description1=models.TextField(null=True)
+    description2=models.TextField(null=True)
+    summery=models.TextField(null=True)
+  
+    price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True)
+    class Meta:
+        verbose_name_plural='SoftBit Sites'
+    def get_ratings(self):
+        return Rating.objects.filter(item=self)
+    
+    def __str__(self):
+        return self.name
+class SitePurchase(models.Model):
+    profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
+    user=models.ForeignKey(User,related_name='SitePurchase',blank=True, null=True, on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,related_name='SitePurchase',blank=True, null=True, on_delete=models.CASCADE)
+    name= models.CharField(max_length=255,null=True,)
+    paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(default=timezone.now)
+    duration_days = models.IntegerField(default=1)
+    paid = models.BooleanField(default=False)
+    @property
+    def expiration_date(self):
+        if self.paid:
+            
+            return self.created_at + timedelta(days=self.duration_days)
+        else:
+            return None
+
+    @property
+    def is_expired(self):
+        if self.paid:
+            return self.expiration_date < timezone.now()
+        else:
+            return False
+
+    class Meta:
+        verbose_name_plural='SitePurchase'
+    def __str__(self):
+        return self.name
+
+class Rating(models.Model):
+    product = models.ForeignKey(Oursites, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to logged-in user
+    rating = models.PositiveSmallIntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)),null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        unique_together = ('product', 'user')  # Prevent duplicate ratings per user/product
+class Contact(models.Model):
+    name=models.CharField(max_length=50,null=True)
+    email=models.EmailField()
+    message=models.TextField(max_length=500,null=True)
+    phone=models.IntegerField()
+
+    def __int__(self):
+        return self.name
+class team(models.Model):
+    Developer_Name=models.CharField(max_length=200)
+    Developer_Photo= models.ImageField(upload_to='Developer_images/')
+    Developer_Skill=models.CharField(max_length=200)
+    About_Developer=models.TextField()
+    GitHub = models.URLField(help_text="Github URL ")
+    Facebook = models.URLField(help_text="Facebook Page URL")
+    Twitter = models.URLField(help_text="Twitter Profile URL",null=True)
+    Instagram = models.URLField(help_text="Instagram Profile URL")
+    class Meta:
+        verbose_name_plural='Our Team'
+    def __str__(self):
+        return self.Developer_Name
+class Offers(models.Model):
+    offername=models.CharField(max_length=500)
+    offerprice=models.DecimalField(decimal_places=2,max_digits=10)
+    offerdiscount=models.IntegerField()
+    offerdescription=models.TextField()
+    class Meta:
+        verbose_name_plural='Offers'
+    def __str__(self):
+        return self.offername
+class Co_Founder(models.Model):
+    name=models.CharField(max_length=200)
+    founder_image=models.ImageField(upload_to='FounderImge/')
+    Position=models.CharField(max_length=200)
+    message=models.TextField()
+    class Meta:
+        verbose_name_plural='Co Founder'
+    def __str__(self):
+        return self.name
 class Advertising(models.Model):
     #User info
     user = models.ForeignKey(User, related_name='purchase', blank=True, null=True, on_delete=models.CASCADE)
-    
     Companyname = models.CharField(max_length=255,null=True,) #Company Name
     logo = models.ImageField(upload_to='logos/')  # Logo image
     slogan_title = models.CharField(max_length=255,null=True,)  # Brand slogan
@@ -112,7 +209,8 @@ class Advertising(models.Model):
     facebook_link = models.URLField(blank=True, null=True)  # Facebook link
     youtube_link = models.URLField(blank=True, null=True)  # YouTube link
     instagram_link = models.URLField(blank=True, null=True)  # Instagram link
-
+    class Meta:
+        verbose_name_plural='Advertising'
     def __str__(self):
         return self.Companyname
 
@@ -185,56 +283,107 @@ class Portfolio(models.Model):
     youtube_link = models.URLField(blank=True, null=True)  # YouTube link
     instagram_link = models.URLField(blank=True, null=True)  # Instagram link
     linkedin_link = models.URLField(blank=True, null=True) #linked in profile link
-
+    class Meta:
+        verbose_name_plural='Portfolio'
     def __str__(self):
         return self.Name
 
-
-
-
-
-
-
-class Oursites(models.Model):
-    category=models.ForeignKey(Category,related_name='Oursite',blank=True, null=True, on_delete=models.CASCADE)
-    name= models.CharField(max_length=255,null=True,)
-    developer=models.CharField(max_length=255,null=True,)
-    date= models.DateField()
-    image1 = models.ImageField(upload_to='Oursite/')
-    image2 = models.ImageField(upload_to='Oursite/')
-    description1=models.TextField(null=True)
-    description2=models.TextField(null=True)
-    summery=models.TextField(null=True)
-  
-    price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True)
+ 
+class Hospital(models.Model):
+    user=models.ForeignKey(User,related_name='Hospital',blank=True, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    Logo = models.ImageField(upload_to='hospital_logos/')
+    Slogan = models.CharField(max_length=255)
+    Short_Intro = models.TextField()
+    Doctors = models.PositiveIntegerField()
+    Patient_Beds = models.PositiveIntegerField()
+    Health_Programs = models.TextField()
+    Whats_App_Number = models.CharField(max_length=20)
+    Video = models.FileField(upload_to='hospital_videos/', null=True)
+    Service_Slogan = models.CharField(max_length=255)
+    Detail_About_Service = models.TextField()
+    General_Care_Image = models.ImageField(upload_to='hospital_images/')
+    General_Care_Info = models.TextField()
+    Pediatric_Care_Image = models.ImageField(upload_to='hospital_images/')
+    Pediatric_Care_Info = models.TextField()
+    Neurology_Image = models.ImageField(upload_to='hospital_images/')
+    Neurology_Info = models.TextField()
+    Womens_Health_Image = models.ImageField(upload_to='hospital_images/')
+    Womens_Health_Service_Info = models.TextField()
+    Emergency_Care_Image = models.ImageField(upload_to='hospital_images/')
+    Emergency_Care_Info = models.TextField()
+    Laboratory_Image = models.ImageField(upload_to='hospital_images/')
+    Laboratory_Info = models.TextField()
+    About_Treatments = models.TextField()
+    First_Pediatrics_Doctor_Image = models.ImageField(upload_to='doctor_images/')
+    First_Pediatrics_Doctor_Name = models.CharField(max_length=255)
+    First_Pediatrics_Doctor_Expertise = models.CharField(max_length=255)
+    Second_Pediatrics_Doctor_Image = models.ImageField(upload_to='doctor_images/')
+    Second_Pediatrics_Doctor_Name = models.CharField(max_length=255)
+    Second_Pediatrics_Doctor_Expertise = models.CharField(max_length=255)
+    Neurology_Doctor_Image = models.ImageField(upload_to='doctor_images/')
+    Neurology_Doctor_Name = models.CharField(max_length=255)
+    Neurology_Doctor_Expertise = models.CharField(max_length=255)
+    Advanced_Diagnostic_Doctor_Image = models.ImageField(upload_to='doctor_images/')
+    Advanced_Diagnostic_Doctor_Name = models.CharField(max_length=255)
+    Advanced_Diagnostic_Doctor_Expertise = models.CharField(max_length=255)
+    Rapid_Response_Experts_Doctor_Image = models.ImageField(upload_to='doctor_images/')
+    Rapid_Response_Experts_Doctor_Name = models.CharField(max_length=255)
+    Rapid_Response_Experts_Doctor_Expertise = models.CharField(max_length=255)
+    Hospital_Image = models.ImageField(upload_to='hospital_images/')
+    Hospital_Address = models.TextField()
+    Laboratory_Name = models.CharField(max_length=255)
+    Monday_to_Friday = models.CharField(max_length=50)
+    Saturday_Timing = models.CharField(max_length=50)
+    Sunday_Timing = models.CharField(max_length=50)
+    Laboratory_Address = models.TextField()
+    Laboratory_Video = models.URLField()
+    Patient_Image = models.ImageField(upload_to='patient_images/',help_text="Informative Image Of Patient")
+    Doctor_Image = models.ImageField(upload_to='doctor_images/',help_text="Informative Image Of Doctor")
+    Question1_Accept_Insurance_Policy = models.TextField(null=True,help_text="Please Answer The Question: Do You Accept Insurance Policy?")
+    Question2_Is_Emergency_Unit_Available = models.TextField(null=True,help_text="Please Answer The Question:Is Emergency Unit Available?")
+    Question3_Provide_Telehealth_Health = models.TextField(null=True,help_text="Please Answer The Question: Do You Provide Telehealth Service?")
+    Email = models.EmailField(help_text="Please Provide Email Address ")
+    Youtube = models.URLField(help_text="Youtube Channel URL ")
+    Facebook = models.URLField(help_text="Facebook Page URL")
+    LinkedIn = models.URLField(help_text="LinkedIn Profile URL")
     class Meta:
-        verbose_name_plural='SoftBit Sites'
-    def get_ratings(self):
-        return Rating.objects.filter(item=self)
-      
+        verbose_name_plural='Hospital'
     def __str__(self):
         return self.name
-    
-class Rating(models.Model):
-    product = models.ForeignKey(Oursites, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to logged-in user
-    rating = models.PositiveSmallIntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)),null=True)
-    created_at = models.DateTimeField(default=timezone.now)
-    class Meta:
-        unique_together = ('product', 'user')  # Prevent duplicate ratings per user/product
-     
-class SitePurchase(models.Model):
+
+
+
+class Deploye(models.Model):
     profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
-    user=models.ForeignKey(User,related_name='SitePurchase',blank=True, null=True, on_delete=models.CASCADE)
-    category=models.ForeignKey(Category,related_name='SitePurchase',blank=True, null=True, on_delete=models.CASCADE)
+    user=models.ForeignKey(User,related_name='Deploye',blank=True, null=True, on_delete=models.CASCADE)
     name= models.CharField(max_length=255,null=True,)
     paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    domainname=models.CharField(max_length=255,null=True)
+    sitefile=models.FileField(upload_to='fordeployesites')
     paid = models.BooleanField(default=False)
-     
+    Processing = 'Processing'
+    Live = 'Live'
+    STATUS_CHOICES = (
+        (Processing, 'Processing'),
+        (Live, 'Live')
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=Processing)
+    class Meta:
+        verbose_name_plural='Deploye Request'
     def __str__(self):
         return self.name
+class DeployeRate(models.Model):
+   rate=models.DecimalField(max_digits=10, decimal_places=2,null=True)
 
+
+
+
+
+    
+
+     
 class Withdrawl_Request(models.Model):
     PENDING = 'Pending'
     APPROVED = 'Paid'
@@ -260,31 +409,5 @@ class Withdrawl_Request(models.Model):
 
     def __str__(self):
         return self.account_no
-class Deploye(models.Model):
-    profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
-    user=models.ForeignKey(User,related_name='Deploye',blank=True, null=True, on_delete=models.CASCADE)
-    name= models.CharField(max_length=255,null=True,)
-    paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    created_at = models.DateTimeField(default=timezone.now)
-    domainname=models.CharField(max_length=255,null=True)
-    sitefile=models.FileField(upload_to='fordeployesites')
-    paid = models.BooleanField(default=False)
-    Processing = 'Processing'
-    Live = 'Live'
-    STATUS_CHOICES = (
-        (Processing, 'Processing'),
-        (Live, 'Live')
-    )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=Processing)
-    def __str__(self):
-        return self.name
-class DeployeRate(models.Model):
-   rate=models.DecimalField(max_digits=10, decimal_places=2,null=True)
-class Contact(models.Model):
-    name=models.CharField(max_length=50,null=True)
-    email=models.EmailField()
-    message=models.TextField(max_length=500,null=True)
-    phone=models.IntegerField()
 
-    def __int__(self):
-        return self.name
+

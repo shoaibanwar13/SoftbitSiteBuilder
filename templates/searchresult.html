@@ -2,7 +2,7 @@
 {% if results2 %}
     {% csrf_token %}
   {% for data in results2%}
-  <a href="{% url 'sitedetail' data.id %}" class="notification-singel-dropdown w-inline-block">
+  <a href="{% url 'sites_by_category' data.id %}" class="notification-singel-dropdown w-inline-block">
     <div class="hero-images">
       <img src="{{data.image1.url}}" loading="lazy" alt="" class="hero-image" />
     </div>

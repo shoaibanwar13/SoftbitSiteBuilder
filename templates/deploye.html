@@ -1,10 +1,9 @@
 {% extends 'base.html'%}
+{% block title %}Upload Your Website File{% endblock title %}
 {% block content %}
 {% load django_bootstrap5 %}   
 <div class="contact-form w-form" id="checkout" style="margin-top: 70px;" >
   <div class="products w-full lg:w-3/4" >
-      
-     
       <h1 class="utility-card-title">Please Upload Your Website File That You Dowanloaded </h1>
       <h1 class="mb-5 text-3xl">Upload File Here</h1>
 {# Load CSS and JavaScript #}
@@ -33,7 +32,7 @@
 
   <button
   
-  class="filled-btn full-width w-button" 
+  class="filled-btn full-width w-button"  id="showSpinnerButton"
   >
   Uplod Site{% for rates in rates %}{{rates.rate}}
   {% endfor %}
@@ -43,12 +42,7 @@
  
 
 </form>
-                          <div class="w-form-done">
-                            <div>Thank you! Your submission has been received!</div>
-                          </div>
-                          <div class="w-form-fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -66,5 +60,42 @@
     </div>
      
   </div>
-            
+</script>
+<style>
+    #spinnerOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+  </style>
+
+  <div id="spinnerOverlay">
+                    <div class="spinner"></div>
+                </div>
+  <script>
+    document.getElementById('showSpinnerButton').addEventListener('click', function() {
+        document.getElementById('spinnerOverlay').style.display = 'flex';
+      });
+      
+</script> 
  {% endblock %}
