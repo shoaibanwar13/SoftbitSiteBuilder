@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4ko^6x&x(!-vzs^ehj$iduld85pucz@iycalk5k*ykqn^_$n%c
 DEBUG = True
 #softbit-website-builder.onrender.com
 
-ALLOWED_HOSTS = ['softbit-website-builder.onrender.com']
+ALLOWED_HOSTS = [ ]
 
 
 # Application definition
@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_bootstrap5',
     'django_htmx',
+    'cloudinary',
+    'cloudinary_storage',
+    
      
 ]
 
@@ -207,3 +210,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #CLIENT_ID='191238887921-kd039pfr42s27q30i0nog847nlojeidc.apps.googleusercontent.com'
 #client_secret='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'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dm9eqnawe',
+    'API_KEY': '598729492447795',
+    'API_SECRET': 'xdeWbYLAZXUUmxvhu8nqvkRY_cA'
+}
+

@@ -12,9 +12,27 @@ from django.contrib.auth import login
  
 from ipware import get_client_ip
 import requests
+import requests
+
+def check_proxy(request):
+    # Get the client's IP address from the request
+    client_ip, _ = get_client_ip(request)
+   
+    # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
+    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
+    # Make a request to VPNAPI.io
+    response = requests.get(api_url)
+    data = response.json()
+    # Check if the IP is associated with a VPN, proxy, or Tor network
+    if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
+        return True  # The IP is associated with a VPN, proxy, or Tor
+    else:
+        return False  # The IP is not associated with a VPN, proxy, or Tor
+
  
     
 def index(request,*args,**kwargs):
+     
    
     code=str(kwargs.get('ref_code'))
     try:

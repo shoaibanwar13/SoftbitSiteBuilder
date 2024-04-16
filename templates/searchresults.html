@@ -1,83 +1,26 @@
-
-<style>
-    .card-link {
-        text-decoration: none;
-        color: inherit;
-      }
-      
-      .card {
-        max-width: 300px;
-        background-color: #0b0c10;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      
-      .card-img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-      
-      .card-content {
-        padding: 20px;
-      }
-      
-      .card-title {
-        color: #66FCF1;
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-      }
-      
-      .card-price {
-        color: #45A29E;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
-      
-      .card-detail {
-        color: #C5C6C7;
-        font-size: 1rem;
-      }
-      
-</style>
 {% if results2 %}
-    {% csrf_token %}
-  {% for data in results2%}
-  
-  <a href="{% url 'sites_by_category' data.id %}" class="card-link">
-    <div class="card">
-       
-      <div class="card-content">
-        <h3 class="card-title">{{data.name}}</h3>
-        
-        <p class="card-detail">{{data.description|slice:":40"}}</p>
-      </div>
-    </div>
-  </a>
-
-  
-  
-  
-
+{% for data in results2 %}
+    <a href="{% url 'sites_by_category' data.id %}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">{{data.name}}</h3>
+                <p class="card-detail">{{data.description|slice:":40"}}</p>
+            </div>
+        </div>
+    </a>
 {% endfor %}
 {% elif results %}
-{% csrf_token %}
 {% for data in results %}
-   
-<a href="{% url 'sitedetail' data.id %}" class="card-link">
-    <div class="card">
-       
-      <div class="card-content">
-        <h3 class="card-title">{{data.name}}</h3>
-        <p class="card-price">${{data.price}}</p>
-        <p class="card-detail">{{data.description1|slice:":40"}}</p>
-      </div>
-    </div>
-  </a>
-
+    <a href="{% url 'sitedetail' data.id %}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">{{data.name}}</h3>
+                <p class="card-price">${{data.price}}</p>
+                <p class="card-detail">{{data.description1|slice:":40"}}</p>
+            </div>
+        </div>
+    </a>
 {% endfor %}
 {% else %}
-
-    <p style="color: red;"><b>No search results</b></p>
+<p style="color: red;"><b>No search results</b></p>
 {% endif %}

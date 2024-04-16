@@ -78,7 +78,7 @@ class SitePurchase(models.Model):
     name= models.CharField(max_length=255,null=True,)
     paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
-    duration_days = models.IntegerField(default=1)
+    duration_days = models.IntegerField(default=30)
     paid = models.BooleanField(default=False)
     @property
     def expiration_date(self):
@@ -88,15 +88,10 @@ class SitePurchase(models.Model):
         else:
             return None
 
-    @property
-    def is_expired(self):
-        if self.paid:
-            return self.expiration_date < timezone.now()
-        else:
-            return False
+     
 
     class Meta:
-        verbose_name_plural='SitePurchase'
+        verbose_name_plural='Site Purchase'
     def __str__(self):
         return self.name
 
@@ -111,7 +106,7 @@ class Contact(models.Model):
     name=models.CharField(max_length=50,null=True)
     email=models.EmailField()
     message=models.TextField(max_length=500,null=True)
-    phone=models.IntegerField()
+    phone=models.CharField(null=True,max_length=16)
 
     def __int__(self):
         return self.name

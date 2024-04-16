@@ -35,6 +35,7 @@ urlpatterns = [
     path('sites/<str:category>/', sites_by_category, name='sites_by_category'),
     path('sitedetail/<str:id>',sitedetail,name='sitedetail'),
     path('search/',search,name='search'),
+    path('searchpage/', searchpage, name='searchpage'),
     path('mainpagesearch/', mainpagesearch, name='mainpagesearch'),
     path('rating/', rating, name='rating'),
     path('ourteam/', ourteam, name='ourteam'),

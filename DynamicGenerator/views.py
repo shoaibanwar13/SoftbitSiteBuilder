@@ -19,6 +19,19 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from ipware import get_client_ip
 import requests
+def check_proxy(request):
+    # Get the client's IP address from the request
+    client_ip, _ = get_client_ip(request)
+    # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
+    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
+    # Make a request to VPNAPI.io
+    response = requests.get(api_url)
+    data = response.json()
+    # Check if the IP is associated with a VPN, proxy, or Tor network
+    if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
+        return True  # The IP is associated with a VPN, proxy, or Tor
+    else:
+        return False  # The IP is not associated with a VPN, proxy, or Tor
 def proxy_warning_view(request):
     return render(request, 'ipblock.html')
 def check_username(request):
@@ -149,6 +162,8 @@ def search(request):
                 'results2':results2}
 
     return render(request, 'searchresult.html', context)
+def searchpage(request):
+    return render(request, 'searchpage.html')
 def mainpagesearch(request):
     search_text = request.POST.get('search')
     results2 = Category.objects.filter(name__icontains=search_text)
@@ -193,7 +208,7 @@ def contact(request):
         phone=request.POST.get("phone")
         myquery=Contact(name=name,email=email,message=message,phone=phone)
         myquery.save()
-        email_subject2 = "Plan Expire Date Is Approaching "
+        email_subject2 = "Customer Contact Detail Recieved "
         message = render_to_string('SendEmail7.html', {
                 'user':request.user,
                 'name':name,
@@ -519,10 +534,6 @@ def Medipark(request):
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
     if user_purchases==False:
         return redirect('/')
-    try:
-        Hospital.objects.get(user=request.user)
-    except  Hospital.DoesNotExist:
-        return redirect('/')
     data=Hospital.objects.filter(user=request.user).exists()
     if data==True:
         return redirect('MediparkPreview')
@@ -553,7 +564,7 @@ def Medipark(request):
     else:
         form =  HospitalForm()
 
-    return render(request,'mediparkform.html')
+    return render(request,'mediparkform.html',{'form':form})
 @login_required
 def edit_Medipark(request):
     
