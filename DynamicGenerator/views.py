@@ -533,11 +533,7 @@ def MediparkPreview(request):
 def Medipark(request):
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
     if user_purchases==False:
-        return redirect('/')
-<<<<<<< HEAD
-=======
-    
->>>>>>> cc23da0f4d0c0ea7bd9395add5b92d7b84d41385
+        return redirect('/') 
     data=Hospital.objects.filter(user=request.user).exists()
     if data==True:
         return redirect('MediparkPreview')
