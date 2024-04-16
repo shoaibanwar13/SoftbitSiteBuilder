@@ -365,7 +365,7 @@ def delete_Advertising_site(request,id):
     Advertising.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
 @login_required
-def preview3(request):
+def preview2(request):
     return render(request, 'portfoliopreview.html')
 @login_required
 def portfolio(request):
@@ -494,7 +494,7 @@ def edit_Portfolio(request):
 def delete_Portfolio_site(request,id):
     Portfolio.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
-def preview4(request):
+def preview3(request):
     return render(request,'mediparkpreview.html')
 @login_required
 def MediparkPreview(request):
@@ -534,6 +534,10 @@ def Medipark(request):
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
     if user_purchases==False:
         return redirect('/')
+<<<<<<< HEAD
+=======
+    
+>>>>>>> cc23da0f4d0c0ea7bd9395add5b92d7b84d41385
     data=Hospital.objects.filter(user=request.user).exists()
     if data==True:
         return redirect('MediparkPreview')
