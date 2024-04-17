@@ -1,4 +1,5 @@
  
+
       <header class="page-header">
         <div class="container">
           <div class="page-header-flex-wrap no-margin-bottom">
@@ -88,4 +89,47 @@
           </div>
         </div>
       </a >
-       
+      <div id="popup" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50 z-50">
+        <div class="bg-blue-900 rounded-lg p-8 max-w-md w-full text-white">
+          <button id="closeBtn" class="absolute top-0 right-0 mt-2 mr-2 text-white hover:text-gray-300">&times;</button>
+          <div class="text-center">
+            <img src="{% for data in data  %}{{data.offerimage}}{% endfor %}" class="mx-auto mb-4" alt="Popup Image" style="max-width: 200px;">
+            <h2 class="text-2xl font-bold mb-2"{% for data in data  %}{{data.offername}}{% endfor %}></h2>
+            <p class="mb-4">{% for data in data  %}{{data.offerprice}}{% endfor %}% {% for data in data  %}{{data.offerprice}}{% endfor %}</p>
+          </div>
+          <div class="text-center">
+            <button id="popupBtn" class="bg-white text-blue-900 font-bold py-2 px-4 rounded-full hover:bg-blue-800 hover:text-white transition duration-300"><a href='{% url 'oursites' %}' style="text-decoration: none;">Button</a></button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const popup = document.getElementById('popup');
+          const closeBtn = document.getElementById('closeBtn');
+          const popupBtn = document.getElementById('popupBtn');
+      
+          // Check if popup is shown before
+          const isPopupShown = localStorage.getItem('popupShown');
+      
+          if (!isPopupShown) {
+            popup.classList.remove('hidden');
+          }
+      
+          // Close popup when close button is clicked
+          closeBtn.addEventListener('click', function() {
+            popup.classList.add('hidden');
+            // Set a flag in local storage to indicate popup has been shown
+            localStorage.setItem('popupShown', true);
+          });
+      
+          // Close popup when popup button is clicked
+          popupBtn.addEventListener('click', function() {
+            popup.classList.add('hidden');
+            // Set a flag in local storage to indicate popup has been shown
+            localStorage.setItem('popupShown', true);
+          });
+        });
+      </script>
+      
+      

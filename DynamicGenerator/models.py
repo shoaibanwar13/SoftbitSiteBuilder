@@ -128,6 +128,7 @@ class Offers(models.Model):
     offerprice=models.DecimalField(decimal_places=2,max_digits=10)
     offerdiscount=models.IntegerField()
     offerdescription=models.TextField()
+    offerimage=models.ImageField(upload_to='offers/',null=True)
     class Meta:
         verbose_name_plural='Offers'
     def __str__(self):

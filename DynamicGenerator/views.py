@@ -1,5 +1,5 @@
  
-from django.shortcuts import render, redirect, HttpResponse,get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse,get_object_or_404 
 from django.contrib.auth import get_user_model
 from .models import *
 from django.http import JsonResponse
@@ -109,7 +109,7 @@ def oursites(request):
     if request.htmx:
         return render(request, 'webgenrator/webtemplates.html',{'allsite':allsite,'category':category,'toprated':toprated,'offer':offer})
     else:
-          return render(request, 'webtemplates.html',{'allsite':allsite,'category':category,'toprated':toprated})
+          return render(request, 'webtemplates.html',{'allsite':allsite,'category':category,'toprated':toprated,'offer':offer})
 def sites_by_category(request, category):
      
     sites = Oursites.objects.filter(category=category)
