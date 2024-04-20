@@ -72,7 +72,7 @@
                   <div role="list" class="w-dyn-items">
                     {% for category in category  %} 
                     <div role="listitem" class="blog-cat-collection w-dyn-item">
-                      <a style="background-color:aqua" href="" hx-get="{% url 'sites_by_category' category.id %}" hx-push-url="sites_by_category/{{category.id}}" hx-target="#change"  class="blog-category-label margin-top">{{category.name}}</a>
+                      <a style="background-color:aqua" href="" hx-get="{% url 'sites_by_category' category.id %}" hx-push-url="{% url 'sites_by_category' category.id %}" hx-target="#change"  class="blog-category-label margin-top">{{category.name}}</a>
                     </div>
                     {% endfor %}
                     

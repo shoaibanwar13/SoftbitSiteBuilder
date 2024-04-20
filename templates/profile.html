@@ -17,7 +17,7 @@
               <div class="settings-profile">
                 <div class="settings-profile-singel">
                   <div class="settings-profile-img-wrapper">
-                    <img src="{{user.profile.profilepic.url}}" loading="lazy" alt="" style="width: 200px; height: 200px; border-radius: 110px;" />
+                    <img src="{{user.profile.profilepic.url}}" loading="lazy" alt="" style="width: 200px; height: 200px; border-radius: 110px;" alt="https://res.cloudinary.com/dm9eqnawe/image/upload/v1/media/profilepic/avatar_wtgsf3" />
                   </div>
                   <div class="settings-profile-name-info">
                     <h2 class="settings-profile-name">{{request.user.username}}</h2><div class="settings-profile-info">{{user.profile.profession}}</div>
@@ -48,29 +48,18 @@
                           <form id="email-form" name="email-form" data-name="Email Form" method="get" class="settings-form">
                             <div class="settings-form-singel-wrappper">
                               <div class="settings-singel">
-                                <label for="email" class="settings-field-label">First Name</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email" data-name="Email" placeholder="John Doe" id="email"disabled='true'  value="{{request.user.first_name}}  " disabled='true' />
+                                <label for="email" class="settings-field-label">First Name</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email" data-name="Email"   id="email"disabled='true'  value="{{request.user.first_name}}  " disabled='true' />
                               </div>
                               <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">Last Name</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="John Doe" id="email-2"disabled='true' value="{{request.user.last_name}}"  />
+                                <label for="email-2" class="settings-field-label">Last Name</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2"  id="email-2"disabled='true' value="{{request.user.last_name}}"  />
                               </div>
                             </div>
                             <div class="settings-form-singel-wrappper">
                               <div class="settings-singel">
-                                <label for="email-3" class="settings-field-label">Email Address</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="johndoe@gmail.com" id="email-3"disabled='true' value="{{request.user.email}}"  />
+                                <label for="email-3" class="settings-field-label">Email Address</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3"  id="email-3"disabled='true' value="{{request.user.email}}"  />
                               </div>
                               <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">Phone</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="Los angeles, california" id="email-2"disabled='true' value="{{user.profile.phone}}"  />
-                              </div>
-                              
-                              
-                              
-                            </div>
-                            <div class="settings-form-singel-wrappper">
-                              <div class="settings-singel">
-                                <label for="email-3" class="settings-field-label">Address</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="johndoe@gmail.com" id="email-3"disabled='true' value="{{user.profile.address}}"  />
-                              </div>
-                              <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">City</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="Los angeles, california" id="email-2"disabled='true' value="{{user.profile.city}}"  />
+                                <label for="email-2" class="settings-field-label">Phone</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2"  id="email-2"disabled='true' value="{{user.profile.phone}}"  />
                               </div>
                               
                               
@@ -78,21 +67,10 @@
                             </div>
                             <div class="settings-form-singel-wrappper">
                               <div class="settings-singel">
-                                <label for="email-3" class="settings-field-label">State</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="johndoe@gmail.com" id="email-3"disabled='true' value="{{user.profile.state}}"  />
+                                <label for="email-3" class="settings-field-label">Address</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" id="email-3"disabled='true' value="{{user.profile.address}}"  />
                               </div>
                               <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">Country</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="Los angeles, california" id="email-2"disabled='true' value="{{user.profile.country}}"  />
-                              </div>
-                              
-                              
-                              
-                            </div>
-                            <div class="settings-form-singel-wrappper">
-                              <div class="settings-singel">
-                                <label for="email-3" class="settings-field-label">Facebook Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="Facebook Url" id="email-3"disabled='true' value="{{user.profile.facebook}}"  />
-                              </div>
-                              <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">Skype Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="Skype Url" id="email-2"disabled='true' value="{{user.profile.skype}}"  />
+                                <label for="email-2" class="settings-field-label">City</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2"  id="email-2"disabled='true' value="{{user.profile.city}}"  />
                               </div>
                               
                               
@@ -100,10 +78,32 @@
                             </div>
                             <div class="settings-form-singel-wrappper">
                               <div class="settings-singel">
-                                <label for="email-3" class="settings-field-label">Twitter Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="Twitter Url" id="email-3"disabled='true' value="{{user.profile.twitter}}"  />
+                                <label for="email-3" class="settings-field-label">State</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3" id="email-3"disabled='true' value="{{user.profile.state}}"  />
                               </div>
                               <div class="settings-singel">
-                                <label for="email-2" class="settings-field-label">Linked</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="Skype Url" id="email-2"disabled='true' value="{{user.profile.linkedin}}"  />
+                                <label for="email-2" class="settings-field-label">Country</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2" id="email-2"disabled='true' value="{{user.profile.country}}"  />
+                              </div>
+                              
+                              
+                              
+                            </div>
+                            <div class="settings-form-singel-wrappper">
+                              <div class="settings-singel">
+                                <label for="email-3" class="settings-field-label">Facebook Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3"  id="email-3"disabled='true' value="{{user.profile.facebook}}"  />
+                              </div>
+                              <div class="settings-singel">
+                                <label for="email-2" class="settings-field-label">Skype Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2"  id="email-2"disabled='true' value="{{user.profile.skype}}"  />
+                              </div>
+                              
+                              
+                              
+                            </div>
+                            <div class="settings-form-singel-wrappper">
+                              <div class="settings-singel">
+                                <label for="email-3" class="settings-field-label">Twitter Url</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-3" data-name="Email 3"   id="email-3"disabled='true' value="{{user.profile.twitter}}"  />
+                              </div>
+                              <div class="settings-singel">
+                                <label for="email-2" class="settings-field-label">Linked</label><input  typye="text" class="settings-input w-input" maxlength="256" name="email-2" data-name="Email 2"   id="email-2"disabled='true' value="{{user.profile.linkedin}}"  />
                               </div>
                               
                               
@@ -118,12 +118,7 @@
                              
                             </div>
                           </form>
-                          <div class="w-form-done">
-                            <div>Thank you! Your submission has been received!</div>
-                          </div>
-                          <div class="w-form-fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                          </div>
+                           
                         </div>
                       </div>
                     </div>
@@ -134,7 +129,7 @@
                       <div class="settings-table-wrapper">
                         <div class="active-sessions-table-wrapper mb25">
                           <div class="active-sessions-table-title-wrapper">
-                            <h3 class="active-sessions-table-title">Active Sessions</h3>
+                            <h3 class="active-sessions-table-title">Last Login</h3>
                           </div>
                           <div class="active-sessions-table-heading-wrapper">
                             <div class="w-layout-grid active-sessions-table-grid">
@@ -148,7 +143,7 @@
                           <div class="active-sessions-table-content">
                             <div class="w-layout-grid active-sessions-table-content-grid">
                               <div id="w-node-baef3ee8-36a2-2677-ec41-4779453b2a12-6009bcf1" class="active-sessions-table-text-wrapper">
-                                <div class="active-sessions-table-text-block">{{user.date_joined}}</div>
+                                <div class="active-sessions-table-text-block">{{user.last_login}}</div>
                               </div>
                                
                                
@@ -164,14 +159,35 @@
                               <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce89-6009bcf1" class="active-sessions-table-headings">
                                 <h4 class="active-sessions-table-heading">Date/Time</h4>
                               </div>
-                               
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce8c-6009bcf1" class="active-sessions-table-headings">
+                                <h4 class="active-sessions-table-heading">City</h4>
+                              </div>
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce8f-6009bcf1" class="active-sessions-table-headings">
+                                <h4 class="active-sessions-table-heading">Country</h4>
+                              </div>
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce92-6009bcf1" class="active-sessions-table-headings">
+                                <h4 class="active-sessions-table-heading">IP Address</h4>
+                              </div>
                             </div>
                           </div>
                           <div class="active-sessions-table-content two">
+                            {% for trace in trace  %}
                             <div class="w-layout-grid active-sessions-table-content-grid">
                               <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce97-6009bcf1" class="active-sessions-table-text-wrapper">
-                                <div class="active-sessions-table-text-block">{{user.last_login}}</div>
+                                <div class="active-sessions-table-text-block">{{trace.login_time}}</div>
                               </div>
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce9a-6009bcf1" class="active-sessions-table-text-wrapper">
+                                <div class="active-sessions-table-text-block">{{trace.city}}</div>
+                              </div>
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798ce9d-6009bcf1" class="active-sessions-table-text-wrapper">
+                                <div class="active-sessions-table-text-block">{{trace.country}}</div>
+                              </div>
+                              <div id="w-node-_2703db15-1a2a-e6c3-6436-bf989798cea0-6009bcf1" class="active-sessions-table-text-wrapper">
+                                <div class="active-sessions-table-text-block">{{trace.ip_address}}</div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
                               
                             </div>
                           </div>

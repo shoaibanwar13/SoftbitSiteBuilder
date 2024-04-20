@@ -10,8 +10,8 @@ class Profile(models.Model):
     recommended_by=models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name="ref_by")
     profession=models.CharField(max_length=200,null=True)
     bio=models.TextField(null=True)
-    profilepic=models.ImageField(upload_to='profilepic/', null=True,default='profilepic/118075335_744109276133549_1110864460278063364_n_c253ba2d-0077-40bc-82e3-372b_oJqMKqo.webp')
-    created=models.DateTimeField(auto_now=True)
+    profilepic=models.ImageField(upload_to='profilepic/', null=True,default="https://res.cloudinary.com/dm9eqnawe/image/upload/v1/media/profilepic/avatar_wtgsf3")
+    created=models.DateTimeField(default=timezone.now)
     balance=models.IntegerField(default=0)
     withdrawl_amount=models.IntegerField(default=0)
     commession=models.IntegerField(default=0)
@@ -149,23 +149,23 @@ class Advertising(models.Model):
     logo = models.ImageField(upload_to='logos/')  # Logo image
     slogan_title = models.CharField(max_length=255,null=True,)  # Brand slogan
    
-    short_Discription = models.CharField(max_length=255, null=True)
-    image1 = models.ImageField(upload_to='Advertising/')  # Image 1 for advertising
-    image2 = models.ImageField(upload_to='Advertising/')  # Image 2 for advertising
-    image3 = models.ImageField(upload_to='Advertising/')  # Image 3 for advertising
-    short_about_us = models.TextField()  # Short about us description
-    brand_strategy = models.TextField()  # Brand strategy description
-    product_experience = models.TextField()  # Product experience description
-    time_management = models.TextField()  # Time management description
-    beautiful_design = models.TextField()  # Beautiful design description
+    short_Discription = models.CharField(max_length=255, null=True,help_text="Short Intro  In Hero Section")
+    image1 = models.ImageField(upload_to='Advertising/',help_text="Image1 For Slider In Hero Section")  # Image 1 for advertising
+    image2 = models.ImageField(upload_to='Advertising/',help_text="Image2 For Slider In Hero Section")  # Image 2 for advertising
+    image3 = models.ImageField(upload_to='Advertising/',help_text="Image3 For Slider In Hero Section")  # Image 3 for advertising
+    short_about_us = models.TextField(help_text="Short Intero In Hero Section")  # Short about us description
+    brand_strategy = models.TextField(help_text="Write About Your Strategy")  # Brand strategy description
+    product_experience = models.TextField(help_text="Write About Product Experience")  # Product experience description
+    time_management = models.TextField(help_text="Write About Time Management")  # Time management description
+    beautiful_design = models.TextField(help_text="Write About Beautiful Design")  # Beautiful design description
 
     # About Us Section
-    short_about_us2 = models.TextField(null=True) # Short about us description (duplicate field)
+    short_about_us2 = models.TextField(null=True,help_text="Write About Us Info") # Short about us description (duplicate field)
 
     # Extended About Us Section
     about_us_description = models.TextField()  # Extended about us description
-    pic1 = models.ImageField(upload_to='Advertising/')  # Image 1 for extended about us
-    pic2 = models.ImageField(upload_to='Advertising/')  # Image 2 for extended about us
+    pic1 = models.ImageField(upload_to='Advertising/' ,help_text="About Us Image For Section")  # Image 1 for extended about us
+    pic2 = models.ImageField(upload_to='Advertising/',help_text="About Us Image For Section")  # Image 2 for extended about us
 
     # Services Section
     title_service1 = models.CharField(max_length=255)  # Title for service 1
@@ -183,18 +183,18 @@ class Advertising(models.Model):
     youtube_video_id = models.CharField(max_length=255,blank=True, null=True) 
 
     # Latest Work Section
-    title_1 = models.CharField(max_length=255)  # Title for latest work 1
-    pic_1 = models.ImageField(upload_to='Advertising/')  # Picture for latest work 1
-    description_1 = models.TextField()  # Description for latest work 1
-    title_2 = models.CharField(max_length=255)  # Title for latest work 2
-    pic_2 = models.ImageField(upload_to='Advertising/')  # Picture for latest work 2
-    description_2 = models.TextField()  # Description for latest work 2
-    title_3 = models.CharField(max_length=255)  # Title for latest work 3
-    pic_3 = models.ImageField(upload_to='Advertising/')  # Picture for latest work 3
-    description_3 = models.TextField()  # Description for latest work 3
-    title_4 = models.CharField(max_length=255)  # Title for latest work 4
-    pic_4 = models.ImageField(upload_to='Advertising/')  # Picture for latest work 4
-    description_4 = models.TextField()  # Description for latest work 4
+    title_1 = models.CharField(max_length=255,help_text="Title for  Project 1")  # Title for  work 1
+    pic_1 = models.ImageField(upload_to='Advertising/',help_text="Picture for  Project 1")  # Picture for  work 1
+    description_1 = models.TextField(help_text="Description for  Project 1")  # Description for  work 1
+    title_2 = models.CharField(max_length=255,help_text="Title for  Project 2")  # Title for  work 2
+    pic_2 = models.ImageField(upload_to='Advertising/',help_text="Picture for  Project 2")  # Picture for  work 2
+    description_2 = models.TextField(help_text="Description for  Project 2")  # Description for  work 2
+    title_3 = models.CharField(max_length=255,help_text="Title for  Project 3")  # Title for  work 3
+    pic_3 = models.ImageField(upload_to='Advertising/',help_text="Picture for  Project 3")  # Picture for  work 3
+    description_3 = models.TextField(help_text="Description for  Project 3")  # Description for  work 3
+    title_4 = models.CharField(max_length=255,help_text="Title for  Project 4")  # Title for  work 4
+    pic_4 = models.ImageField(upload_to='Advertising/',help_text="Picture for  Project 4")  # Picture for  work 4
+    description_4 = models.TextField(help_text="Description for  Project 4")  # Description for  work 4
 
     # Contact Information
     location = models.CharField(max_length=255)  # Location
@@ -333,7 +333,7 @@ class Hospital(models.Model):
     Saturday_Timing = models.CharField(max_length=50)
     Sunday_Timing = models.CharField(max_length=50)
     Laboratory_Address = models.TextField()
-    Laboratory_Video = models.URLField()
+     
     Patient_Image = models.ImageField(upload_to='patient_images/',help_text="Informative Image Of Patient")
     Doctor_Image = models.ImageField(upload_to='doctor_images/',help_text="Informative Image Of Doctor")
     Question1_Accept_Insurance_Policy = models.TextField(null=True,help_text="Please Answer The Question: Do You Accept Insurance Policy?")
@@ -405,5 +405,29 @@ class Withdrawl_Request(models.Model):
 
     def __str__(self):
         return self.account_no
+    
+ 
+class UserMonitering(models.Model):
+    user = models.ForeignKey(User,  blank=True, null=True, on_delete=models.CASCADE)
+    ip_address = models.CharField(max_length=45)
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    login_time = models.DateTimeField(default=timezone.now)
+    restricted=models.BooleanField(default=False)
+    def __str__(self):
+        return self.ip_address
+ 
+class Testimonial(models.Model):
+    user=models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE)
+    profile_image=models.ImageField(upload_to='TestimonialImages')
+    name=models.CharField(max_length=100)
+    message=models.CharField(max_length=1000)
+    star=models.IntegerField()
+    created_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.name
+
+
 
 

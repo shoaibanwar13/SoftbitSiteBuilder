@@ -479,7 +479,7 @@
                                 <div class="hero-5-title-block">
                                     <h1 data-w-id="e9f15b2a-59f4-dd8d-b69f-ecce9202a909" style="opacity:0"
                                         class="heading is-hero-5-title-1">{% for data in data  %}{{data.name}}{% endfor %}<span
-                                            class="opacity-70">{% for data in data  %}{{data.Slogan}}{% endfor %}</span></h1>
+                                            class="opacity-70"><br>{% for data in data  %}{{data.Slogan}}{% endfor %}</span></h1>
                                     <div data-w-id="4189f6ac-624f-94ce-8666-5753d2ae0afb" style="opacity:0"><a
                                             href="{% for data in data  %}https://api.whatsapp.com/send?phone={{data.Whats_App_Number}}{% endfor %}" class="button w-inline-block">
                                             <div class="button-text">Book Appointment</div><img
@@ -1185,18 +1185,18 @@
                                     <p class="paragraph">{% for data in data %}{{data.Laboratory_Address}}{% endfor %}</p>
                                 </div>
                                 <div class="content-1-image">
-                                    <div data-poster-url="{% for data in data  %}{{data.Laboratory_Video.url}} {% endfor %}"
-                                        data-video-urls="{% for data in data  %}{{data.Laboratory_Video.url}} {% endfor %}"
+                                    <div data-poster-url="https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-poster-00001.jpg"
+                                        data-video-urls="https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-transcode.mp4,https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-transcode.webm"
                                         data-autoplay="true" data-loop="true" data-wf-ignore="true"
                                         class="cover-image w-background-video w-background-video-atom"><video
                                             id="05364ab6-fc6d-c6e0-4cf8-ea0a028e6d9b-video" autoplay="" loop=""
-                                            style="background-image:url(&quot;{% for data in data  %}{{data.Laboratory_Video.url}} {% endfor %}&quot;)"
+                                            style="background-image:url(&quot;https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-poster-00001.jpg&quot;)"
                                             muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
                                             <source
-                                                src="{% for data in data  %}{{data.Laboratory_Video.url}} {% endfor %}"
+                                                src="https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-transcode.mp4"
                                                 data-wf-ignore="true" />
                                             <source
-                                                src="{% for data in data  %}{{data.Laboratory_Video.url}} {% endfor %}"
+                                                src="https://assets-global.website-files.com/652959dd2513dbf02ba9f0e8/6557a0d97f803b3365a22831_d50c38-e522-4f32-0304-8c4fccf52ff-transcode.webm"
                                                 data-wf-ignore="true" />
                                         </video></div>
                                 </div><a href="{% for data in data  %}https://api.whatsapp.com/send?phone={{data.Whats_App_Number}}{% endfor %}" class="button w-inline-block">
@@ -1223,7 +1223,7 @@
                                         <div class="parallax-animation">
                                             <div class="animation-color-bg"></div><img loading="lazy"
                                                 alt="Healthcare service"
-                                                src="{% for data in data  %}{{data.Patient_Imgae.url}} {% endfor %}"
+                                                src="{% for data in data  %}{{data.Patient_Image.url}} {% endfor %}"
                                                 class="cover-image is-parallax" />
                                         </div>
                                     </div>
@@ -1250,7 +1250,7 @@
                                         <div class="parallax-animation">
                                             <div class="animation-color-bg"></div><img loading="lazy"
                                                 alt="Healthcare service"
-                                                src="{% for data in data  %}{{data.Doctor_Imgae.url}} {% endfor %}"
+                                                src="{% for data in data  %}{{data.Doctor_Image.url}} {% endfor %}"
                                                 class="cover-image is-parallax" />
                                         </div>
                                     </div>
@@ -1337,7 +1337,7 @@
                                                             <div class="accordion-flex">
                                                                 <div class="faq-content">
                                                                     <div class="rich-text w-richtext">
-                                                                        <p>{% for data in data %}{{data.Question1}}{% endfor %}</p>
+                                                                        <p>{% for data in data %}{{data.Question1_Accept_Insurance_Policy }}{% endfor %}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1357,7 +1357,7 @@
                                                             <div class="accordion-flex">
                                                                 <div class="faq-content">
                                                                     <div class="rich-text w-richtext">
-                                                                        <p>{% for data in data %}{{data.Question2}}{% endfor %}</p>
+                                                                        <p>{% for data in data %}{{data.Question2_Is_Emergency_Unit_Available}}{% endfor %}</p>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -1378,7 +1378,7 @@
                                                             <div class="accordion-flex">
                                                                 <div class="faq-content">
                                                                     <div class="rich-text w-richtext">
-                                                                        <p>{% for data in data %}{{data.Question3}}{% endfor %}</p>
+                                                                        <p>{% for data in data %}{{data.Question3_Provide_Telehealth_Health}}{% endfor %}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1549,7 +1549,7 @@
     <div id="popupContent" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #000; padding: 20px; border: 1px solid #000; border-radius: 10px; color: white;">
       <p>Concragulation Your Site Have Been Developed You Can Download It And Edit Accourding to Your Need If You Want to Deploye Your Please  Download SiteAnd Then  Please Click On Deploye Site </p>
       <button id="downloadButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;"><a href='#' style="color: white; text-decoration: none;">Download</a></button>
-      <button id="downloadButton" style="background-color:aqua; color: #fff; padding: 12px 20px; border: none; cursor: pointer; border-radius: 5px;"><a href='/edit_Advertising/' style="color: white; text-decoration: none;">Edit</a></button>
+      <button id="downloadButton" style="background-color:aqua; color: #fff; padding: 12px 20px; border: none; cursor: pointer; border-radius: 5px;"><a href='/edit_Medipark/' style="color: white; text-decoration: none;">Edit</a></button>
       <button id="downloadButton" style="background-color:darkblue; color: #fff; padding: 12px 20px; border: none; cursor: pointer; border-radius: 5px;"onclick="deleteSite()"> Delete Site</button>
       <button id="downloadButton" style="background-color:darkblue; color: #fff; padding: 12px 20px; border: none; cursor: pointer; border-radius: 5px;"><a href='/deployecheckout/' style="color: white; text-decoration: none;">Deploye</a></button>
       <button id="closeButton" style="background-color: #fff; color: #000; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; margin-left: 10px;"><a href='#' style=" text-decoration: none;">Close</a></button>

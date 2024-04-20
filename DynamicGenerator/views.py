@@ -9,7 +9,7 @@ from django.conf import settings
 import json
 from django.shortcuts import render,redirect
 from  .forms import ProfileUpdateForm,UserUpdateForm,Portfoliotemplate,UpdatePortfoliotemplate,Advertisingtem,UpdateAdvertisingtem,RatingForm,DeployesiteForm,HospitalForm,HospitalEditForm
-from  .models import Profile,Withdrawl_Request,Deploye,Contact,Hospital,team,Offers,Co_Founder
+from  .models import Profile,Withdrawl_Request,Deploye,Contact,Hospital,team,Offers,Co_Founder,Testimonial
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -19,19 +19,9 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from ipware import get_client_ip
 import requests
-def check_proxy(request):
-    # Get the client's IP address from the request
-    client_ip, _ = get_client_ip(request)
-    # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
-    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
-    # Make a request to VPNAPI.io
-    response = requests.get(api_url)
-    data = response.json()
-    # Check if the IP is associated with a VPN, proxy, or Tor network
-    if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
-        return True  # The IP is associated with a VPN, proxy, or Tor
-    else:
-        return False  # The IP is not associated with a VPN, proxy, or Tor
+def account_restriction(request):
+    return render(request, 'accountrestriction.html')
+
 def proxy_warning_view(request):
     return render(request, 'ipblock.html')
 def check_username(request):
@@ -66,19 +56,20 @@ def check_password(request):
 @login_required
 def profile(request):
     data=Profile.objects.get(user=request.user)
+    trace=UserMonitering.objects.filter(user=request.user)
     usercommession=data.commession==0
     
     totalbalance=data.balance
     currentuser=Profile.objects.filter(user=request.user)
-    return render(request,'profile.html',{'currentuser':currentuser,'usercommession':usercommession,'totalbalance':totalbalance})
+    return render(request,'profile.html',{'currentuser':currentuser,'usercommession':usercommession,'totalbalance':totalbalance,'trace':trace})
 @login_required
 def edit_profile(request):
     data=Profile.objects.get(user=request.user)
     totalbalance=data.balance
     usercommession=data.commession==0
-    if request.method == 'GET':
-        u_form = UserUpdateForm(request.GET, instance=request.user)
-        p_form = ProfileUpdateForm(request.GET,
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
@@ -163,7 +154,12 @@ def search(request):
 
     return render(request, 'searchresult.html', context)
 def searchpage(request):
-    return render(request, 'searchpage.html')
+    if request.htmx:
+       return render(request, 'webgenrator/search.html')
+    else:
+      return render(request, 'searchpage.html')
+
+    
 def mainpagesearch(request):
     search_text = request.POST.get('search')
     results2 = Category.objects.filter(name__icontains=search_text)
@@ -249,7 +245,7 @@ def AspersitePreview(request):
         return redirect('/')
     data=Advertising.objects.filter(user=request.user).exists()
     if data==False:
-        return redirect('/')
+        return redirect('AspersitePreview')
     print(user_purchases)
     for purchase in user_purchases:
         # Check if the expiration date is approaching (e.g., within 7 days)
@@ -282,33 +278,13 @@ def Asper(request):
     data=Advertising.objects.filter(user=request.user).exists()
     if data==True:
         return redirect('AspersitePreview')
-    print(user_purchases)
-      # Adjust the filter criteria as needed
-    
-    # Iterate through each user purchase
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
-        days_until_expiration = (expiration_date - timezone.now()).days
-        print(days_until_expiration)
-        if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Asper'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
+     
     if request.method == 'POST':
         form = Advertisingtem(request.POST, request.FILES)
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            return redirect('Advertising_web')
+            return redirect('AspersitePreview')
     else:
         form =  Advertisingtem()
      
@@ -322,28 +298,7 @@ def edit_Asper(request):
     try:
         Adver = Advertising.objects.get(user=request.user)
     except  Advertising.DoesNotExist:
-        return redirect('/')
-    print(user_purchases)
-      # Adjust the filter criteria as needed
-    
-    # Iterate through each user purchase
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
-        days_until_expiration = (expiration_date - timezone.now()).days
-        print(days_until_expiration)
-        if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Asper'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
+        return redirect('/') 
  
     
    
@@ -410,29 +365,7 @@ def yourportfolio(request):
     ifuserdataexist=Portfolio.objects.filter(user=request.user).exists()
     if ifuserdataexist:
         return redirect('portfolio')
-    print(user_purchases)
-      # Adjust the filter criteria as needed
-    
-    # Iterate through each user purchase
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
-        days_until_expiration = (expiration_date - timezone.now()).days
-        print(days_until_expiration)
-        if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'yourportfolio'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
- 
-    
+     
     
     
     if request.method == 'POST':
@@ -455,24 +388,7 @@ def edit_Portfolio(request):
         portfolio = Portfolio.objects.get(user=request.user)
     except Portfolio.DoesNotExist:
         return redirect('/')
-    
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
-        days_until_expiration = (expiration_date - timezone.now()).days
-        print(days_until_expiration)
-        if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'yourportfolio'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
+     
  
     
    
@@ -534,27 +450,7 @@ def Medipark(request):
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
     if user_purchases==False:
         return redirect('/') 
-    data=Hospital.objects.filter(user=request.user).exists()
-    if data==True:
-        return redirect('MediparkPreview')
-    print(user_purchases)
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
-        days_until_expiration = (expiration_date - timezone.now()).days
-        print(days_until_expiration)
-        if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Medipark'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
+     
     if request.method == 'POST':
         form = HospitalForm(request.POST, request.FILES)
         if form.is_valid():
@@ -575,10 +471,6 @@ def edit_Medipark(request):
         hospital = Hospital.objects.get(user=request.user)
     except  Hospital.DoesNotExist:
         return redirect('/')
-    data=Hospital.objects.filter(user=request.user).exists()
-    if data==True:
-        return redirect('MediparkPreview')
-    print(user_purchases)
     for purchase in user_purchases:
         # Check if the expiration date is approaching (e.g., within 7 days)
         expiration_date = purchase.expiration_date
@@ -586,17 +478,6 @@ def edit_Medipark(request):
         print(days_until_expiration)
         if days_until_expiration==0:
             return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Medipark'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
-    
     if request.method == 'POST':
         form = HospitalEditForm(request.POST,
                                    
@@ -862,7 +743,11 @@ def userdashboard(request):
    
     withdraw=Withdrawl_Request.objects.filter(user=request.user)
     Approved=Withdrawl_Request.objects.filter(user=request.user,status='Approved') 
-    return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
+    if request.htmx:
+        return render(request, 'webgenrator/userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
+    else:
+         return render(request, 'userdashboard.html',{'comtotal':comtotal,'totalbalance':totalbalance,'userbalace':userbalace,'totalwithdraw':totalwithdraw,'withdrawal_dates_json':withdrawal_dates_json,'withdraw':withdraw, 'Approved':Approved,'total_purchase_amount':total_purchase_amount,'total_deploye':total_deploye,'usercommession':usercommession})
+   
 @login_required
 def withdraw(request):
      
@@ -953,7 +838,7 @@ def referal(request):
         
         # Get commission/earning
     my_earning = profile.commession
-
+     
     return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning,'usercommession':usercommession})
  
 def Planexpiredalert(request):
@@ -966,3 +851,17 @@ def Affliatemarketing(request):
     return render(request,'affliate.html')
 def Userguide(request):
     return render(request,'userguide.html') 
+@login_required
+def testimonial(request):
+    if request.method=="POST":
+        star=request.POST.get('star')
+        message=request.POST.get('message')
+        image=Profile.objects.get(user=request.user)
+        profile_image=image.profilepic
+        
+        print(profile_image)
+        query=Testimonial(user=request.user,name=request.user.username,profile_image=profile_image,star=star,message=message)
+        query.save()
+        return redirect('/')
+    
+     

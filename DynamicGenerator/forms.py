@@ -22,7 +22,7 @@ class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=50, required=True)
     class Meta:
         model = User
-        fields = ['username','first_name','password1','password2' ]
+        fields = ['username','email','first_name','password1','password2' ]
 class  Portfoliotemplate(forms.ModelForm):
     class Meta:
         model = Portfolio
@@ -135,7 +135,6 @@ class HospitalForm(forms.ModelForm):
             'Saturday_Timing',
             'Sunday_Timing',
             'Laboratory_Address',
-            'Laboratory_Video',
             'Patient_Image',
             'Doctor_Image',
             'Question1_Accept_Insurance_Policy',
@@ -166,3 +165,6 @@ class DeployesiteForm(forms.ModelForm):
     class Meta:
         model = Deploye
         fields = ['sitefile']
+ 
+
+ 

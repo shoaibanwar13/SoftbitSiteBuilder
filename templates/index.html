@@ -106,7 +106,46 @@
     </div>
   </div>
 </section>
+
+<section data-w-id="db63639c-ea91-e563-fe81-cd0037787c6c" class="section testimonial-bg wf-section">
+  <div class="container">
+    
+    <div data-delay="4000" data-animation="slide" class="testimonial-slider w-slider" data-autoplay="false" data-easing="ease-in-out-quad" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="4" data-duration="800" data-infinite="true">
+    
+      <div class="w-slider-mask">
+        {% for feedback in feedback  %}
+        <div class="testimonial-card w-slide">
+          <div class="testimonial-avatar-block">
+            <div class="testimonial-avatar avatar-1" style="background-image: url('https://res.cloudinary.com/dm9eqnawe/image/upload/v1/{{feedback.profile_image}}');" ></div>
+            <div>
+              <div class="testimonial-name">{{feedback.user}}</div>
+              <div class="testimonial-name-subline">{{feedback.created_at}}</div>
+            </div>
+          </div>
+          <div class="testimonial-stars" style="display: flex;">
+            <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg" alt="" class="rating-icons" /><img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg" alt="" class="rating-icons" /><img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg" alt="" class="rating-icons" /><img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125321954c86fab1965_Star%20Full.svg" alt="" class="rating-icons" /><img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0a1125de4cdd11be2a6b0a_Star%20Half.svg" alt="" class="rating-icons" />
+          </div>
+          <p class="testimonial-paragraph">{{feedback.message}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      
+
+      <div class="testimonial-slider-arrow-left w-slider-arrow-left" style="margin-top: 5px;">
+        <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f08d4db8980840650a95039_arrow-left-white.svg" alt="" />
+      </div>
+      <div class="testimonial-slider-arrow-right w-slider-arrow-right">
+        <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f077a6ea949dfb6a02f5bf6_arrow-right-white.svg" alt="" />
+      </div>
+      <div class="testimonial-slide-nav w-slider-nav w-round"></div>
+    </div>
+  </div>
  
+  <div class="testimonial-bg-img-block">
+    <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1).jpg" srcset="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-500.jpeg 500w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-800.jpeg 800w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1)-p-1600.jpeg 1600w, https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f09e1f293b2996d55367a9b_bantersnaps-PTRzqc_h1r4-unsplash-3(1).jpg 1920w" sizes="100vw" alt="" class="testimonial-bg-img" />
+  </div>
+  
+</section>
 <section class="section medium wf-section">
   <div class="container">
     <div class="half-section-flex center-horizontal flex-vertical-on-mobile">
@@ -472,16 +511,16 @@
         <div class="footer-empty-cell"></div>
         <div class="pricing-table-header-cols w-row">
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table" style="margin-left:  60px;"><a href="#" hx-get="{% url 'sites_by_category' 1 %}" hx-push="{% url 'sites_by_category' 1  %}" hx-target="#change"
-                class="outlined-btn pricing-table w-button">View All</a></div>
+            <div class="pricing-card-btn-container table"  ><a href="#" hx-get="{% url 'sites_by_category' 1 %}" hx-push-url="{% url 'sites_by_category' 1  %}" hx-target="#change"
+                class="outlined-btn pricing-table w-button " style="margin-left: 10px;">View All</a></div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 2 %}" hx-push="{% url 'sites_by_category' 2  %}" hx-target="#change"
-                class="filled-btn pricing-table w-button" style="margin-left:  60px;">View All</a></div>
+            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 2 %}" hx-push-url="{% url 'sites_by_category' 2  %}" hx-target="#change"
+                class="filled-btn pricing-table w-button " style="margin-left: 10px;"  >View All</a></div>
           </div>
           <div class="pricing-table-cols w-col w-col-4 w-col-small-4 w-col-tiny-4">
-            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 3 %}" hx-push="{% url 'sites_by_category' 3 %}" hx-target="#change"
-                class="outlined-btn pricing-table w-button" style="margin-left:  60px;">View All</a></div>
+            <div class="pricing-card-btn-container table"><a href="" hx-get="{% url 'sites_by_category' 3 %}" hx-push-url="{% url 'sites_by_category' 3 %}" hx-target="#change"
+                class="outlined-btn pricing-table w-button"style="margin-left: 10px;"  >View All</a></div>
           </div>
         </div>
       </div>
@@ -565,23 +604,85 @@
     <a href="#" target="_blank" class="cookie-link"></a></div><a
     href="#" class="filled-btn no-margin-top no-margin-right close-cookie-bar w-button">Got it</a>
 </div>
+{% if request.user.is_authenticated %}
 <section class="section cta-v3-animation wf-section">
   <div class="container">
     <div class="cta-block v3">
-      <div class="cta-title">Sign up for free to get started with SoftBit</div>
-      <div class="btn-container center"><a href="{% url 'signup' %}"
+      <div class="cta-title">Please Gave Your Feedback with SoftBit Websites Builder </div>
+      
+      <div class="btn-container center"><a href="#"
           class="filled-btn-arrow no-margin-top no-margin-right w-inline-block">
-          <div class="filled-btn-arrow-text">Sign Up Now</div><img
+          
+          <div class="filled-btn-arrow-text"><button id="openModal">Please Gave Your Feedback</button></div>
+          <img
             src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f077a6ea949dfb6a02f5bf6_arrow-right-white.svg"
             alt="" class="filled-btn-arrow-icon" />
         </a></div><img
         src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f0f2e9a1775b38a290da02b_dashboard_final%20(1).png"
-        srcset="https://cdn.pixabay.com/photo/2023/05/21/07/49/blockchain-8008051_1280.jpg"
+        srcset="https://cdn.pixabay.com/photo/2023/05/21/07/49/blockchain-8008051_1280.jpg" style="margin-bottom: 100px;"
         sizes="(max-width: 479px) 77vw, (max-width: 767px) 81vw, (max-width: 991px) 63vw, (max-width: 1279px) 48vw, 616px"
         alt="" class="cta-img" />
     </div>
   </div>
 </section>
+{% endif %}
+<div id="myModal" class="modal fixed inset-0 flex items-center justify-center hidden">
+  <!-- Modal content -->
+  <div class="modal-content bg-black text-white p-6 md:p-8 lg:p-10 border border-blue-500 rounded-lg max-w-md w-full relative">
+      <h3 class="cta-title text-lg md:text-xl lg:text-2xl mb-4">Your Feedback Helps Us Improve Our Service</h3>
+      <button id="closeModal" class="absolute top-0 right-0 mt-2 mr-2 text-white cursor-pointer z-10">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+      </button>
+      <form method="post" action="/testimonial/" class="mt-4">
+          {% csrf_token %}
+          <div class="mb-4">
+              <label for="Subject" class="field-label">Give Star Rating</label>
+              <select id="Subject" name="star" data-name="Subject" required class="text-field select w-full">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4" selected>4</option>
+                  <option value="5">5</option>
+              </select>
+          </div>
+          <div class="mb-4">
+              <label for="message" class="field-label">Message</label>
+              <textarea placeholder="How can we help you today..." maxlength="5000" id="message" name="message" data-name="Message" class="text-field min-h-24 w-full" required></textarea>
+          </div>
+          <input type="submit" data-wait="Please wait..." class="filled-btn-arrow w-full" value="Submit">
+      </form>
+  </div>
+</div>
+
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("openModal");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementById("closeModal");
+
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+      modal.classList.remove('hidden');
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+      modal.classList.add('hidden');
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.classList.add('hidden');
+      }
+  }
+</script>
 
 
 

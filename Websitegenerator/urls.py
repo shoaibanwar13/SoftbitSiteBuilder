@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import index,signup
+from .views import *
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +26,11 @@ urlpatterns = [
     path('',index,name='referal'),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('signup/',signup,name='signup'),
-    path('<str:ref_code>/',index,name='referal'),
+    path('chat_form/',chat_form,name='chat_form'),
+    path('chat_form_submission/',chat_form_submission,name='chat_form_submission'),
+    path('activate/<uidb64>/<token>',ActtivateAccountView.as_view(),name="activate"),
+    path('<str:ref_code>/',index,name='referal')
+    
      
     
      

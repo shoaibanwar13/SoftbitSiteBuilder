@@ -44,19 +44,19 @@
           </div>
           {% if usercommession %} {% else %}
           <div class="sidebar-menu-wrapper">
-            <a href="/userdashboard/" class="sidebar-menu-link-block w-inline-block">
+            <a href="{% url 'userdashboard' %}"   class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
               <div class="sidebar-menu-text-block">Dashboard</div>
               {% endif %}
-            </a><a href="/referal/" class="sidebar-menu-link-block w-inline-block">
+            </a><a href="/referal/"   class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
              
               <div class="sidebar-menu-text-block">My Referral</div>
-            </a><a href="/userpurchase/" class="sidebar-menu-link-block w-inline-block">
+            </a><a href="/userpurchase/"  class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
@@ -69,24 +69,24 @@
               </div>
               <div class="sidebar-menu-text-block">Withdrawl</div>
               {% endif %}
-            </a><a href="/mysites/" class="sidebar-menu-link-block w-inline-block">
+            </a><a href="/mysites/"   class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
               <div class="sidebar-menu-text-block">My Site Status</div>
-            </a><a href="/history/" class="sidebar-menu-link-block w-inline-block">
+            </a><a href="" hx-get="/history/" hx-push-url="/history/" hx-target="#change" class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
               <div class="sidebar-menu-text-block">Activities</div>
             </a>  
-            <a href="/profile/" class="sidebar-menu-link-block w-inline-block">
+            <a href="/profile/"   class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632ee0969ea73b08a227cf3a_Profile%20Dropdown%20Image1.png"/></div>
               </div>
               <div class="sidebar-menu-text-block">Profile</div>
             </a>
-            <a href="/edit_profile/" class="sidebar-menu-link-block w-inline-block">
+            <a href="/edit_profile/"  class="sidebar-menu-link-block w-inline-block">
               <div class="sidebar-menu-link-icon-wrap">
                 <div></div>
               </div>
@@ -95,11 +95,16 @@
             </a> 
           </a> 
           </a>
-          </div><a href="/sign-in" class="sidebar-log-out-wrapper w-inline-block">
+          </div><a href="" class="sidebar-log-out-wrapper w-inline-block">
             <div class="sidebar-log-out-image-wrapper">
-              <img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633eb655f35096759fca7182_Sidebar%20Log%20Out%20Image.svg" loading="lazy" alt="" class="sidebar-log-out-image" />
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="balance-categorys-button withdraw w-button" type="submit"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/633eb655f35096759fca7182_Sidebar%20Log%20Out%20Image.svg" loading="lazy" alt="" class="sidebar-log-out-image" /></button>
+            </form>
+              
             </div>
-            <div class="sidebar-log-out-image-text-block">Log Out</div>
+            
+             
           </a>
         </div>
       </div>
@@ -158,7 +163,10 @@
                   <img src="{{user.profile.profilepic.url}}" loading="lazy" alt="" class="nav-profile-arrow" style="width: 50px; height: 50px; border-radius: 110px;" />
                 </div>
                 <nav style="display:none;-webkit-transform:translate3d(0, 10px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0;height:0px" class="profile-dropdown-list w-dropdown-list">
-                  <a href="/profile/" class="list-item w-inline-block"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632ee0969ea73b08a227cf3a_Profile%20Dropdown%20Image1.png" loading="lazy" alt="" class="profile-dropdown-image" /><div class="item-text">Profile</div></a><a href="/logoutfunction/" class="list-item w-inline-block"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632ee012d726c73743b8d294_Profile%20Dropdown%20Image2.png" loading="lazy" alt="" class="profile-dropdown-image" /><div class="item-text">Log Out</div></a>
+                  <a href="/profile/" class="list-item w-inline-block"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632ee0969ea73b08a227cf3a_Profile%20Dropdown%20Image1.png" loading="lazy" alt="" class="profile-dropdown-image" /><div class="item-text">Profile</div></a><a href="" class="list-item w-inline-block"><form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="balance-categorys-button withdraw w-button" type="submit"><img src="https://assets.website-files.com/632e9fa0dfa1117a99e55716/632ee012d726c73743b8d294_Profile%20Dropdown%20Image2.png" loading="lazy" alt="" class="profile-dropdown-image" /></button>
+                </form><div class="item-text"></div></a>
                 </nav>
               </div>
             </div>
@@ -174,8 +182,10 @@
            </div>
       </div
       {% endfor %}>
- 
-     {% block content %}{% endblock  %}
+ <div id="change2">
+     {% block content %}
+     {% endblock  %}
+ </div>
      <div class="footer">
       <div class="container">
         <div class="footer-details-wrapper">

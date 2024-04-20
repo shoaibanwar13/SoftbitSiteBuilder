@@ -1,6 +1,6 @@
 # Import necessary modules
 from django.contrib import admin
-from .models import Advertising, Category,Oursites,SitePurchase,Profile,Portfolio ,Withdrawl_Request,Rating,Deploye,DeployeRate,Contact,Hospital ,Offers,team,Co_Founder# Import specific models from your models module
+from .models import Advertising, Category,Oursites,SitePurchase,Profile,Portfolio ,Withdrawl_Request,Rating,Deploye,DeployeRate,Contact,Hospital ,Offers,team,Co_Founder,UserMonitering,Testimonial# Import specific models from your models module
 class PurchasedInline(admin.TabularInline):
     model = SitePurchase
     extra = 0 
@@ -28,3 +28,6 @@ admin.site.register(Hospital)
 admin.site.register(team)
 admin.site.register(Offers)
 admin.site.register(Co_Founder)
+admin.site.register(UserMonitering)
+admin.site.register(Testimonial)
+

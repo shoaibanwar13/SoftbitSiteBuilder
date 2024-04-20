@@ -1,0 +1,195 @@
+ 
+{% extends 'base.html' %}
+{% block title %} Chat With Delaa 3.2{% endblock title %}
+{% block content %}
+<style>
+ .card-link {
+   text-decoration: none;
+   color: inherit;
+   }
+   .card {
+   max-width: 600px;
+   background-color: #0b0c10;
+   border-radius: 10px;
+   overflow: hidden;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   margin-bottom: 20px;
+   }
+   
+   .card-content {
+   padding: 20px;
+   }
+   
+   .card-title {
+   color: white;
+   font-size: 1.5rem;
+   margin-bottom: 10px;
+   }
+   
+   .card-price {
+   color: #45A29E;
+   font-size: 1.2rem;
+   margin-bottom: 10px;
+   }
+   
+   .card-detail {
+   color: #C5C6C7;
+   font-size: 1rem;
+   margin-bottom: 0; /* Remove default margin */
+   }
+   .coming-soon-bg {
+    background-image: url("https://cdn.pixabay.com/photo/2021/07/31/08/22/network-6511448_960_720.jpg");
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+  }
+  
+</style>
+<!-- CSS for the animation -->
+<style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  
+    .card-content.fadeIn {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  </style>
+  
+  
+  
+  
+ <body class="coming-soon-bg">
+    
+   <div class="utility-page-wrapper">
+     <div class="utility-page-wrapper-content with-card">
+       <img src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/5f078598f0a4fd865d7c9833_SoftBit%20-%20Light%20v2.svg" alt="" class="utility-logo" /> <h1 class="coming-soon-title"> Delaa AI</h1><div class="coming-soon-page-content">
+         <h1   class="coming-soon-title"><span>Welcome</span> <span>{{request.user.username}}</span> <span> How Can I Help You?</span> </h1><p class="form-helper-text" style="color: white;">Please Ask Question </p>
+         <div class="hero-email-form w-form">
+            
+         
+        
+    </form>
+    
+           <form  class="inline-form flex-vertical-mobile">
+               {% csrf_token %}
+               <input type="text" class="text-field big w-input" maxlength="256"   data-name="Demo Sign Up Email" placeholder="Message.... Dellaa"   required=""\ style="background-color: #0b0c10;"
+               name="user_input"
+             />
+             
+             <button hx-post="{% url 'chat_form_submission' %}" hx-target="#bootresponse" class="submit-btn no-margin-top full-width-mobile w-button" ><i class="fa fa-send"></i></button>
+       
+         </div>
+         <div id="bootresponse">
+            {% include 'botresponse.html' %}
+            
+          </div>
+       </div>
+     </div>
+     <style>
+      /* Styles for the coming-soon-title */
+      .coming-soon-title {
+          opacity: 0; /* Initially hide the coming-soon-title */
+          animation: fadeInWord 1s forwards; /* Apply the fadeInWord animation */
+      }
+
+      /* Keyframes for fading in word by word */
+      @keyframes fadeInWord {
+          from {
+              opacity: 0;
+          }
+          to {
+              opacity: 1;
+          }
+      }
+
+      /* Apply animation delay to each word */
+      .coming-soon-title span {
+          display: inline-block;
+          opacity: 0; /* Initially hide each word */
+          animation: fadeIn 1s forwards; /* Apply the fadeIn animation */
+      }
+
+      /* Keyframes for fading in */
+      @keyframes fadeIn {
+          from {
+              opacity: 0;
+          }
+          to {
+              opacity: 1;
+          }
+      }
+
+      /* Apply animation delay to each word */
+      .coming-soon-title span:nth-child(1) {
+          animation-delay: 0.5s; /* Delay for the first word */
+      }
+
+      .coming-soon-title span:nth-child(2) {
+          animation-delay: 1s; /* Delay for the second word */
+      }
+
+      .coming-soon-title span:nth-child(3) {
+          animation-delay: 1.5s; /* Delay for the third word */
+      }
+      .form-helper-text {
+        opacity: 0; /* Initially hide the form-helper-text */
+        animation: fadeInWord 1s forwards; /* Apply the fadeInWord animation */
+    }
+
+    /* Keyframes for fading in word by word */
+    @keyframes fadeInWord {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Apply animation delay to each word */
+    .form-helper-text span {
+        display: inline-block;
+        opacity: 0; /* Initially hide each word */
+        animation: fadeIn 1s forwards; /* Apply the fadeIn animation */
+    }
+
+    /* Keyframes for fading in */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Apply animation delay to each word */
+    .form-helper-text span:nth-child(1) {
+        animation-delay: 0.5s; /* Delay for the first word */
+    }
+
+    .form-helper-text span:nth-child(2) {
+        animation-delay: 1s; /* Delay for the second word */
+    }
+
+    .form-helper-text span:nth-child(3) {
+        animation-delay: 1.5s; /* Delay for the third word */
+    }
+
+
+      /* Add more span:nth-child(N) selectors for additional words */
+  </style>
+    
+   </div>
+    
+    </body>
+{% endblock %}
+
+
