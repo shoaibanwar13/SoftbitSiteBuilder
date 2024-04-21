@@ -409,6 +409,7 @@ class Withdrawl_Request(models.Model):
  
 class UserMonitering(models.Model):
     user = models.ForeignKey(User,  blank=True, null=True, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
     ip_address = models.CharField(max_length=45)
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)

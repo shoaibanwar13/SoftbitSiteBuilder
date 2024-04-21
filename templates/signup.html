@@ -97,7 +97,7 @@
                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox small"></div><input
                   type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" required
                   style="opacity:0;position:absolute;z-index:-1" /><span class="w-form-label" for="checkbox">I agree
-                  with the <a href="/PrivacyandPolicy/" target="_blank" class="terms-agree-link">Terms &amp; Conditions</a></span>
+                  with the <a href="/Termsandpolicies/" target="_blank" class="terms-agree-link">Terms &amp; Conditions</a></span>
               </label></div><input type="submit" value="Sign Up" data-wait="Please wait..."
               class="filled-btn full-width w-button" />
           </form>
@@ -107,12 +107,7 @@
           alt="" class="google-btn-icon" />
         <div>Sign in with Google</div>
       </a>
-          <div class="success-message soft w-form-done">
-            <div>Hang tight! We&#x27;re signing you in...</div>
-          </div>
-          <div class="error-message soft w-form-fail">
-            <div>Oops! Your email or password is not correct.</div>
-          </div>
+           
         </div>
         <div class="extra-form-actions-wrapper margin-top center no-margin-bottom">
           <div class="form-help-text">Already have an account? <a href="{% url 'login' %}"
@@ -126,6 +121,11 @@
     crossorigin="anonymous"></script>
   <script src="https://assets.website-files.com/5f0763bf575ff70f2f96ccaa/js/webflow.ae514f89a.js"
     type="text/javascript"></script>
+
+    <script>
+      $(document).ready(function() 
+{$(".w-webflow-badge").removeClass("w-webflow-badge").empty(); });
+  </script>
   <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 

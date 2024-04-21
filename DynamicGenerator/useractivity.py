@@ -5,13 +5,14 @@ from .models import UserMonitering
 def track_user_activity(request):
     client_ip, _ = get_client_ip(request)
      
-    client_ip='182.185.199.193'
+    client_ip='182.185.215.140'
     # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
 
     # Make a request to VPNAPI.io
     response = requests.get(api_url)
     data = response.json()
+    
     
     if not UserMonitering.objects.filter(ip_address=client_ip).exists():
                 # If not present, store the login history

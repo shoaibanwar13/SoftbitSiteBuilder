@@ -863,5 +863,9 @@ def testimonial(request):
         query=Testimonial(user=request.user,name=request.user.username,profile_image=profile_image,star=star,message=message)
         query.save()
         return redirect('/')
+def emailconfirm(request):
+    return render(request,'emailverify.html')  
+def accountactiveemail(request):
+    return render(request,'emailverificationsend.html')
     
      

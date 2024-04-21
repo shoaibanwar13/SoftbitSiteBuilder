@@ -77,10 +77,14 @@ def chat_form_submission(request):
 
 
 def index(request,*args,**kwargs):
-    feedback=Testimonial.objects.all()[:3]
-    
-    
-   
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+
+    feedback=Testimonial.objects.all()[:6]
     code=str(kwargs.get('ref_code'))
     try:
         profile=Profile.objects.get(code=code)
@@ -113,7 +117,7 @@ def signup(request):
             email_subject="Activate Your Account"
             message=render_to_string('activate.html',{
             'user':user,
-            'domain':'127.0.0.1:8000',
+            'domain':'http://127.0.0.1:8000/', #https://softbit-website-builder.onrender.com/
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':generate_token.make_token(user)
 
@@ -122,7 +126,7 @@ def signup(request):
         email_message = EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[request.POST.get('email')])
         email_message.send()
         messages.success(request,f"Activate Your Account by clicking the link in your gmail {message}")
-        return redirect('login')
+        return redirect('accountactiveemail')
           
     else:
         form = SignUpForm()
@@ -143,7 +147,7 @@ class ActtivateAccountView(View):
                user.is_active=True
                user.save()
                messages.info(request,"Account Activated Successfully")
-               return redirect('login')
+               return redirect('emailconfirm')
             else:
                 return render(request,'activatefail.html')
 

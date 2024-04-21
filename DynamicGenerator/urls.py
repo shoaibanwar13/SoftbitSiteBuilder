@@ -1,5 +1,4 @@
 # Import necessary modules and views
- 
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,6 +23,7 @@ urlpatterns = [
         views.PasswordResetCompleteView.as_view(template_name='password_reset_done.html'),
         name="password_reset_complete",
     ),
+    path('emailconfirm/', emailconfirm, name='emailconfirm'),
     path('logout', views.LogoutView.as_view(), name='logout'),
     path('proxy_warning_view/', proxy_warning_view, name='proxy_warning_view'), 
     path('account_restriction/', account_restriction, name='account_restriction'),
@@ -75,7 +75,9 @@ urlpatterns = [
     path('Termsandpolicies/', Termsandpolicies, name='Termsandpolicies'),    
     path('PrivacyandPolicy/', PrivacyandPolicy, name='PrivacyandPolicy'), 
     path('Userguide/', Userguide, name='Userguide'),
-    path('testimonial/', testimonial, name='testimonial')
+    path('testimonial/', testimonial, name='testimonial'),
+  
+    path('accountactiveemail/', accountactiveemail, name='accountactiveemail')
     
    
    
