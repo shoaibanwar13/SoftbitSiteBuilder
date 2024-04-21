@@ -24,7 +24,7 @@ def chat_with_bot(user_input):
     "how are you": ["I'm doing well, thank you!", "I'm fine, thanks for asking.", "I'm great!"],
     "goodbye": ["Goodbye!", "See you later!", "Bye!"],
     "what is your name ": ["My Name is Della And I have creation of UE SSL Team!", "My Name is Della and I created for Question Ans For Softbit WebSite Builder","My Name is Della AI Advisor and I gave Ans and Questions Related To Softbit Website Builder"],
-    "what is ssl team": ["SSL Team Is a Team Of 4 Group Member In University Of Education Lahore.This is a team of programer that together to makes Web Applications.But SSL Team Lost A Team member Sameer.But SSL Team Have A new team memeber Called Luna Bahi ", "See you later!", "Bye!"],
+    "what is ssl team": ["SSL Team Is a Team Of 4 Group Member In University Of Education Lahore.This is a team of programer that together to makes Web Applications.But SSL Team Lost A Team member Sameer.But SSL Team Have A new team memeber Called Luna Bahi "],
     "I have an advertising company which website i purchase": ["Hi there! Thanks For Question If You have an Advertising Company Then You purchase Asper which is best for advertising and graphic designer here is link please click or copy this link to purchase this site.Because Asper have responsive and suit your business http://127.0.0.1:8000/sitedetail/1", "Hello!", "Hey!"],
      
     "who created you": ["I was created by a team of developers UE SSL Team.", "My creators are Jam Shoaib Anwar UE SLL Team Developer!", "I'm a creation of talented developers of SSL Team."],
@@ -117,7 +117,7 @@ def signup(request):
             email_subject="Activate Your Account"
             message=render_to_string('activate.html',{
             'user':user,
-            'domain':'http://127.0.0.1:8000/', #https://softbit-website-builder.onrender.com/
+            'domain':'https://softbit-website-builder.onrender.com/', #
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':generate_token.make_token(user)
 

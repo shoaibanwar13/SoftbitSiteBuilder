@@ -1,8 +1,25 @@
 {% if bot_response  %}
 <div class="card">
     <div class="card-content">
-        <p class="card-detail">{{bot_response}}</p>
+        <p class="card-detail" id="bot_response">{{bot_response}}</p>
+        <button onclick="speak()"><i class="fa fa-volume-up"></i></button>
     </div>
 </div>
+<script>
+    function speak() {
+      const text =document.getElementById('bot_response').innerText;
+      const speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.volume = 1;
+      speech.rate = 1;
+      speech.pitch = 1;
+      speech.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Male');
+      if (!speech.voice) {
+        // If the male voice is not found, fall back to any English male voice
+        speech.voice = speechSynthesis.getVoices().find(voice => voice.lang.startsWith('en') && voice.gender === 'male');
+      }
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
 
 {% endif %}
