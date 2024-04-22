@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_htmx',
     'cloudinary',
     'cloudinary_storage',
+    'django_apscheduler',
     
      
 ]

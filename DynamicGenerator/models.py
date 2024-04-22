@@ -1,4 +1,4 @@
-
+from django.db.models import ExpressionWrapper, F
 from django.db import models
 from django.contrib.auth.models import User
 from .utlis import generate_ref_code
@@ -80,13 +80,27 @@ class SitePurchase(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     duration_days = models.IntegerField(default=30)
     paid = models.BooleanField(default=False)
+    expire_date = models.DateTimeField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        # Calculate expiration date if the plan is paid and expire_date is not set
+        if self.paid and not self.expire_date:
+            self.expire_date = self.created_at + timedelta(days=self.duration_days)
+        super().save(*args, **kwargs)
     @property
     def expiration_date(self):
         if self.paid:
-            
             return self.created_at + timedelta(days=self.duration_days)
         else:
             return None
+    @classmethod
+    def filter_expired_plans(cls):
+        """
+        Filter SitePurchase objects with expired plans.
+        """
+        return cls.objects.filter(expire_date__lt=timezone.now())
+    
+    
+
 
      
 

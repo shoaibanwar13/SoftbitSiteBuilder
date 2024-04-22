@@ -77,13 +77,13 @@ def chat_form_submission(request):
 
 
 def index(request,*args,**kwargs):
+    if request.user.is_authenticated:
+        trace=track_user_activity(request)
+        if trace==True:
+           return redirect('account_restriction')
     check=proxy_checker(request)
     if check==True:
         return redirect('proxy_warning_view')
-    trace=track_user_activity(request)
-    if trace==True:
-        return redirect('account_restriction')
-
     feedback=Testimonial.objects.all()[:6]
     code=str(kwargs.get('ref_code'))
     try:
@@ -95,7 +95,9 @@ def index(request,*args,**kwargs):
     print(request.session.get_expiry_age())
     return render(request,'index.html',{'feedback':feedback})
 def signup(request):
-     
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     profile_id=request.session.get('ref_profile')
     print('id', profile_id)
     

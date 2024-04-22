@@ -5,7 +5,7 @@ from .models import UserMonitering
 def track_user_activity(request):
     client_ip, _ = get_client_ip(request)
      
-    client_ip='182.185.215.140'
+    #client_ip='182.185.215.140'
     # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
     api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
 

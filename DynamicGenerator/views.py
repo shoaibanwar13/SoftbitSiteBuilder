@@ -19,6 +19,35 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from ipware import get_client_ip
 import requests
+from apscheduler.schedulers.background import BackgroundScheduler
+from .proxydetector import proxy_checker
+from .useractivity import track_user_activity
+def send_mail(email,user,site_name):
+    email_subject2 = "Plan Expire Date Is Approaching "
+    message2 = render_to_string('SendEmail6.html', {
+                'user':user,
+                'site_name':site_name
+                 
+        })
+    email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [email])
+    email_message2.send()
+def start_scheduler(email,user,site_name):
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(send_mail, 'interval',  seconds=5,args=[email,user,site_name])  # Change as needed
+    scheduler.start()
+def sendemail():
+     
+    plans = SitePurchase.objects.filter(paid=True)
+    for plan in plans:
+        expiredate=plan.expiration_date
+        days_until_expiration = (expiredate - timezone.now()).days
+        print(days_until_expiration)
+        if 0 < days_until_expiration <= 1:
+            user=plan.user
+            email=plan.user.email
+            site_name=plan.name
+            plan.delete()
+            start_scheduler(email,user,site_name)
 def account_restriction(request):
     return render(request, 'accountrestriction.html')
 
@@ -55,6 +84,12 @@ def check_password(request):
 
 @login_required
 def profile(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     data=Profile.objects.get(user=request.user)
     trace=UserMonitering.objects.filter(user=request.user)
     usercommession=data.commession==0
@@ -64,6 +99,12 @@ def profile(request):
     return render(request,'profile.html',{'currentuser':currentuser,'usercommession':usercommession,'totalbalance':totalbalance,'trace':trace})
 @login_required
 def edit_profile(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     data=Profile.objects.get(user=request.user)
     totalbalance=data.balance
     usercommession=data.commession==0
@@ -110,6 +151,12 @@ def sites_by_category(request, category):
          return render(request, 'category.html', {'sites': sites}) 
 @login_required
 def sitedetail(request, id):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     site_detail = get_object_or_404(Oursites, id=id)
     product = Oursites.objects.get(pk=id)
@@ -172,6 +219,12 @@ def mainpagesearch(request):
 
 @login_required
 def rating(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     if request.method == 'POST':
         rating_value = request.POST.get('rating')
@@ -195,6 +248,7 @@ def ourteam(request):
         return render(request, "webgenrator/teampage.html",{'data':data,'data2':data2})
     else:
          return render(request, 'ourteam.html',{'data':data,'data2':data2})
+@login_required
 def contact(request):
      
     if request.method=="POST":
@@ -238,47 +292,78 @@ def about(request):
 
 @login_required
 def preview1(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request, 'AdvertisementPreview1.html')
-def AspersitePreview(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
-    if user_purchases==False:
+def AspersitePreview(request):  
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view') 
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Asper')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
-    data=Advertising.objects.filter(user=request.user).exists()
-    if data==False:
-        return redirect('AspersitePreview')
-    print(user_purchases)
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
+    try:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='Asper')
+       
+     
+        expiration_date = user_purchases.expiration_date
         days_until_expiration = (expiration_date - timezone.now()).days
         print(days_until_expiration)
         if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Asper'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
- 
+           SitePurchase.objects.filter(user=request.user, paid=True,name='Asper').delete()
+           Advertising.objects.filter(user=request.user).delete()
+           return redirect('Planexpiredalert')
+           
+    except:
+        pass
+    try:
+         Advertising.objects.get(user=request.user)
+    except   Advertising.DoesNotExist:
+        return redirect('/')
     
     data=Advertising.objects.filter(user=request.user)
-     
     
     return render(request,'advertising/advertising.html',{'data':data})
 @login_required
 def Asper(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
-    if user_purchases==False:
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Asper')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
-    data=Advertising.objects.filter(user=request.user).exists()
-    if data==True:
+    try:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='Asper')
+        # Check if the expiration date is approaching (e.g., within 2 days)
+        expiration_date = user_purchases.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+           SitePurchase.objects.filter(user=request.user, paid=True,name='Asper').delete()
+           
+           return redirect('Planexpiredalert')
+    except:
+        pass
+    try:
+     data=Advertising.objects.get(user=request.user)
+     if data:
         return redirect('AspersitePreview')
-     
+    except  Advertising.DoesNotExist:
+        pass
+    
+        
     if request.method == 'POST':
         form = Advertisingtem(request.POST, request.FILES)
         if form.is_valid():
@@ -287,18 +372,39 @@ def Asper(request):
             return redirect('AspersitePreview')
     else:
         form =  Advertisingtem()
-     
          
     return render(request, 'Advertisingform.html',{'form':form})
 @login_required
 def edit_Asper(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
-    if user_purchases==False:
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Asper')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
     try:
+        user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Asper')
+        for purchase in user_purchases:
+     
+           expiration_date = purchase.expiration_date
+           days_until_expiration = (expiration_date - timezone.now()).days
+           print(days_until_expiration)
+           if days_until_expiration==0:
+            SitePurchase.objects.filter(user=request.user, paid=True,name='Asper').delete()
+             
+            return redirect('Planexpiredalert')
+    except:
+        pass
+    try:
         Adver = Advertising.objects.get(user=request.user)
+
     except  Advertising.DoesNotExist:
         return redirect('/') 
+   
  
     
    
@@ -317,54 +423,87 @@ def edit_Asper(request):
     return render(request, 'editadvertising.html',{'form':form})
 @login_required
 def delete_Advertising_site(request,id):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     Advertising.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
 @login_required
 def preview2(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request, 'portfoliopreview.html')
 @login_required
 def portfolio(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
-    if user_purchases==False:
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
     try:
-        data = Portfolio.objects.filter(user=request.user)
-    except  Portfolio.DoesNotExist:
-        return redirect('/')
-    print(user_purchases)
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+     
+        expiration_date = user_purchases.expiration_date
         days_until_expiration = (expiration_date - timezone.now()).days
         print(days_until_expiration)
         if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'yourportfolio'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
- 
+           SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio').delete()
+           
+           return redirect('Planexpiredalert')
+           
+    except:
+        pass
+    try:
+        Portfolio.objects.get(user=request.user)
+    except  Portfolio.DoesNotExist:
+        return redirect('/')
+    data=Portfolio.objects.filter(user=request.user)
     
     
     return render(request, 'portfolio.html',{'data':data})
 @login_required
 def yourportfolio(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
-    if user_purchases==False:
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
     try:
-        Portfolio.objects.filter(user=request.user)
-    except  Portfolio.DoesNotExist:
-        return redirect('/')
-    ifuserdataexist=Portfolio.objects.filter(user=request.user).exists()
-    if ifuserdataexist:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+     
+        expiration_date = user_purchases.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+           SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio').delete()
+            
+           return redirect('Planexpiredalert')
+           
+    except:
+        pass
+    try:
+     data= Portfolio.objects.get(user=request.user)
+     if data:
         return redirect('portfolio')
+    except  Portfolio.DoesNotExist:
+        pass
      
     
     
@@ -380,18 +519,34 @@ def yourportfolio(request):
     return render(request, 'portfoliotemform.html',{'form':form})
 @login_required
 def edit_Portfolio(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio')
-    if user_purchases==False:
-        return redirect('/')
-    print(user_purchases)
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     try:
-        portfolio = Portfolio.objects.get(user=request.user)
+        SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+    except  SitePurchase.DoesNotExist:
+        return redirect('/')
+    try:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='yourportfolio')
+     
+        expiration_date = user_purchases.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+           SitePurchase.objects.filter(user=request.user, paid=True,name='yourportfolio').delete()
+           
+           return redirect('Planexpiredalert')
+           
+    except:
+        pass
+    try:
+        portfolio =Portfolio.objects.get(user=request.user)
     except Portfolio.DoesNotExist:
         return redirect('/')
-     
- 
-    
-   
+
     if request.method == 'POST':
         form = UpdatePortfoliotemplate(request.POST,
                                    
@@ -399,7 +554,7 @@ def edit_Portfolio(request):
                                    instance=portfolio)
         if  form.is_valid():
             form.save()
-            return redirect('/yourportfolio/')
+            return redirect('/portfolio/')
 
     else:
         form =UpdatePortfoliotemplate(instance=portfolio)
@@ -408,49 +563,74 @@ def edit_Portfolio(request):
 
 @login_required
 def delete_Portfolio_site(request,id):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     Portfolio.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
 def preview3(request):
     return render(request,'mediparkpreview.html')
 @login_required
 def MediparkPreview(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
-    if user_purchases==False:
-        return redirect('/')
-     
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     try:
-        Hospital.objects.get(user=request.user)
-    except  Hospital.DoesNotExist:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
-    data=Hospital.objects.filter(user=request.user)
-     
-    print(user_purchases)
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
+    try:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+        expiration_date = user_purchases.expiration_date
         days_until_expiration = (expiration_date - timezone.now()).days
         print(days_until_expiration)
         if days_until_expiration==0:
-            return redirect('Planexpiredalert')
-        if 0 < days_until_expiration <= 7:
-            email_subject2 = "Plan Expire Date Is Approaching "
-            message2 = render_to_string('SendEmail6.html', {
-                'user':request.user,
-                'site_name':'Medipark'
-
-              
-        })
-            email_message2 = EmailMessage(email_subject2, message2, settings.EMAIL_HOST_USER, [request.user.email])
-            email_message2.send()
- 
-
+           SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark').delete()
+           
+           return redirect('Planexpiredalert')
+    except:
+        pass
+    try:
+      Hospital.objects.get(user=request.user)
+    except  Hospital.DoesNotExist:
+        return redirect('/')
+    data=Hospital.objects.filter(user=request.user)
+    
     return render(request,'medipark.html',{'data':data})
 @login_required
 def Medipark(request):
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
-    if user_purchases==False:
-        return redirect('/') 
-     
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+    except  SitePurchase.DoesNotExist:
+        return redirect('/')
+    try:
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+        expiration_date = user_purchases.expiration_date
+        days_until_expiration = (expiration_date - timezone.now()).days
+        print(days_until_expiration)
+        if days_until_expiration==0:
+           SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark').delete()
+           return redirect('Planexpiredalert')
+    except:
+        pass
+    try:
+     data= Hospital.objects.get(user=request.user)
+     if data:
+        return redirect('MediparkPreview')
+    except Hospital.DoesNotExist:
+        pass 
     if request.method == 'POST':
         form = HospitalForm(request.POST, request.FILES)
         if form.is_valid():
@@ -463,21 +643,31 @@ def Medipark(request):
     return render(request,'mediparkform.html',{'form':form})
 @login_required
 def edit_Medipark(request):
-    
-    user_purchases = SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark')
-    if user_purchases==False:
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    try:
+        SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+    except  SitePurchase.DoesNotExist:
         return redirect('/')
     try:
-        hospital = Hospital.objects.get(user=request.user)
-    except  Hospital.DoesNotExist:
-        return redirect('/')
-    for purchase in user_purchases:
-        # Check if the expiration date is approaching (e.g., within 7 days)
-        expiration_date = purchase.expiration_date
+        user_purchases = SitePurchase.objects.get(user=request.user, paid=True,name='Medipark')
+        expiration_date = user_purchases.expiration_date
         days_until_expiration = (expiration_date - timezone.now()).days
         print(days_until_expiration)
         if days_until_expiration==0:
-            return redirect('Planexpiredalert')
+           SitePurchase.objects.filter(user=request.user, paid=True,name='Medipark').delete()
+           return redirect('Planexpiredalert')
+    except:
+        pass
+    try:
+        hospital =Hospital.objects.get(user=request.user)
+    except Hospital.DoesNotExist:
+        return redirect('/')
+
     if request.method == 'POST':
         form = HospitalEditForm(request.POST,
                                    
@@ -494,11 +684,22 @@ def edit_Medipark(request):
 
 @login_required
 def delete_Medical_site(request,id):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     Hospital.objects.filter(user=request.user,id=id).delete()
     return redirect('oursites')
 @login_required
 def start_order(request):
-     
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     data = json.loads(request.body)
     print(data)
     name = data.get('name', '')
@@ -552,6 +753,12 @@ def start_order(request):
  
 @login_required
 def payment_success(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     
     try:
        
@@ -596,9 +803,21 @@ def payment_success(request):
         return HttpResponse(status=400)
 @login_required    
 def payment_cancel(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request,'fail.html')
 @login_required
 def deployecheckout(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     try:
         SitePurchase.objects.filter(user=request.user)
@@ -610,6 +829,12 @@ def deployecheckout(request):
     return render(request,'deployecheckout.html',{'pub_key':pub_key,'rates':rates})
 @login_required
 def deploye_order(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     data = json.loads(request.body)
     print(data)
     name = data.get('name', '')
@@ -663,7 +888,12 @@ def deploye_order(request):
     return JsonResponse({'session': session, 'order': payment_intent})
 @login_required
 def payment_success2(request):
- 
+        trace=track_user_activity(request)
+        if trace==True:
+           return redirect('account_restriction')
+        check=proxy_checker(request)
+        if check==True:
+           return redirect('proxy_warning_view')
         order = get_object_or_404(Deploye, user=request.user, paid=False)
         order.paid = True
         order.save()
@@ -689,9 +919,19 @@ def payment_success2(request):
      
 @login_required 
 def Deployesite(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     
     try:
-        siteuser = Deploye.objects.get(user=request.user)
+        siteuser = Deploye.objects.get(user=request.user,paid=True,status='Live')
+        if siteuser:
+            return redirect('/')
+
+      
     except  Deploye.DoesNotExist:
         return redirect('/')
     if request.method == 'POST':
@@ -710,6 +950,12 @@ def Deployesite(request):
 
 @login_required
 def userpurchase(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     
     user_purchases = SitePurchase.objects.filter(user=request.user, paid=True)
     website_links = []
@@ -724,6 +970,12 @@ def userpurchase(request):
 
 @login_required
 def userdashboard(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     data=Profile.objects.get(user=request.user)
     comtotal=data.commession
@@ -750,6 +1002,12 @@ def userdashboard(request):
    
 @login_required
 def withdraw(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     pro=Profile.objects.get(user=request.user)
     payout=int(pro.balance)
@@ -804,6 +1062,12 @@ def withdraw(request):
     return  render(request,'userdashboard.html')
 @login_required
 def history(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     data=Profile.objects.get(user=request.user)
     usercommession=data.commession==0
     usersite=Deploye.objects.filter(user=request.user)
@@ -823,6 +1087,12 @@ def mysites(request):
 
 @login_required
 def referal(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     data=Profile.objects.get(user=request.user)
      
@@ -840,19 +1110,41 @@ def referal(request):
     my_earning = profile.commession
      
     return render(request, 'Reffral.html', {'refer_code': refer_code, 'my_recs': my_recs, 'my_earning': my_earning,'usercommession':usercommession})
- 
+
 def Planexpiredalert(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request,'planexperimeaage.html')
 def  Termsandpolicies(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
+    
     return render(request,'terms.html') 
 def PrivacyandPolicy(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request,'privacy.html')
 def Affliatemarketing(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request,'affliate.html')
 def Userguide(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     return render(request,'userguide.html') 
 @login_required
 def testimonial(request):
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
     if request.method=="POST":
         star=request.POST.get('star')
         message=request.POST.get('message')
