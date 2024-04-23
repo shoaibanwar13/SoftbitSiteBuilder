@@ -77,10 +77,7 @@ def chat_form_submission(request):
 
 
 def index(request,*args,**kwargs):
-    if request.user.is_authenticated:
-        trace=track_user_activity(request)
-        if trace==True:
-           return redirect('account_restriction')
+     
     check=proxy_checker(request)
     if check==True:
         return redirect('proxy_warning_view')
