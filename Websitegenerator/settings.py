@@ -41,20 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DynamicGenerator',
     'social_django',
-    'crispy_forms',
-    'crispy_bootstrap5',
     'django_bootstrap5',
     'django_htmx',
     'cloudinary',
     'cloudinary_storage',
-    'django_apscheduler',
-    
+      
      
 ]
 
- 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)

@@ -33,7 +33,7 @@ def send_mail(email,user,site_name):
     email_message2.send()
 def start_scheduler(email,user,site_name):
     scheduler = BackgroundScheduler()
-    scheduler.add_job(send_mail, 'interval',  seconds=5,args=[email,user,site_name])  # Change as needed
+    scheduler.add_job(send_mail, 'interval', hours=0,minutes=0,seconds=0,args=[email,user,site_name])  # Change as needed
     scheduler.start()
 def sendemail():
      
@@ -48,6 +48,7 @@ def sendemail():
             site_name=plan.name
             plan.delete()
             start_scheduler(email,user,site_name)
+sendemail()
 def account_restriction(request):
     return render(request, 'accountrestriction.html')
 
