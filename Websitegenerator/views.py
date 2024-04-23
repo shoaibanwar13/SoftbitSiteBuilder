@@ -98,10 +98,6 @@ def index(request,*args,**kwargs):
     # Make a request to VPNAPI.io
     response = requests.get(api_url)
     data = response.json()
-     
-    
-    
-
 
     if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
        return redirect('proxy_warning_view')   # The IP is associated with a VPN, proxy, or Tor
