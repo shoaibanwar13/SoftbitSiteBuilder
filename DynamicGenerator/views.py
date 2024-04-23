@@ -134,6 +134,9 @@ def edit_profile(request):
 
 
 def oursites(request):
+    check=proxy_checker(request)
+    if check==True:
+        return redirect('proxy_warning_view')
      
     allsite=Oursites.objects.all()
     category=Category.objects.all()

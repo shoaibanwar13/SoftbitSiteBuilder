@@ -3,7 +3,6 @@ from DynamicGenerator.forms import SignUpForm
 from DynamicGenerator.models import Profile,Testimonial
 from django.contrib.auth.models import User
 from DynamicGenerator.proxydetector import proxy_checker
-from DynamicGenerator.useractivity import track_user_activity
 import random
 import difflib
 from django.contrib import messages
@@ -14,6 +13,8 @@ from DynamicGenerator.utlis import generate_token
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.generic import View
+import requests
+from ipware import get_client_ip
  
  
 # Define the chat_with_bot function with the responses dictionary
@@ -23,10 +24,21 @@ def chat_with_bot(user_input):
     "hello": ["Hi there!", "Hello!", "Hey!"],
     "how are you": ["I'm doing well, thank you!", "I'm fine, thanks for asking.", "I'm great!"],
     "goodbye": ["Goodbye!", "See you later!", "Bye!"],
+    "who is ceo of softbit?":["Jam Shoaib Anwar is SEO and Co Founder Of SoftBit Service have been started in 2024.There message is that:We are a SaaS startup that's focused on simplifying user Business."],
+    "can you provide the information of softbit developer":["Yes! There Are 5 Developer that Contribute in all type of website desigining"],
+    "can you provide the information about sofbit Affiliate Program?":["Yes! Softbit offer Affiliate Projects for every user that have a unique refferal link that share with friends etc when they  signup and purchase templates then you get 10% of purchase in your account and withdrwal any time  for futher detail please visist  https://softbit-website-builder.onrender.com/Affliatemarketing"],
+    "how  much minimum withdrwal?":["Thanks for asking:Sofibit offer 10$ minimum "],
+    "can you tell me about softbit":["Softbit is a groundbreaking platform that revolutionizes website creation by allowing users to purchase templates and simply input their data, eliminating the need for coding expertise. With Softbit, anyone can generate a fully functional website tailored to their needs with ease."],
+    "can i get a free demo of sofbit plan": ["We do not offer free demos for our premium plans because our platform already provides extensive information, including feature Coding and many Expensive Templates."],
+    "is it is possible to cancel my subscription?": ["Yes, it is possible to cancel your subscription. If you violate our terms and policies or wish to cancel your subscription before its expiration date, you can request cancellation by contacting our support team. Additionally, subscriptions are automatically canceled upon reaching their expiration date."],
+    "can i recover my pricing after canceling it?": ["No, it is not possible to recover your pricing plan after cancelling it. This is because it does not align with our business logic and operational processes. Once a subscription is canceled, it cannot be reinstated, and users would need to sign up for a new plan if they wish to continue using our services."],
+    "how can sofbit help my business?":["SoftBit can significantly benefit your business by providing a comprehensive platform for creating professional websites, driving traffic, and enhancing online presence. With our intuitive tools and templates, you can easily design a website that effectively showcases your products, services, and brand identity. By optimizing your site for search engines and integrating with social media platforms, SoftBit helps increase visibility and attract more visitors. Our features for lead generation, and customer engagement enable you to convert visitors into customers and build lasting relationships. Additionally, our analytics tools provide valuable insights into website performance, allowing you to make informed decisions to grow your business. Overall, SoftBit empowers businesses of all sizes to establish a strong online presence, attract more customers, and achieve their online goals."],
+    "which pricing plan do you  offer and what's  included?":["We offer a range of pricing plans tailored to meet the diverse needs of businesses. Our affordable plans come with a variety of features to help you create stunning websites that are responsive, user-friendly, and tailored to your specific requirements. With our services projects included, you can easily showcase your offerings and attract potential clients. Our plans also include features such as customizable templates and improve your website's performance. Whether you're a small startup or a large enterprise, we have a pricing plan that fits your budget and business goals."],
     "what is your name ": ["My Name is Della And I have creation of UE SSL Team!", "My Name is Della and I created for Question Ans For Softbit WebSite Builder","My Name is Della AI Advisor and I gave Ans and Questions Related To Softbit Website Builder"],
     "what is ssl team": ["SSL Team Is a Team Of 4 Group Member In University Of Education Lahore.This is a team of programer that together to makes Web Applications.But SSL Team Lost A Team member Sameer.But SSL Team Have A new team memeber Called Luna Bahi "],
-    "I have an advertising company which website i purchase": ["Hi there! Thanks For Question If You have an Advertising Company Then You purchase Asper which is best for advertising and graphic designer here is link please click or copy this link to purchase this site.Because Asper have responsive and suit your business http://127.0.0.1:8000/sitedetail/1", "Hello!", "Hey!"],
-     
+    "i have an advertising company which website i purchase": ["Hi there! Thanks For Question If You have an Advertising Company Then You purchase Asper which is best for advertising and graphic designer here is link please click or copy this link to purchase this site.Because Asper have responsive and suit your business https://softbit-website-builder.onrender.com/1"],
+    "i am developer i want portfolio template? ": ["If you have a Developer. We have a best tempaltes on Softbit that is responsive and all device support name is yourportfolio.Because it suit your developer https://softbit-website-builder.onrender.com/2"],
+    "can you offer hospital website?":["Yes!! We have a best tempaltes on Softbit that is responsive and all device support name is Medipark.Because it suit your clinic and Hospital https://softbit-website-builder.onrender.com/3"],
     "who created you": ["I was created by a team of developers UE SSL Team.", "My creators are Jam Shoaib Anwar UE SLL Team Developer!", "I'm a creation of talented developers of SSL Team."],
     "what can you do": ["I can answer your questions, Of Softbit Website Builder, or just chat with you!", "I'm here to assist you with a variety of Questions about Softbit Site Builder.", "My abilities include answering questions and engaging in conversation."],
     "are you a human": ["No, I'm a chatbot.", "I'm a program designed to respond to your queries.", "I'm not a human, I'm a chatbot."],
@@ -54,7 +66,7 @@ def chat_with_bot(user_input):
         # If user input is similar to a question, return a random response for that question
         return random.choice(responses[similar_questions[0]])
     # If no matching key found, return a default response
-    return "I'm sorry, I don't understand that."
+    return "I'm sorry, I don't understand that.Please Contact The Humen Advisior on Softbit"
 
 # View function to render the chat form
 def chat_form(request):
@@ -77,14 +89,24 @@ def chat_form_submission(request):
 
 
 def index(request,*args,**kwargs):
-    if request.user.is_authenticated:
-        trace=track_user_activity(request)
-        if trace==True:
-           return redirect('account_restriction')
-    check=proxy_checker(request)
-    if check==True:
-        return redirect('proxy_warning_view')
+    client_ip, _ = get_client_ip(request)
+     
+     
+    # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
+    api_url = 'https://vpnapi.io/api/{}?key=2290f864fc4c4f2e8d9d2fc4f8a75938'.format(client_ip)
+
+    # Make a request to VPNAPI.io
+    response = requests.get(api_url)
+    data = response.json()
+     
+    
+    
+
+
+    if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
+       return redirect('proxy_warning_view')   # The IP is associated with a VPN, proxy, or Tor
     feedback=Testimonial.objects.all()[:6]
+    
     code=str(kwargs.get('ref_code'))
     try:
         profile=Profile.objects.get(code=code)
@@ -93,7 +115,7 @@ def index(request,*args,**kwargs):
     except:
         pass
     print(request.session.get_expiry_age())
-    return render(request,'index.html',{'feedback':feedback})
+    return render(request,'index.html',{'feedback':feedback,'data':data})
 def signup(request):
     check=proxy_checker(request)
     if check==True:
