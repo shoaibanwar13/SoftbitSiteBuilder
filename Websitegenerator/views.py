@@ -116,7 +116,7 @@ def signup(request):
             email_subject="Activate Your Account"
             message=render_to_string('activate.html',{
             'user':user,
-            'domain':'https://softbit-website-builder.onrender.com/', 
+            'domain':'https://softbit-website-builder.onrender.com', 
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':generate_token.make_token(user)
 
