@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4ko^6x&x(!-vzs^ehj$iduld85pucz@iycalk5k*ykqn^_$n%c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #softbit-website-builder.onrender.com
 
 ALLOWED_HOSTS = ['softbit-website-builder.onrender.com']
