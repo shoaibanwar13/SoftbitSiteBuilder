@@ -92,9 +92,7 @@ def chat_form_submission(request):
 def index(request,*args,**kwargs):
     client_ip, _ = get_client_ip(request)
      
-    trace=track_user_activity(request)
-    if trace==True:
-        return redirect('account_restriction')
+    
     
      
      
