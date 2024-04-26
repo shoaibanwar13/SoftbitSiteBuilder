@@ -3,6 +3,7 @@ from DynamicGenerator.forms import SignUpForm
 from DynamicGenerator.models import Profile,Testimonial
 from django.contrib.auth.models import User
 from DynamicGenerator.proxydetector import proxy_checker
+from DynamicGenerator.useractivity import track_user_activity
 import random
 import difflib
 from django.contrib import messages
@@ -27,7 +28,7 @@ def chat_with_bot(user_input):
     "who is ceo of softbit?":["Jam Shoaib Anwar is SEO and Co Founder Of SoftBit Service have been started in 2024.There message is that:We are a SaaS startup that's focused on simplifying user Business."],
     "can you provide the information of softbit developer":["Yes! There Are 5 Developer that Contribute in all type of website desigining"],
     "can you provide the information about sofbit Affiliate Program?":["Yes! Softbit offer Affiliate Projects for every user that have a unique refferal link that share with friends etc when they  signup and purchase templates then you get 10% of purchase in your account and withdrwal any time  for futher detail please visist  https://softbit-website-builder.onrender.com/Affliatemarketing"],
-    "how  much minimum withdrwal?":["Thanks for asking:Sofibit offer 10$ minimum "],
+    "how  much minimum withdrwal?":["10$ is minimum withdrwal on Softbit Affiliate programe "],
     "can you tell me about softbit":["Softbit is a groundbreaking platform that revolutionizes website creation by allowing users to purchase templates and simply input their data, eliminating the need for coding expertise. With Softbit, anyone can generate a fully functional website tailored to their needs with ease."],
     "can i get a free demo of sofbit plan": ["We do not offer free demos for our premium plans because our platform already provides extensive information, including feature Coding and many Expensive Templates."],
     "is it is possible to cancel my subscription?": ["Yes, it is possible to cancel your subscription. If you violate our terms and policies or wish to cancel your subscription before its expiration date, you can request cancellation by contacting our support team. Additionally, subscriptions are automatically canceled upon reaching their expiration date."],
@@ -66,7 +67,7 @@ def chat_with_bot(user_input):
         # If user input is similar to a question, return a random response for that question
         return random.choice(responses[similar_questions[0]])
     # If no matching key found, return a default response
-    return "I'm sorry, I don't understand that.Please Contact The Humen Advisior on Softbit"
+    return "I'm sorry, I don't understand that."
 
 # View function to render the chat form
 def chat_form(request):
@@ -87,9 +88,14 @@ def chat_form_submission(request):
       
     return render(request,'botresponse.html',{'bot_response': bot_response })
 
-
+#View that Render Index Page
 def index(request,*args,**kwargs):
     client_ip, _ = get_client_ip(request)
+     
+    trace=track_user_activity(request)
+    if trace==True:
+        return redirect('account_restriction')
+    
      
      
     # Replace 'YOUR_TOKEN' with your actual VPNAPI.io token
@@ -98,6 +104,10 @@ def index(request,*args,**kwargs):
     # Make a request to VPNAPI.io
     response = requests.get(api_url)
     data = response.json()
+     
+    
+    
+
 
     if data['security']['vpn'] or data['security']['proxy'] or data['security']['tor'] or data['security']['relay']:
        return redirect('proxy_warning_view')   # The IP is associated with a VPN, proxy, or Tor
@@ -112,6 +122,7 @@ def index(request,*args,**kwargs):
         pass
     print(request.session.get_expiry_age())
     return render(request,'index.html',{'feedback':feedback,'data':data})
+#Sign Up View
 def signup(request):
     check=proxy_checker(request)
     if check==True:
@@ -137,7 +148,7 @@ def signup(request):
             email_subject="Activate Your Account"
             message=render_to_string('activate.html',{
             'user':user,
-            'domain':'https://softbit-website-builder.onrender.com/', 
+            'domain':'https://softbit-website-builder.onrender.com', 
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':generate_token.make_token(user)
 

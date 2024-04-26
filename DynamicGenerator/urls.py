@@ -4,27 +4,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from DynamicGenerator.views import *
 from django.contrib.auth import views
+
 # Define URL patterns
 urlpatterns = [
+    # Authentication URLs
     path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
     path("password_reset/", views.PasswordResetView.as_view(template_name='reset_password.html'), name="password_reset"),
-    path(
-        "password_reset_done/",
-        views.PasswordResetDoneView.as_view(template_name='password_reset_sent.html'),
-        name="password_reset_done",
-    ),
-    path(
-        "reset/<uidb64>/<token>/",
-        views.PasswordResetConfirmView.as_view(template_name='password_set.html'),
-        name="password_reset_confirm",
-    ),
-    path(
-        "reset/done/",
-        views.PasswordResetCompleteView.as_view(template_name='password_reset_done.html'),
-        name="password_reset_complete",
-    ),
-    path('emailconfirm/', emailconfirm, name='emailconfirm'),
+    path("password_reset_done/", views.PasswordResetDoneView.as_view(template_name='password_reset_sent.html'), name="password_reset_done"),
+    path("reset/<uidb64>/<token>/", views.PasswordResetConfirmView.as_view(template_name='password_set.html'), name="password_reset_confirm"),
+    path("reset/done/", views.PasswordResetCompleteView.as_view(template_name='password_reset_done.html'), name="password_reset_complete"),
     path('logout', views.LogoutView.as_view(), name='logout'),
+    
+    # Custom views URLs
+    path('emailconfirm/', emailconfirm, name='emailconfirm'),
     path('proxy_warning_view/', proxy_warning_view, name='proxy_warning_view'), 
     path('account_restriction/', account_restriction, name='account_restriction'),
     path('check_username/',check_username,name='check_username'),
@@ -67,7 +59,7 @@ urlpatterns = [
     path('userpurchase/',userpurchase,name='userpurchas'),
     path('userdashboard/', userdashboard, name='userdashboard'),
     path('withdraw/',withdraw,name='withdraw'),
-    path('history/',history, name=' history'),
+    path('history/',history, name='history'),
     path('mysites/', mysites, name='mysites'),
     path('referal/', referal, name='referal'),
     path('Planexpiredalert/', Planexpiredalert, name='Planexpiredalert'),
@@ -76,31 +68,7 @@ urlpatterns = [
     path('PrivacyandPolicy/', PrivacyandPolicy, name='PrivacyandPolicy'), 
     path('Userguide/', Userguide, name='Userguide'),
     path('testimonial/', testimonial, name='testimonial'),
-  
     path('accountactiveemail/', accountactiveemail, name='accountactiveemail')
-    
-   
-   
-    
-    
-    
-   
-    
-    
-    
-    
-   
-    
-    
-   
-    
-    
-  
-    
-    
-   
-    
-    
 ]
 
 # Serve media files during development

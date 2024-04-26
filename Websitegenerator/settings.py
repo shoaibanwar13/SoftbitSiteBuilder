@@ -27,8 +27,6 @@ DEBUG = True
 #softbit-website-builder.onrender.com
 
 ALLOWED_HOSTS = ['softbit-website-builder.onrender.com']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -208,6 +206,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #client_secret='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'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dm9eqnawe',

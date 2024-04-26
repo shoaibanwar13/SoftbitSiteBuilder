@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .utlis import generate_ref_code
 from django.utils import timezone
 from datetime import timedelta
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
+
+#Profile model
 class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     code=models.CharField(max_length=5,blank=True)
@@ -24,10 +27,11 @@ class Profile(models.Model):
     skype= models.URLField(blank=True, null=True)   
     twitter = models.URLField(blank=True, null=True)   
     linkedin = models.URLField(blank=True, null=True)
-
+    #method to sshow username with referal name
     def __str__(self) :
 
         return  f"{self.user.username}-{self.code}"
+    #function to get get recommended profile
     def get_recommended_profile(self):
         query=Profile.objects.all()
         my_recs=[]
@@ -35,14 +39,14 @@ class Profile(models.Model):
             if profile.recommended_by==self.user:
                 my_recs.append(profile)
         return my_recs
-    
+    #save refferal code 
     def save(self, *args, **kwargs):
         if self.code=="":
             code=generate_ref_code()
             self.code=code
         super().save(*args, **kwargs)
  
-
+#Category Model that contain catgery of templates
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
@@ -51,7 +55,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
+#Model that conatin all sites
 class Oursites(models.Model):
     category=models.ForeignKey(Category,related_name='Oursite',blank=True, null=True, on_delete=models.CASCADE)
     name= models.CharField(max_length=255,null=True,)
@@ -71,6 +75,7 @@ class Oursites(models.Model):
     
     def __str__(self):
         return self.name
+#Plan Purchase Model
 class SitePurchase(models.Model):
     profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
     user=models.ForeignKey(User,related_name='SitePurchase',blank=True, null=True, on_delete=models.CASCADE)
@@ -86,29 +91,18 @@ class SitePurchase(models.Model):
         if self.paid and not self.expire_date:
             self.expire_date = self.created_at + timedelta(days=self.duration_days)
         super().save(*args, **kwargs)
+    #get user plan expire date
     @property
     def expiration_date(self):
         if self.paid:
             return self.created_at + timedelta(days=self.duration_days)
         else:
             return None
-    @classmethod
-    def filter_expired_plans(cls):
-        """
-        Filter SitePurchase objects with expired plans.
-        """
-        return cls.objects.filter(expire_date__lt=timezone.now())
-    
-    
-
-
-     
-
     class Meta:
         verbose_name_plural='Site Purchase'
     def __str__(self):
         return self.name
-
+#Rating Model
 class Rating(models.Model):
     product = models.ForeignKey(Oursites, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to logged-in user
@@ -116,6 +110,7 @@ class Rating(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     class Meta:
         unique_together = ('product', 'user')  # Prevent duplicate ratings per user/product
+#Contact Model
 class Contact(models.Model):
     name=models.CharField(max_length=50,null=True)
     email=models.EmailField()
@@ -124,6 +119,7 @@ class Contact(models.Model):
 
     def __int__(self):
         return self.name
+#Our Team Model
 class team(models.Model):
     Developer_Name=models.CharField(max_length=200)
     Developer_Photo= models.ImageField(upload_to='Developer_images/')
@@ -137,6 +133,7 @@ class team(models.Model):
         verbose_name_plural='Our Team'
     def __str__(self):
         return self.Developer_Name
+#Our Offer Model
 class Offers(models.Model):
     offername=models.CharField(max_length=500)
     offerprice=models.DecimalField(decimal_places=2,max_digits=10)
@@ -147,6 +144,7 @@ class Offers(models.Model):
         verbose_name_plural='Offers'
     def __str__(self):
         return self.offername
+#Co-Founder info model
 class Co_Founder(models.Model):
     name=models.CharField(max_length=200)
     founder_image=models.ImageField(upload_to='FounderImge/')
@@ -156,6 +154,7 @@ class Co_Founder(models.Model):
         verbose_name_plural='Co Founder'
     def __str__(self):
         return self.name
+#This model contain All Advertising Related data
 class Advertising(models.Model):
     #User info
     user = models.ForeignKey(User, related_name='purchase', blank=True, null=True, on_delete=models.CASCADE)
@@ -223,7 +222,7 @@ class Advertising(models.Model):
         verbose_name_plural='Advertising'
     def __str__(self):
         return self.Companyname
-
+#Portfolio model contain Portfolio Model
 class Portfolio(models.Model):
     #User info
     user = models.ForeignKey(User, related_name='portfolio', blank=True, null=True, on_delete=models.CASCADE)
@@ -298,7 +297,7 @@ class Portfolio(models.Model):
     def __str__(self):
         return self.Name
 
- 
+#This Model store Hospital Template data
 class Hospital(models.Model):
     user=models.ForeignKey(User,related_name='Hospital',blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -363,7 +362,7 @@ class Hospital(models.Model):
         return self.name
 
 
-
+#Deploye Model Contain Deployement user site data
 class Deploye(models.Model):
     profile = models.ForeignKey(Profile,blank=True, null=True, on_delete=models.CASCADE)
     user=models.ForeignKey(User,related_name='Deploye',blank=True, null=True, on_delete=models.CASCADE)
@@ -371,7 +370,7 @@ class Deploye(models.Model):
     paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     domainname=models.CharField(max_length=255,null=True)
-    sitefile=models.FileField(upload_to='fordeployesites')
+    sitefile=models.FileField(upload_to='fordeployesites',storage=RawMediaCloudinaryStorage())
     paid = models.BooleanField(default=False)
     Processing = 'Processing'
     Live = 'Live'
@@ -384,6 +383,7 @@ class Deploye(models.Model):
         verbose_name_plural='Deploye Request'
     def __str__(self):
         return self.name
+#Deploye Site Rate
 class DeployeRate(models.Model):
    rate=models.DecimalField(max_digits=10, decimal_places=2,null=True)
 

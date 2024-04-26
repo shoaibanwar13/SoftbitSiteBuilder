@@ -7,22 +7,26 @@ from .models import Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile,Portfolio,Advertising,Rating,Deploye
+from .models import Profile,Portfolio,Advertising,Rating,Deploye, Hospital
+ 
+
+#User Updation Form
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
     class Meta:
         model = User
         fields = ['username','first_name','last_name']
+#User Profile Edit Form
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profilepic','profession','bio','profilepic','phone','address','city','state','country','facebook','skype','linkedin','twitter']
- 
+#Signup Form
 class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=50, required=True)
     class Meta:
         model = User
         fields = ['username','email','first_name','password1','password2' ]
+#Portfolio Site Form
 class  Portfoliotemplate(forms.ModelForm):
     class Meta:
         model = Portfolio
@@ -40,6 +44,7 @@ class  Portfoliotemplate(forms.ModelForm):
                   'Third_Client_Quote', 'Third_Client_Name', 'Third_Client_Position', 'Third_Clent_Image',
                   'Whats_App_Number', 'email', 'Contact_Description', 'facebook_link', 'youtube_link', 'instagram_link',
                   'linkedin_link']
+#Edit Portfolio Form
 class  UpdatePortfoliotemplate(forms.ModelForm):
     class Meta:
         model = Portfolio
@@ -57,7 +62,7 @@ class  UpdatePortfoliotemplate(forms.ModelForm):
                   'Third_Client_Quote', 'Third_Client_Name', 'Third_Client_Position', 'Third_Clent_Image',
                   'Whats_App_Number', 'email', 'Contact_Description', 'facebook_link', 'youtube_link', 'instagram_link',
                   'linkedin_link']
-
+# Advertising Site Form
 class  Advertisingtem(forms.ModelForm):
     class Meta:
         model = Advertising
@@ -69,7 +74,7 @@ class  Advertisingtem(forms.ModelForm):
                   'title_2', 'pic_2', 'description_2', 'title_3', 'pic_3', 'description_3', 'title_4', 'pic_4',
                   'description_4', 'location', 'email', 'whatsapp_number', 'facebook_link', 'youtube_link',
                   'instagram_link']
-
+#Edit Advertising
 class  UpdateAdvertisingtem(forms.ModelForm):
     class Meta:
         model = Advertising
@@ -82,8 +87,7 @@ class  UpdateAdvertisingtem(forms.ModelForm):
                   'description_4', 'location', 'email', 'whatsapp_number', 'facebook_link', 'youtube_link',
                   'instagram_link']
         
-from django import forms
-from .models import Hospital
+# Hospitals Site Forms
 
 class HospitalForm(forms.ModelForm):
     class Meta:
@@ -145,22 +149,22 @@ class HospitalForm(forms.ModelForm):
             'Facebook',
             'LinkedIn',
         ]
-
+#Edit Hospital Site Form
 class HospitalEditForm(forms.ModelForm):
     class Meta:
         model = Hospital
         fields = HospitalForm.Meta.fields  # Use the same fields as the creation form
-
-
-
+#Site Purchase Form
 class SitePurchaseForm(forms.ModelForm):
     class Meta:
         model = SitePurchase
         fields = ['user', 'category', 'name',  'paid', 'paid_amount']
+# Rating Form
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ['rating']
+#Deploye Site Form
 class DeployesiteForm(forms.ModelForm):
     class Meta:
         model = Deploye

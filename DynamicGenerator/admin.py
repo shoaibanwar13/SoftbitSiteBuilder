@@ -1,6 +1,6 @@
-# Import necessary modules
-from django.contrib import admin
 
+from django.contrib import admin
+# Import necessary modules
 from .models import Advertising, Category,Oursites,SitePurchase,Profile,Portfolio ,Withdrawl_Request,Rating,Deploye,DeployeRate,Contact,Hospital ,Offers,team,Co_Founder,UserMonitering,Testimonial# Import specific models from your models module
 class PurchasedInline(admin.TabularInline):
     model = SitePurchase
